@@ -8,17 +8,6 @@
 
 ---
 
-## 📑 Table of Contents
-
-- [Overview](#overview)
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
-
----
-
 ## 📖 Overview
 
 *We All Belong* is a community-driven platform that leverages user-generated ratings to identify welcoming and safe spaces. Users rate places they've visited on a scale of 1 to 5 for **accessibility**, **inclusivity**, and **safety**:

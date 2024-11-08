@@ -4,7 +4,7 @@ import '../models/venue_model.dart';
 
 class GoogleMapsApi {
   Future<List<VenueModel>> getNearbyVenues(double latitude, double longitude, int radius, String type) async {
-    String apiKey = 'AIzaSyALygucmNuwO7TIlA6ZXPbWczDRlpylAgo';
+    String apiKey = '';
     final url = Uri.parse(
         'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$latitude,$longitude&radius=$radius&type=$type&key=$apiKey');
     debugPrint('$latitude, $longitude, $radius');

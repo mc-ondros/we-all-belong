@@ -3,6 +3,18 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  cloud_firestore
+  connectivity_plus
+  file_selector_windows
+  firebase_auth
+  firebase_core
+  firebase_storage
+  flutter_localization
+  maps_launcher
+  printing
+  rive_common
+  smart_auth
+  url_launcher_windows
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST

@@ -4,7 +4,7 @@
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Unihack](https://img.shields.io/badge/Unihack-2024-orange)
 
-**We All Belong** is a Flutter-based mobile application that enables users to rate and discover places based on **accessibility**, **inclusivity**, and **safety**. Designed specifically for LGBTQIA+, POC, and other underrepresented communities, *We All Belong* helps people make informed decisions about the spaces they choose to visit.
+**We All Belong** is a Flutter-based mobile application that enables users to rate and discover places based on **accessibility**, **inclusivity**, and **safety**. Designed  for LGBTQIA+, other underrepresented communities and the general society, *We All Belong* helps people make informed decisions about the spaces they choose to visit.
 
 ---
 

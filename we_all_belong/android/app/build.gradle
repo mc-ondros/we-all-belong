@@ -30,7 +30,7 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace = "com.example.we_all_belong"
+    namespace = "com.owltech.we_all_belong"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 

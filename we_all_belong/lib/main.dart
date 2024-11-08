@@ -3,25 +3,24 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
 import 'core/core_shared.dart';
+import 'core/firebase/firebase_options.dart';
 
-Future main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  await FirebaseAppCheck.instance.activate(
-    webProvider: ReCaptchaV3Provider('recaptcha-v3-site-key'),
-    androidProvider: AndroidProvider.playIntegrity,
-    appleProvider: AppleProvider.appAttest,
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
   );
+  await FirebaseAppCheck.instance.activate();
 
   ///Initialise cache storage
-  await GetStorage.init('SettingsBox');
+  // await GetStorage.init('SettingsBox');
 
   ///Set App Main route
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]).then((value) => runApp(const MyApp()));
-  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

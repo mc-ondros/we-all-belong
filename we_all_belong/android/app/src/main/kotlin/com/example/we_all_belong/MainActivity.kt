@@ -1,4 +1,4 @@
-package com.example.we_all_belong
+package com.example.weAllBelong
 
 import io.flutter.embedding.android.FlutterActivity
 

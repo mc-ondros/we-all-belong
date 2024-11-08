@@ -38,10 +38,3 @@ Developed for **UniHack 2024**, *We All Belong* focuses on amplifying the voices
 - **Location-Based Search**: Find rated spaces nearby or in a specified location.
 - **User Profiles**: Customize user profiles to personalize recommendations.
 
-## 🚀 Installation
-
-To run *We All Belong* locally, follow these steps:
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/yourusername/WeAllBelong.git

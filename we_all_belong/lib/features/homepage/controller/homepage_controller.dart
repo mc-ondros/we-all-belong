@@ -14,7 +14,7 @@ class HomePageController extends GetxController {
       await Future.delayed(const Duration(milliseconds: 500));
     }
     venues.value = await GoogleMapsApi()
-        .getNearbyVenues(locationController.latitude.value, locationController.longitude.value, 1500, 'bar');
+        .getNearbyVenues(locationController.latitude.value, locationController.longitude.value, 500, 'bar');
     GoogleMapsApi().printLongString(venues[0].toJson().toString());
   }
 }

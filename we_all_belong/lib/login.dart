@@ -224,7 +224,7 @@ class LoginPage extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 12),
-                
+
                 // Register Link
                 Align(
                   alignment: Alignment.centerRight,

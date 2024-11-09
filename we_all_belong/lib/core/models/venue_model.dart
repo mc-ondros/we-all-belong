@@ -28,6 +28,7 @@ class VenueModel {
   final String? vicinity;
   final String? icon;
   final String? place_id;
+  final bool? open_now;
   // final List<ReviewModel>? reviewList;
 
   VenueModel({
@@ -35,6 +36,7 @@ class VenueModel {
     this.vicinity,
     this.icon,
     this.place_id,
+    this.open_now,
     // this.reviewList,
   });
 
@@ -45,6 +47,7 @@ class VenueModel {
       vicinity: json['vicinity'] as String,
       icon: json['icon'] as String,
       place_id: json['place_id'] as String,
+      open_now: json['open_now'] as bool,
       // reviewList: (json['reviewList'] as List).map((review) => ReviewModel.fromJson(review)).toList(),
     );
   }
@@ -56,6 +59,7 @@ class VenueModel {
       'vicinity': vicinity,
       'icon': icon,
       'place_id': place_id,
+      'open_now': open_now,
       // 'reviewList': reviewList?.map((review) => review.toJson()).toList(),
     };
   }

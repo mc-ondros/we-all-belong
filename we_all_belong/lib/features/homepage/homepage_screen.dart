@@ -91,6 +91,7 @@ class HomePage extends StatelessWidget {
                           Get.to(PreviewVenue(
                             name: venue.name,
                             id: venue.place_id,
+                            open_now: venue.open_now,
                           ));
                         });
                   },

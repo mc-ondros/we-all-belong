@@ -25,6 +25,7 @@ class GoogleMapsApi {
               vicinity: venue['vicinity'] as String,
               icon: venue['icon'] as String,
               place_id: venue['place_id'] as String,
+              open_now: venue['opening_hours'] != null ? venue['opening_hours']['open_now'] : false,
             ));
           }
           return venues;

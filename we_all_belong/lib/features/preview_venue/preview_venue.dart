@@ -2,21 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart'; // Assuming you're using GetX for navigation
 import 'package:google_fonts/google_fonts.dart';
 import 'package:we_all_belong/core/google_maps_api/google_maps_api.dart';
-
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:we_all_belong/features/preview_venue/controller/preview_venue_controller.dart';
 import '../../components/specs/colors.dart';
 
 class PreviewVenue extends StatefulWidget {
   final String? name;
   final String? id;
-  const PreviewVenue({required this.name, required this.id, super.key});
+  final bool? open_now;
+  const PreviewVenue({required this.name, required this.id, required this.open_now, super.key});
 
   @override
   State<PreviewVenue> createState() => _PreviewVenueState();
 }
 
+final PreviewVenueController previewVenueController = Get.put(PreviewVenueController());
+
 class _PreviewVenueState extends State<PreviewVenue> {
   @override
   Widget build(BuildContext context) {
+    var _isToggled = false;
     return Scaffold(
       backgroundColor: GenericColors.backgroundCrem,
       appBar: AppBar(
@@ -101,6 +106,139 @@ class _PreviewVenueState extends State<PreviewVenue> {
               ),
               textAlign: TextAlign.center,
             ),
+            Text(
+              'open now: ${widget.open_now}', //TODO: Add not sure option
+              style: GoogleFonts.candal(
+                textStyle: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              textAlign: TextAlign.center,
+            ),
+            Container(
+              decoration: BoxDecoration(border: Border.all(color: GenericColors.shadyGreen)),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            'Accesibility for disabled:',
+                            style: GoogleFonts.candal(
+                              textStyle: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          RatingBar.builder(
+                            initialRating: 3,
+                            minRating: 1,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            itemCount: 5,
+                            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                            itemBuilder: (context, _) => Icon(
+                              Icons.add_circle,
+                              color: Colors.amber,
+                            ),
+                            onRatingUpdate: (rating) {
+                              previewVenueController.rating.value = rating;
+                              print(rating);
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            'LGBTQIA+ friendliness:',
+                            style: GoogleFonts.candal(
+                              textStyle: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          RatingBar.builder(
+                            initialRating: 3,
+                            minRating: 1,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            itemCount: 5,
+                            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                            itemBuilder: (context, _) => Icon(
+                              Icons.add_circle,
+                              color: Colors.amber,
+                            ),
+                            onRatingUpdate: (rating) {
+                              previewVenueController.rating.value = rating;
+                              print(rating);
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'Halal food available:',
+                          style: GoogleFonts.candal(
+                            textStyle: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 12.0),
+                          child: Switch(
+                            value: _isToggled,
+                            onChanged: (value) {
+                              setState(() {
+                                _isToggled = value;
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'Kosher food available:',
+                          style: GoogleFonts.candal(
+                            textStyle: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        Switch(
+                          value: _isToggled,
+                          onChanged: (value) {
+                            setState(() {
+                              _isToggled = value;
+                            });
+                          },
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       ),

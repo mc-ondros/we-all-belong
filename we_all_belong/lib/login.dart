@@ -1,12 +1,13 @@
-//DART
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:we_all_belong/features/homepage/homepage_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'register.dart';
 
 // Main App Widget
 class LoginApp extends StatelessWidget {
-  const LoginApp({Key? key}) : super(key: key);
+  const LoginApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,73 +15,110 @@ class LoginApp extends StatelessWidget {
   }
 }
 
-// Controller for Login Page
+// Controller for Login Page with Firebase Integration
 class LoginController extends GetxController {
-  // Text editing controllers to retrieve input from TextFields
+  // Text editing controllers
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
 
-  // Observables to track if fields are empty
+  // Observables
   var email = ''.obs;
   var password = ''.obs;
 
   // Firebase Auth instance
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  // Function to handle login logic
+  // Firebase Login Logic
   void handleLogin() async {
-    String emailInput = emailController.text.trim();
-    String passwordInput = passwordController.text;
-
-    if (emailInput.isEmpty || passwordInput.isEmpty) {
-      Get.snackbar(
-        "Error",
-        "Email and password cannot be empty",
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
-      return;
-    }
-
     try {
-      // Show a loading indicator
       Get.dialog(
         const Center(child: CircularProgressIndicator()),
         barrierDismissible: false,
       );
 
-      // Attempt to sign in with Firebase Auth
-      await _auth.signInWithEmailAndPassword(
-        email: emailInput,
-        password: passwordInput,
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text,
       );
 
-      // Dismiss the loading indicator
-      Get.back();
+      Get.back(); // Dismiss loading indicator
 
-      // Navigate to HomePage upon successful login
+      // Check if email is verified
+      if (userCredential.user != null && !userCredential.user!.emailVerified) {
+        Get.dialog(
+          AlertDialog(
+            title: Text(
+              'Email Not Verified',
+              style: GoogleFonts.poppins(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Please verify your email before logging in.',
+                  style: GoogleFonts.poppins(),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'Didn\'t receive the email?',
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () async {
+                  await userCredential.user?.sendEmailVerification();
+                  Get.back();
+                  Get.snackbar(
+                    "Email Sent",
+                    "A new verification email has been sent.",
+                    backgroundColor: Colors.green,
+                    colorText: Colors.white,
+                  );
+                },
+                child: Text(
+                  'Resend Email',
+                  style: GoogleFonts.poppins(),
+                ),
+              ),
+              TextButton(
+                onPressed: () => Get.back(),
+                child: Text(
+                  'OK',
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+        // Sign out the user since they're not verified
+        await _auth.signOut();
+        return;
+      }
+
+      // If email is verified, proceed to homepage
       Get.offAll(() => HomePage());
     } on FirebaseAuthException catch (e) {
-      Get.back(); // Dismiss the loading indicator
+      Get.back(); // Dismiss loading indicator
       String errorMessage = '';
       if (e.code == 'user-not-found') {
         errorMessage = 'No user found for that email.';
       } else if (e.code == 'wrong-password') {
-        errorMessage = 'Wrong password provided for that user.';
+        errorMessage = 'Wrong password provided.';
       } else {
         errorMessage = 'An error occurred. Please try again.';
       }
       Get.snackbar(
         "Login Failed",
         errorMessage,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
-    } catch (e) {
-      Get.back(); // Dismiss the loading indicator
-      Get.snackbar(
-        "Error",
-        "An unexpected error occurred.",
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );
@@ -95,123 +133,164 @@ class LoginController extends GetxController {
   }
 }
 
-// Login Page Widget
+// Login Page UI
 class LoginPage extends StatelessWidget {
   final String title;
 
-  const LoginPage({Key? key, required this.title}) : super(key: key);
+  const LoginPage({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
-    print("Building LoginPage");
     final LoginController controller = Get.put(LoginController());
 
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: Center(
+      backgroundColor: const Color(0xFF121212),
+      body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Title Text
-              Text(
-                title,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 40),
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 20),
 
-              // Email Input Field
-              Align(
-                alignment: Alignment.centerLeft,
-                child: const Text(
-                  'email',
-                  style: TextStyle(color: Colors.grey),
+                // Modern Split Style Title
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'We all',
+                      style: GoogleFonts.abrilFatface(
+                        fontSize: 48,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.grey[300],
+                        letterSpacing: -1,
+                        height: 1.2,
+                      ),
+                    ),
+                    Text(
+                      'belong.',
+                      style: GoogleFonts.asset(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        letterSpacing: -2,
+                        height: 1.1,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              const SizedBox(height: 5),
-              TextField(
-                controller: controller.emailController,
-                onChanged: (value) => controller.email.value = value,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  hintText: 'email',
-                  hintStyle: const TextStyle(color: Colors.grey),
-                  filled: true,
-                  fillColor: Colors.black,
-                  enabledBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
-                  focusedBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                  ),
-                ),
-                style: const TextStyle(color: Colors.white),
-              ),
-              const SizedBox(height: 20),
 
-              // Password Input Field
-              Align(
-                alignment: Alignment.centerLeft,
-                child: const Text(
-                  'password',
-                  style: TextStyle(color: Colors.grey),
-                ),
-              ),
-              const SizedBox(height: 5),
-              TextField(
-                controller: controller.passwordController,
-                onChanged: (value) => controller.password.value = value,
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText: 'password',
-                  hintStyle: const TextStyle(color: Colors.grey),
-                  filled: true,
-                  fillColor: Colors.black,
-                  enabledBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
-                  focusedBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
+                const SizedBox(height: 48),
+
+                // Email Field with Firebase Controller
+                TextField(
+                  controller: controller.emailController,
+                  onChanged: (value) => controller.email.value = value,
+                  keyboardType: TextInputType.emailAddress,
+                  style: const TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    hintText: 'Email',
+                    hintStyle: TextStyle(color: Colors.grey[600]),
+                    filled: true,
+                    fillColor: const Color(0xFF1E1E1E),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
+                    ),
+                    contentPadding: const EdgeInsets.all(16),
                   ),
                 ),
-                style: const TextStyle(color: Colors.white),
-              ),
-              const SizedBox(height: 30),
 
-              // Login Button
-              ElevatedButton(
-                onPressed: controller.handleLogin,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.grey,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                ),
-                child: const Text(
-                  'JUMP IN',
-                  style: TextStyle(color: Colors.black, letterSpacing: 1.5),
-                ),
-              ),
+                const SizedBox(height: 16),
 
-              const SizedBox(height: 40),
-
-              // Placeholder for Logo
-              Container(
-                width: 80,
-                height: 80,
-                color: Colors.grey,
-                alignment: Alignment.center,
-                child: const Text(
-                  'LOGO',
-                  style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.bold),
+                // Password Field with Firebase Controller
+                TextField(
+                  controller: controller.passwordController,
+                  onChanged: (value) => controller.password.value = value,
+                  obscureText: true,
+                  style: const TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    hintText: 'Password',
+                    hintStyle: TextStyle(color: Colors.grey[600]),
+                    filled: true,
+                    fillColor: const Color(0xFF1E1E1E),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
+                    ),
+                    contentPadding: const EdgeInsets.all(16),
+                  ),
                 ),
-              ),
-            ],
+
+                const SizedBox(height: 12),
+                
+                // Register Link
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () {
+                      // Add registration navigation here
+                    },
+                    child: Text(
+                      "Don't have an account?",
+                      style: TextStyle(color: Colors.grey[400]),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 24),
+
+                // Sign In Button with Firebase Authentication
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: controller.handleLogin,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue[600],
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: Text(
+                      'Sign in',
+                      style: GoogleFonts.poppins(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 16),
+
+                // Register Link
+                Center(
+                  child: GestureDetector(
+                    onTap: () => Get.to(() => const RegisterPage()),
+                    child: RichText(
+                      text: TextSpan(
+                        text: 'Don\'t have an account? ',
+                        style: GoogleFonts.poppins(
+                          color: Colors.grey[400],
+                        ),
+                        children: [
+                          TextSpan(
+                            text: 'Register',
+                            style: GoogleFonts.poppins(
+                              color: Colors.blue[600],
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

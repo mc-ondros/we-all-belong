@@ -59,7 +59,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   // Move the GestureDetector with CircleAvatar above the Stack
                   GestureDetector(
                     onTap: () {}, // Make the picture clickable
-                    child: CircleAvatar(
+                    child: const CircleAvatar(
                       radius: 40,
                       backgroundColor: Colors.grey,
                       child: Icon(Icons.person, size: 40, color: Colors.black),

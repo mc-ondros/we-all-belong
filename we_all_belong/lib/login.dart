@@ -104,7 +104,6 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("Building LoginPage");
     final LoginController controller = Get.put(LoginController());
 
     return Scaffold(
@@ -198,7 +197,7 @@ class LoginPage extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Get.to(BottomNavigationBarCustom());
+                  Get.to(const BottomNavigationBarCustom());
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.grey,

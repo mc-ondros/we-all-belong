@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:we_all_belong/features/homepage/homepage_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'register.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'features/kyc/screens/kyc_screen.dart';
 
 // Main App Widget
 class LoginApp extends StatelessWidget {
@@ -104,7 +106,18 @@ class LoginController extends GetxController {
         return;
       }
 
-      // If email is verified, proceed to homepage
+      // Check if user has completed KYC
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userCredential.user!.uid)
+          .get();
+
+      if (!userDoc.exists || !(userDoc.data() as Map<String, dynamic>)['isOnboarded']) {
+        Get.offAll(() => KYCScreen());
+        return;
+      }
+
+      // If user is verified and has completed KYC, proceed to homepage
       Get.offAll(() => HomePage());
     } on FirebaseAuthException catch (e) {
       Get.back(); // Dismiss loading indicator
@@ -144,7 +157,7 @@ class LoginPage extends StatelessWidget {
     final LoginController controller = Get.put(LoginController());
 
     return Scaffold(
-      backgroundColor: const Color(0xFF121212),
+      backgroundColor: Colors.brown[50],
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -163,17 +176,17 @@ class LoginPage extends StatelessWidget {
                       style: GoogleFonts.abrilFatface(
                         fontSize: 48,
                         fontWeight: FontWeight.w400,
-                        color: Colors.grey[300],
+                        color: Colors.deepPurpleAccent[700],
                         letterSpacing: -1,
                         height: 1.2,
                       ),
                     ),
                     Text(
                       'belong.',
-                      style: GoogleFonts.asset(
+                      style: GoogleFonts.poppins(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: Colors.amberAccent[400],
                         letterSpacing: -2,
                         height: 1.1,
                       ),

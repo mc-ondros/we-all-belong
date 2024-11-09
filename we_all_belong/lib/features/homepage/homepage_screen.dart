@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:we_all_belong/features/homepage/controller/homepage_controller.dart';
 
@@ -20,7 +18,7 @@ class HomePage extends StatelessWidget {
           title: const Text('Nearby Venues'),
         ),
         body: Obx(() => Visibility(
-              replacement: LoadingIndicator(
+              replacement: const LoadingIndicator(
                 indicatorType: Indicator.ballPulse,
               ),
               visible: homepageController.venues.isNotEmpty,
@@ -49,13 +47,10 @@ class HomePage extends StatelessWidget {
             )),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: homepageController.selectedIndex.value,
-          onTap: (value) {
-            print('Bottom nav bar');
-          },
+          onTap: homepageController.onTabTapped,
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
             BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-            // Add other navigation items here
           ],
         ),
       ),

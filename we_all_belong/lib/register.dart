@@ -53,6 +53,15 @@ class RegisterController extends GetxController {
       // Send email verification
       await userCredential.user?.sendEmailVerification();
 
+      // Create initial user profile
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userCredential.user?.uid)
+          .set({
+        'uid': userCredential.user?.uid,
+        'isOnboarded': false,
+      });
+
       Get.back(); // Dismiss loading indicator
       
       // Show success dialog

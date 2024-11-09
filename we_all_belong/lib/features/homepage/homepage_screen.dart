@@ -3,6 +3,7 @@ import 'package:we_all_belong/components/generic_dropdown_controller.dart';
 import 'package:we_all_belong/components/homepage/rounded_rectangle_with_shadow.dart';
 import 'package:we_all_belong/core/google_maps_api/google_maps_api.dart';
 import 'package:we_all_belong/features/homepage/controller/homepage_controller.dart';
+import 'package:we_all_belong/features/profile/profile_screen.dart';
 
 import '../../components/generic_dropdown.dart';
 import '../../core/core_shared.dart';
@@ -22,6 +23,7 @@ class HomePage extends StatelessWidget {
       init: homepageController,
       builder: (_) => Scaffold(
         appBar: AppBar(
+            automaticallyImplyLeading: false,
             backgroundColor: const Color(0xFFF5F5DC),
             title: Visibility(
               visible: homepageController.venues.isNotEmpty,
@@ -55,7 +57,7 @@ class HomePage extends StatelessWidget {
                       },
                     ),
                   ),
-                  const Text('Nearby Venues'),
+                  const Text('Nearby:'),
                 ],
               ),
             )),
@@ -82,28 +84,6 @@ class HomePage extends StatelessWidget {
                   },
                 ),
               )),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: const Color(0xFFf8e4c4),
-          currentIndex: homepageController.selectedIndex.value,
-          onTap: (value) {
-            debugPrint('Bottom nav bar');
-          },
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.map),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: '',
-            ),
-            // Add other navigation items here
-          ],
         ),
       ),
     );

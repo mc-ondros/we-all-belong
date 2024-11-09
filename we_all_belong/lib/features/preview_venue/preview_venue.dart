@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart'; // Assuming you're using GetX for navigation
 import 'package:google_fonts/google_fonts.dart';
@@ -21,7 +23,6 @@ final PreviewVenueController previewVenueController = Get.put(PreviewVenueContro
 class _PreviewVenueState extends State<PreviewVenue> {
   @override
   Widget build(BuildContext context) {
-    var _isToggled = false;
     return Scaffold(
       backgroundColor: GenericColors.backgroundCrem,
       appBar: AppBar(
@@ -44,8 +45,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: ListView(
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -89,7 +89,11 @@ class _PreviewVenueState extends State<PreviewVenue> {
                         ),
                       );
                     } else {
-                      return const CircularProgressIndicator();
+                      return SizedBox(
+                        width: 300,
+                        height: 300,
+                        child: const CircularProgressIndicator(),
+                      );
                     }
                   },
                 ),
@@ -121,10 +125,22 @@ class _PreviewVenueState extends State<PreviewVenue> {
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Text(
+                      'How is your experience?',
+                      style: GoogleFonts.candal(
+                        textStyle: const TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(top: 20.0),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             'Accesibility for disabled:',
@@ -142,14 +158,13 @@ class _PreviewVenueState extends State<PreviewVenue> {
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,
-                            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                            itemBuilder: (context, _) => Icon(
+                            itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                            itemBuilder: (context, _) => const Icon(
                               Icons.add_circle,
                               color: Colors.amber,
                             ),
                             onRatingUpdate: (rating) {
                               previewVenueController.rating.value = rating;
-                              print(rating);
                             },
                           ),
                         ],
@@ -158,6 +173,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
                     Padding(
                       padding: const EdgeInsets.only(top: 20.0),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             'LGBTQIA+ friendliness:',
@@ -175,65 +191,72 @@ class _PreviewVenueState extends State<PreviewVenue> {
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,
-                            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                            itemBuilder: (context, _) => Icon(
+                            itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                            itemBuilder: (context, _) => const Icon(
                               Icons.add_circle,
                               color: Colors.amber,
                             ),
                             onRatingUpdate: (rating) {
                               previewVenueController.rating.value = rating;
-                              print(rating);
                             },
                           ),
                         ],
                       ),
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          'Halal food available:',
-                          style: GoogleFonts.candal(
-                            textStyle: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Halal food available:',
+                            style: GoogleFonts.candal(
+                              textStyle: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 12.0),
+                            child: Switch(
+                              value: previewVenueController.halalToggle.value,
+                              onChanged: (value) {
+                                setState(() {
+                                  previewVenueController.halalToggle.value = value;
+                                });
+                              },
                             ),
                           ),
-                          textAlign: TextAlign.center,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 12.0),
-                          child: Switch(
-                            value: _isToggled,
-                            onChanged: (value) {
-                              setState(() {
-                                _isToggled = value;
-                              });
-                            },
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          'Kosher food available:',
-                          style: GoogleFonts.candal(
-                            textStyle: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                    Obx(
+                      () => Padding(
+                        padding: const EdgeInsets.only(top: 20.0),
+                        child: Row(
+                          children: [
+                            Text(
+                              'Kosher food available:',
+                              style: GoogleFonts.candal(
+                                textStyle: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              textAlign: TextAlign.center,
                             ),
-                          ),
-                          textAlign: TextAlign.center,
+                            Switch(
+                              value: previewVenueController.kosherToggle.value,
+                              onChanged: (value) {
+                                setState(() {
+                                  previewVenueController.kosherToggle.value = value;
+                                });
+                              },
+                            ),
+                          ],
                         ),
-                        Switch(
-                          value: _isToggled,
-                          onChanged: (value) {
-                            setState(() {
-                              _isToggled = value;
-                            });
-                          },
-                        ),
-                      ],
+                      ),
                     )
                   ],
                 ),

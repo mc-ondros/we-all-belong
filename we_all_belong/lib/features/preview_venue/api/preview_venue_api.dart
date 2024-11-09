@@ -5,13 +5,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../core/models/venue_model.dart';
 
 class PreviewVenueApi {
-  Future<void> uploadReview(ReviewModel review, String place_id) async {
+  Future<void> uploadReview(ReviewModel review, String placeId) async {
     try {
-      await FirebaseFirestore.instance.collection('venues').doc(place_id).update({
+      await FirebaseFirestore.instance.collection('venues').doc(placeId).set({
         "reviews": FieldValue.arrayUnion([review.toJson()])
-      });
+      }, SetOptions(merge: true)); // Ensures the document is created if it doesn’t exist
+      print("Review uploaded successfully.");
     } catch (e) {
-      throw Exception("Failed to upload review.");
+      throw Exception("Failed to upload review. $e");
     }
   }
 

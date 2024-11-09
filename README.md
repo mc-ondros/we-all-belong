@@ -32,7 +32,7 @@ Developed for **UniHack 2024**, *We All Belong* focuses on amplifying the voices
 Meet the passionate team behind *We All Belong*:
 
 - **Andrei Pop**
-- **Petru Crăciunoiu**
 - **Bogdan Ruțaș**
 - **Paul Martin**
+- **Petru Crăciunoiu**
 # wab

@@ -1,11 +1,20 @@
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:we_all_belong/components/generic_dropdown_controller.dart';
+import 'package:we_all_belong/components/homepage/rounded_rectangle_with_shadow.dart';
+import 'package:we_all_belong/core/google_maps_api/google_maps_api.dart';
 import 'package:we_all_belong/features/homepage/controller/homepage_controller.dart';
 
+import '../../components/generic_dropdown.dart';
+import '../../components/specs/font_sizes.dart';
 import '../../core/core_shared.dart';
+import '../../core/google_maps_api/controller/location_controller.dart';
+import '../preview_venue/preview_venue.dart';
 
 class HomePage extends StatelessWidget {
   // Initialize the VenueController
   final HomePageController homepageController = Get.put(HomePageController());
+  final MyDropdownController myDropdownController = Get.put(MyDropdownController());
+  final LocationController locationController = Get.find();
 
   HomePage({super.key});
 
@@ -15,43 +24,79 @@ class HomePage extends StatelessWidget {
       init: homepageController,
       builder: (_) => Scaffold(
         appBar: AppBar(
-          title: const Text('Nearby Venues'),
-        ),
-        body: Obx(() => Visibility(
-              replacement: const LoadingIndicator(
-                indicatorType: Indicator.ballPulse,
-              ),
+            automaticallyImplyLeading: false,
+            backgroundColor: const Color(0xFFF5F5DC),
+            title: Visibility(
               visible: homepageController.venues.isNotEmpty,
-              child: ListView.builder(
-                itemCount: homepageController.venues.length,
-                itemBuilder: (context, index) {
-                  final venue = homepageController.venues[index];
-                  return Card(
-                    margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                    child: ListTile(
-                      leading: Image.network(
-                        venue.icon ?? '',
-                        width: 50,
-                        height: 50,
-                        fit: BoxFit.cover,
-                      ),
-                      title: Text(venue.name ?? ''),
-                      subtitle: Text(venue.vicinity ?? ''),
-                      onTap: () {
-                        // Handle tap if you want to navigate to details page
+              child: Row(
+                children: [
+                  Container(
+                    alignment: Alignment.bottomCenter,
+                    width: 145,
+                    height: 70,
+                    child: DropdownButtonCustom(
+                      borderColor: const Color(0xFFF5F5DC),
+                      defaultValue: myDropdownController.selectedValue.value,
+                      dropdownColor: Colors.transparent,
+                      currentData: const [
+                        'bar',
+                        'restaurant',
+                        'cafe',
+                        'gym',
+                        'library',
+                        'movie_theater',
+                        'night_club',
+                        'museum',
+                      ],
+                      valueBuilder: (newValue) async {
+                        myDropdownController.selectedValue.value = newValue;
+                        homepageController.venues.value = await GoogleMapsApi().getNearbyVenues(
+                            locationController.latitude.value,
+                            locationController.longitude.value,
+                            1500,
+                            myDropdownController.selectedValue.value);
                       },
                     ),
-                  );
-                },
+                  ),
+                  Text(
+                    'nearby:',
+                    style: GoogleFonts.candal(
+                      textStyle: const TextStyle(
+                        color: Colors.black,
+                        fontSize: FontSizes.f_18,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             )),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: homepageController.selectedIndex.value,
-          onTap: homepageController.onTabTapped,
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-          ],
+        body: Scaffold(
+          backgroundColor: const Color(0xFFF5F5DC),
+          body: Obx(() => Visibility(
+                replacement: const LoadingIndicator(
+                  indicatorType: Indicator.ballPulse,
+                ),
+                visible: homepageController.venues.isNotEmpty,
+                child: ListView.builder(
+                  itemCount: homepageController.venues.length,
+                  itemBuilder: (context, index) {
+                    final venue = homepageController.venues[index];
+                    return RoundedRectangleWithShadow(
+                        color: const Color(0xFFF5F5DC),
+                        borderColor: const Color(0xFF004225),
+                        width: 792,
+                        height: 100,
+                        venue: venue,
+                        onTap: () {
+                          Get.to(PreviewVenue(
+                            name: venue.name,
+                            id: venue.place_id,
+                            open_now: venue.open_now,
+                          ));
+                        });
+                  },
+                ),
+              )),
         ),
       ),
     );

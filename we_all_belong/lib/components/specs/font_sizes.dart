@@ -1,0 +1,31 @@
+class FontSizes {
+  static const double f_32 = 32.0;
+  static const double f_30 = 30.0;
+  static const double f_28 = 28.0;
+  static const double f_24 = 24.0;
+  static const double f_22 = 22.0;
+  static const double f_20 = 20.0;
+  static const double f_18 = 18.0;
+  static const double f_16 = 16.0;
+  static const double f_14 = 14.0;
+  static const double f_19 = 19.0;
+  static const double f_17 = 17.0;
+  static const double f_0 = 0.0;
+  static const double f_21 = 21.0;
+  static const double f_13 = 13.0;
+  static const double f_12 = 12.0;
+  static const double f_23 = 23.0;
+  static const double f_15 = 15.0;
+  static const double f_10 = 10.0;
+  static const double f_40 = 40.0;
+  static const double f_36 = 36.0;
+  static const double f_25 = 25.0;
+  static const double f_26 = 26.0;
+  static const double f_33 = 33.0;
+  static const double f_11 = 11.0;
+  static const double f_11_8 = 11.8;
+  static const double f_14_5 = 14.5;
+  static const double f_29 = 29.0;
+  static const double f_27 = 27.0;
+  static const double f_34 = 34.0;
+}

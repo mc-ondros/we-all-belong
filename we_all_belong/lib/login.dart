@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:we_all_belong/features/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:we_all_belong/features/homepage/homepage_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'register.dart';
@@ -276,7 +277,6 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 16),
 
                 // Register Link

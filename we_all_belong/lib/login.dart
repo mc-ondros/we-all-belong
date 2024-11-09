@@ -2,11 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:we_all_belong/features/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:we_all_belong/features/homepage/homepage_screen.dart';
 
 // Main App Widget
 class LoginApp extends StatelessWidget {
-  const LoginApp({Key? key}) : super(key: key);
+  const LoginApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +100,7 @@ class LoginController extends GetxController {
 class LoginPage extends StatelessWidget {
   final String title;
 
-  const LoginPage({Key? key, required this.title}) : super(key: key);
+  const LoginPage({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -126,9 +127,9 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 40),
 
               // Email Input Field
-              Align(
+              const Align(
                 alignment: Alignment.centerLeft,
-                child: const Text(
+                child: Text(
                   'email',
                   style: TextStyle(color: Colors.grey),
                 ),
@@ -138,15 +139,15 @@ class LoginPage extends StatelessWidget {
                 controller: controller.emailController,
                 onChanged: (value) => controller.email.value = value,
                 keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'email',
-                  hintStyle: const TextStyle(color: Colors.grey),
+                  hintStyle: TextStyle(color: Colors.grey),
                   filled: true,
                   fillColor: Colors.black,
-                  enabledBorder: const OutlineInputBorder(
+                  enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey),
                   ),
-                  focusedBorder: const OutlineInputBorder(
+                  focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white),
                   ),
                 ),
@@ -155,9 +156,9 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 20),
 
               // Password Input Field
-              Align(
+              const Align(
                 alignment: Alignment.centerLeft,
-                child: const Text(
+                child: Text(
                   'password',
                   style: TextStyle(color: Colors.grey),
                 ),
@@ -167,15 +168,15 @@ class LoginPage extends StatelessWidget {
                 controller: controller.passwordController,
                 onChanged: (value) => controller.password.value = value,
                 obscureText: true,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'password',
-                  hintStyle: const TextStyle(color: Colors.grey),
+                  hintStyle: TextStyle(color: Colors.grey),
                   filled: true,
                   fillColor: Colors.black,
-                  enabledBorder: const OutlineInputBorder(
+                  enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey),
                   ),
-                  focusedBorder: const OutlineInputBorder(
+                  focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white),
                   ),
                 ),
@@ -188,15 +189,26 @@ class LoginPage extends StatelessWidget {
                 onPressed: controller.handleLogin,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.grey,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                 ),
                 child: const Text(
                   'JUMP IN',
                   style: TextStyle(color: Colors.black, letterSpacing: 1.5),
                 ),
               ),
-
+              ElevatedButton(
+                onPressed: () {
+                  Get.to(BottomNavigationBarCustom());
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.grey,
+                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                ),
+                child: const Text(
+                  'JUMP IN',
+                  style: TextStyle(color: Colors.black, letterSpacing: 1.5),
+                ),
+              ),
               const SizedBox(height: 40),
 
               // Placeholder for Logo
@@ -207,8 +219,7 @@ class LoginPage extends StatelessWidget {
                 alignment: Alignment.center,
                 child: const Text(
                   'LOGO',
-                  style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                 ),
               ),
             ],

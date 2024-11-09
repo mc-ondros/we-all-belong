@@ -3,11 +3,12 @@ import 'package:we_all_belong/components/generic_dropdown_controller.dart';
 import 'package:we_all_belong/components/homepage/rounded_rectangle_with_shadow.dart';
 import 'package:we_all_belong/core/google_maps_api/google_maps_api.dart';
 import 'package:we_all_belong/features/homepage/controller/homepage_controller.dart';
-import 'package:we_all_belong/features/profile/profile_screen.dart';
 
 import '../../components/generic_dropdown.dart';
+import '../../components/specs/font_sizes.dart';
 import '../../core/core_shared.dart';
 import '../../core/google_maps_api/controller/location_controller.dart';
+import '../preview_venue/preview_venue.dart';
 
 class HomePage extends StatelessWidget {
   // Initialize the VenueController
@@ -57,7 +58,15 @@ class HomePage extends StatelessWidget {
                       },
                     ),
                   ),
-                  const Text('Nearby:'),
+                  Text(
+                    'nearby:',
+                    style: GoogleFonts.candal(
+                      textStyle: const TextStyle(
+                        color: Colors.black,
+                        fontSize: FontSizes.f_18,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             )),
@@ -79,7 +88,10 @@ class HomePage extends StatelessWidget {
                         height: 100,
                         venue: venue,
                         onTap: () {
-                          debugPrint('TODO: Go to Preview Venue');
+                          Get.to(PreviewVenue(
+                            name: venue.name,
+                            id: venue.place_id,
+                          ));
                         });
                   },
                 ),

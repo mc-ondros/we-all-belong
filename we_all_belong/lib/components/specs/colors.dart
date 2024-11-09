@@ -3,6 +3,7 @@
 import 'dart:ui';
 
 class GenericColors {
+  static const Color backgroundCrem = const Color(0xFFF5F5DC);
   static const Color turquoise = const Color(0xFF33FCFF);
   static const Color white = const Color(0xFFFFFFFF);
   static const Color blackText = const Color(0xFF022727);

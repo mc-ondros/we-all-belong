@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 class ReviewModel {
   final String uuid;
   final String text;
@@ -25,21 +27,24 @@ class VenueModel {
   final String? name;
   final String? vicinity;
   final String? icon;
+  final String? place_id;
   // final List<ReviewModel>? reviewList;
 
   VenueModel({
     this.name,
     this.vicinity,
     this.icon,
+    this.place_id,
     // this.reviewList,
   });
 
   // Factory method to create a Venue object from JSON
   factory VenueModel.fromJson(Map<String, dynamic> json) {
     return VenueModel(
-      name: json['venueName'] as String,
-      vicinity: json['address'] as String,
-      icon: json['imageLink'] as String,
+      name: json['name'] as String,
+      vicinity: json['vicinity'] as String,
+      icon: json['icon'] as String,
+      place_id: json['place_id'] as String,
       // reviewList: (json['reviewList'] as List).map((review) => ReviewModel.fromJson(review)).toList(),
     );
   }
@@ -50,6 +55,7 @@ class VenueModel {
       'name': name,
       'vicinity': vicinity,
       'icon': icon,
+      'place_id': place_id,
       // 'reviewList': reviewList?.map((review) => review.toJson()).toList(),
     };
   }

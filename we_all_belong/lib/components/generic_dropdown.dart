@@ -15,8 +15,8 @@ class DropdownButtonCustom<DropDownType> extends StatelessWidget {
     this.hintValue,
     this.textStyle,
     this.fillColor = Colors.transparent,
-    this.dropdownColor = GenericColors.glowingPurple,
-    this.borderColor = GenericColors.averagePurple,
+    this.dropdownColor = Colors.transparent,
+    this.borderColor = Colors.transparent,
     this.labelText,
     this.isFirst = false,
     this.bottomPadding = Paddings.p_20,
@@ -40,8 +40,7 @@ class DropdownButtonCustom<DropDownType> extends StatelessWidget {
     double screenWidthMultiplier = MediaQuery.of(context).size.width / 392.72;
     return Padding(
       padding: EdgeInsets.only(
-        top: isFirst ? Paddings.p_20 * screenWidthMultiplier : Paddings.p_0,
-        bottom: bottomPadding,
+        top: Paddings.p_5 * screenWidthMultiplier,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,14 +54,15 @@ class DropdownButtonCustom<DropDownType> extends StatelessWidget {
               ),
             ),
           Container(
-            height: Dimensions.d_55 * screenHeightMultiplier,
+            height: Dimensions.d_35 * screenHeightMultiplier,
             margin: const EdgeInsets.only(top: Paddings.p_10),
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(RadiusSpec.r_12)),
               color: fillColor,
-              border: Border.all(width: 3 * screenWidthMultiplier, color: dropdownColor ?? GenericColors.glowingPurple),
+              border: Border.all(width: 3 * screenWidthMultiplier, color: dropdownColor ?? GenericColors.shadyGreen),
             ),
             child: DropdownButton<DropDownType>(
+              iconSize: 0.0,
               onTap: onTap,
               isExpanded: true,
               hint: Padding(
@@ -71,7 +71,7 @@ class DropdownButtonCustom<DropDownType> extends StatelessWidget {
                   hintValue ?? 'choose...',
                   style: textStyle ??
                       TextStyle(
-                        color: GenericColors.lightGrey,
+                        color: GenericColors.black,
                         fontSize: FontSizes.f_18 * screenWidthMultiplier,
                         fontWeight: FontWeight.w300,
                       ),
@@ -85,7 +85,7 @@ class DropdownButtonCustom<DropDownType> extends StatelessWidget {
               style: GoogleFonts.inter(
                 textStyle: textStyle ??
                     TextStyle(
-                      color: GenericColors.lightGrey,
+                      color: GenericColors.black,
                       fontSize: FontSizes.f_18 * screenWidthMultiplier,
                       fontWeight: FontWeight.w300,
                     ),

@@ -1,10 +1,8 @@
 //DART
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-void main() {
-  runApp(const LoginApp());
-}
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:we_all_belong/features/homepage/homepage_screen.dart';
 
 // Main App Widget
 class LoginApp extends StatelessWidget {
@@ -12,10 +10,7 @@ class LoginApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: const LoginPage(title: 'Welcome back :)'),
-    );
+    return const LoginPage(title: 'Welcome back :)');
   }
 }
 
@@ -29,14 +24,66 @@ class LoginController extends GetxController {
   var email = ''.obs;
   var password = ''.obs;
 
+  // Firebase Auth instance
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   // Function to handle login logic
-  void handleLogin() {
-    if (email.isEmpty || password.isEmpty) {
-      Get.snackbar("Error", "Email and password cannot be empty",
-          backgroundColor: Colors.red, colorText: Colors.white);
-    } else {
-      print(
-          "Logging in with Email: ${emailController.text}, Password: ${passwordController.text}");
+  void handleLogin() async {
+    String emailInput = emailController.text.trim();
+    String passwordInput = passwordController.text;
+
+    if (emailInput.isEmpty || passwordInput.isEmpty) {
+      Get.snackbar(
+        "Error",
+        "Email and password cannot be empty",
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+      return;
+    }
+
+    try {
+      // Show a loading indicator
+      Get.dialog(
+        const Center(child: CircularProgressIndicator()),
+        barrierDismissible: false,
+      );
+
+      // Attempt to sign in with Firebase Auth
+      await _auth.signInWithEmailAndPassword(
+        email: emailInput,
+        password: passwordInput,
+      );
+
+      // Dismiss the loading indicator
+      Get.back();
+
+      // Navigate to HomePage upon successful login
+      Get.offAll(() => HomePage());
+    } on FirebaseAuthException catch (e) {
+      Get.back(); // Dismiss the loading indicator
+      String errorMessage = '';
+      if (e.code == 'user-not-found') {
+        errorMessage = 'No user found for that email.';
+      } else if (e.code == 'wrong-password') {
+        errorMessage = 'Wrong password provided for that user.';
+      } else {
+        errorMessage = 'An error occurred. Please try again.';
+      }
+      Get.snackbar(
+        "Login Failed",
+        errorMessage,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    } catch (e) {
+      Get.back(); // Dismiss the loading indicator
+      Get.snackbar(
+        "Error",
+        "An unexpected error occurred.",
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
     }
   }
 

@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:we_all_belong/features/homepage/homepage_screen.dart';
 import 'core/core_shared.dart';
 import 'core/firebase/firebase_options.dart';
+import 'package:we_all_belong/login.dart';
+import 'package:geolocator/geolocator.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,6 +17,9 @@ Future<void> main() async {
 
   ///Initialise cache storage
   // await GetStorage.init('SettingsBox');
+
+  await Geolocator.requestPermission();
+  await Geolocator.isLocationServiceEnabled();
 
   ///Set App Main route
   SystemChrome.setPreferredOrientations([
@@ -35,7 +40,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: HomePage(),
+      home: const LoginApp(),
+      textDirection: TextDirection.ltr,
     );
   }
 }

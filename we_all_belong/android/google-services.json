@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "566669510858",
+    "project_id": "weallbelong-712b2",
+    "storage_bucket": "weallbelong-712b2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:566669510858:android:3afcdb5325be5d291b8c33",
+        "android_client_info": {
+          "package_name": "com.example.weAllBelong"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9aAo3Y4Swds176OILj-vtfaWm4Pida-c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

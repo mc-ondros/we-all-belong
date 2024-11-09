@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:we_all_belong/features/bottom_navigation_bar/bottom_navigation_bar.dart';
-import 'package:we_all_belong/features/homepage/homepage_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'features/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'register.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'features/kyc/screens/kyc_screen.dart';
@@ -108,10 +107,8 @@ class LoginController extends GetxController {
       }
 
       // Check if user has completed KYC
-      DocumentSnapshot userDoc = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(userCredential.user!.uid)
-          .get();
+      DocumentSnapshot userDoc =
+          await FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).get();
 
       if (!userDoc.exists || !(userDoc.data() as Map<String, dynamic>)['isOnboarded']) {
         Get.offAll(() => KYCScreen());
@@ -119,7 +116,7 @@ class LoginController extends GetxController {
       }
 
       // If user is verified and has completed KYC, proceed to homepage
-      Get.offAll(() => HomePage());
+      Get.offAll(() => BottomNavigationBarCustom());
     } on FirebaseAuthException catch (e) {
       Get.back(); // Dismiss loading indicator
       String errorMessage = '';
@@ -238,7 +235,7 @@ class LoginPage extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 12),
-                
+
                 // Register Link
                 Align(
                   alignment: Alignment.centerRight,

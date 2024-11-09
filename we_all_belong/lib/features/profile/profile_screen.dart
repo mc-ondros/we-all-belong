@@ -1,6 +1,31 @@
-import 'package:we_all_belong/core/core_shared.dart';
-import 'package:we_all_belong/features/homepage/homepage_screen.dart';
-import 'package:we_all_belong/features/profile/profile_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../../components/specs/colors.dart';
+import '../homepage/homepage_screen.dart';
+
+class BackgroundPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final bgPaint = Paint()
+      ..color = const Color(0xFFF7F3E8)
+      ..style = PaintingStyle.fill;
+
+    canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), bgPaint);
+
+    final circlePaint = Paint()
+      ..color = GenericColors.shadyGreen
+      ..style = PaintingStyle.fill;
+
+    final circleRadius = size.width / 1.7;
+    canvas.drawCircle(Offset(size.width / 2, -50), circleRadius, circlePaint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return false;
+  }
+}
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -12,168 +37,101 @@ class ProfileScreen extends StatefulWidget {
 final List<Widget> screens = [
   const Placeholder(),
   HomePage(),
-  const ProfileScreen(), // Replace with your actual screen// Replace with your actual screen
+  const ProfileScreen(),
 ];
-final ProfileController profileController = Get.put(ProfileController());
 
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F3E8), // Reverted background color
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const Text(
-          'View Profile',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-        ),
-        backgroundColor: const Color(0xFFF7F3E8), // Reverted background color
-        elevation: 0,
-        centerTitle: true,
-      ),
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Column(
-            children: [
-              GestureDetector(
-                onTap: () {}, // Make the picture clickable
-                child: const CircleAvatar(
-                  radius: 40,
-                  backgroundColor: Colors.grey,
-                  child: Icon(Icons.person, size: 40, color: Colors.black),
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                "Change Profile Picture",
-                style: TextStyle(color: Colors.black, fontSize: 14),
-              ),
-              const SizedBox(height: 20),
-
-              // Name Input
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text("Name", style: TextStyle(color: Colors.black)),
-              ),
-              TextField(
-                controller: TextEditingController(),
-                decoration: const InputDecoration(
-                  hintText: "Enter your name",
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFFABBA7C)), // Highlight color
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10),
-
-              // Bio Input
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text("Bio", style: TextStyle(color: Colors.black)),
-              ),
-              TextField(
-                controller: TextEditingController(),
-                decoration: const InputDecoration(
-                  hintText: "Tell something about yourself",
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFFABBA7C)), // Highlight color
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
-                  ),
-                ),
-                maxLines: 3,
-              ),
-              const SizedBox(height: 10),
-
-              // Gender Input
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text("Gender", style: TextStyle(color: Colors.black)),
-              ),
-              TextField(
-                controller: TextEditingController(),
-                decoration: const InputDecoration(
-                  hintText: "Enter your gender",
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFFABBA7C)), // Highlight color
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10),
-
-              // Nationality and Age Inputs
-              Row(
+      backgroundColor: Colors.transparent, // Make the background transparent
+      body: Stack(
+        children: [
+          CustomPaint(
+            size: Size(MediaQuery.of(context).size.width, MediaQuery.of(context).size.height),
+            painter: BackgroundPainter(),
+          ),
+          Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
                 children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text("Nationality", style: TextStyle(color: Colors.black)),
-                        TextField(
-                          controller: TextEditingController(),
-                          decoration: const InputDecoration(
-                            hintText: "Enter nationality",
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xFFABBA7C)), // Highlight color
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black),
-                            ),
-                          ),
-                        ),
-                      ],
+                  // Move the GestureDetector with CircleAvatar above the Stack
+                  GestureDetector(
+                    onTap: () {}, // Make the picture clickable
+                    child: CircleAvatar(
+                      radius: 40,
+                      backgroundColor: Colors.grey,
+                      child: Icon(Icons.person, size: 40, color: Colors.black),
                     ),
                   ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text("Age", style: TextStyle(color: Colors.black)),
-                        TextField(
-                          controller: TextEditingController(),
-                          keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
-                            hintText: "Enter age",
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xFFABBA7C)), // Highlight color
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black),
-                            ),
-                          ),
+                  const Padding(padding: EdgeInsets.only(top: 200.0)), // Padding instead of SizedBox
+
+                  // Name Input
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text("Name", style: TextStyle(color: Colors.black)),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0), // Padding for name
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "PLACEHOLDER NAME",
+                        style: GoogleFonts.candal(
+                          color: Colors.black,
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold,
                         ),
-                      ],
+                      ),
                     ),
                   ),
+
+                  // Bio Input
+
+                  // Gender Input
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text("Gender", style: TextStyle(color: Colors.black)),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0), // Padding for gender
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "PLACEHOLDER GENDER",
+                        style: GoogleFonts.candal(
+                          color: Colors.black,
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  // Age Input
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text("Age", style: TextStyle(color: Colors.black)),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "PLACEHOLDER AGE",
+                      style: GoogleFonts.candal(
+                        color: Colors.black,
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const Padding(padding: EdgeInsets.only(top: 200.0)),
+                  // Padding after Age
                 ],
               ),
-              const SizedBox(height: 20),
-
-              // Save Button
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFABBA7C), // Highlight color
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                ),
-                child: const Text(
-                  'Save',
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

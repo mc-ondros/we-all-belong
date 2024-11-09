@@ -32,7 +32,7 @@ class _BottomNavigationBarCustomState extends State<BottomNavigationBarCustom> {
             bottomNavigationController.selectedIndex.value = value; // Navigate to the selected screen
           },
           items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'All'),
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Best Rated'),
             BottomNavigationBarItem(icon: Icon(Icons.map), label: 'Nearby'),
             BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
           ],

@@ -12,7 +12,6 @@ import '../preview_venue/preview_venue.dart';
 
 import '../../components/specs/colors.dart';
 
-
 class HomePage extends StatelessWidget {
   // Initialize the VenueController
   final HomePageController homepageController = Get.put(HomePageController());
@@ -64,7 +63,7 @@ class HomePage extends StatelessWidget {
                   Text(
                     'nearby:',
                     style: GoogleFonts.candal(
-                      textStyle: TextStyle(
+                      textStyle: const TextStyle(
                         color: GenericColors.secondaryAccent,
                         fontSize: FontSizes.f_18,
                       ),

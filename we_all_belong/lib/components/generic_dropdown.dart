@@ -83,7 +83,7 @@ class DropdownButtonCustom<DropDownType> extends StatelessWidget {
               value: defaultValue,
               dropdownColor: GenericColors.background,
               borderRadius: BorderRadius.circular(RadiusSpec.r_12),
-              icon: Icon(Icons.arrow_drop_down, color: GenericColors.primaryAccent),
+              icon: const Icon(Icons.arrow_drop_down, color: GenericColors.primaryAccent),
               elevation: 0,
               style: GoogleFonts.candal(
                 textStyle: textStyle ??

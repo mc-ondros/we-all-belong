@@ -3,7 +3,6 @@ import 'package:we_all_belong/core/models/venue_model.dart';
 //import 'package:we_all_belong/core/styles/generic_colors.dart';
 import '../../components/specs/colors.dart';
 
-
 class RoundedRectangleWithShadow extends StatelessWidget {
   final Color color;
   final Color borderColor;
@@ -53,11 +52,11 @@ class RoundedRectangleWithShadow extends StatelessWidget {
           ),
           title: Text(
             venue.name ?? '',
-            style: TextStyle(color: GenericColors.primaryAccent),
+            style: const TextStyle(color: GenericColors.primaryAccent),
           ),
           subtitle: Text(
             venue.vicinity ?? '',
-            style: TextStyle(color: GenericColors.secondaryAccent),
+            style: const TextStyle(color: GenericColors.secondaryAccent),
           ),
           onTap: onTap,
         ),

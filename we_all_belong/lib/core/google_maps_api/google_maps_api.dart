@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:we_all_belong/core/core_shared.dart';
 import 'package:http/http.dart' as http;
 import '../models/venue_model.dart';

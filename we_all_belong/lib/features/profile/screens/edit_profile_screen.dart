@@ -4,8 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:we_all_belong/features/profile/controller/profile_controller.dart';
 import 'package:we_all_belong/features/profile/widgets/logout_button.dart';
 import 'package:we_all_belong/features/profile/widgets/animated_profile_image.dart';
-import '../../../components/specs/colors.dart';
-
 
 class EditProfileScreen extends StatelessWidget {
   final ProfileController controller = Get.put(ProfileController());
@@ -15,7 +13,7 @@ class EditProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,

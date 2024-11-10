@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:get/get.dart';
 import 'package:we_all_belong/core/google_maps_api/google_maps_api.dart';
 

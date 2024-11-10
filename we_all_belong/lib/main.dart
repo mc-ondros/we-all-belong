@@ -7,7 +7,6 @@ import 'package:we_all_belong/login.dart';
 import 'package:geolocator/geolocator.dart';
 import 'core/services/auth_service.dart';
 import 'components/specs/colors.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'core/services/profile_image_service.dart';
 
 import 'core/user_controller/user_controller.dart';
@@ -52,6 +51,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.dark(
           primary: GenericColors.primaryAccent,
           secondary: GenericColors.secondaryAccent,
+          // ignore: deprecated_member_use
           background: GenericColors.background,
           surface: GenericColors.background,
           error: Colors.red[700]!,
@@ -85,11 +85,11 @@ class MyApp extends StatelessWidget {
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: GenericColors.highlightBlue, width: 1),
+            borderSide: const BorderSide(color: GenericColors.highlightBlue, width: 1),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: GenericColors.primaryAccent, width: 2),
+            borderSide: const BorderSide(color: GenericColors.primaryAccent, width: 2),
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),

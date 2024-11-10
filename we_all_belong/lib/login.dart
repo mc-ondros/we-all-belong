@@ -116,10 +116,8 @@ class LoginController extends GetxController {
       );
 
       // Check if user has completed KYC
-      DocumentSnapshot userDoc = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(userCredential.user!.uid)
-          .get();
+      DocumentSnapshot userDoc =
+          await FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).get();
 
       if (!userDoc.exists || !(userDoc.data() as Map<String, dynamic>)['isOnboarded']) {
         Get.offAll(() => KYCScreen());
@@ -290,7 +288,7 @@ class LoginPage extends StatelessWidget {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: () {
-                      Get.to(BottomNavigationBarCustom());
+                      Get.to(const BottomNavigationBarCustom());
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue[600],

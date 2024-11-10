@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class UserProfileModel {
-  final String uuid;
+  final String? uuid;
   final String email;
   final String? name;
   final String? phoneNumber;
@@ -48,10 +50,23 @@ class UserProfileModel {
       gender: json['gender'],
       religiousOrientation: json['religiousOrientation'],
       sexualPreference: json['sexualPreference'],
-      disabilities: json['disabilities'] != null 
-          ? List<String>.from(json['disabilities']) 
-          : null,
+      disabilities: json['disabilities'] != null ? List<String>.from(json['disabilities']) : null,
       isOnboarded: json['isOnboarded'] ?? false,
+    );
+  }
+  factory UserProfileModel.fromFirebase(DocumentSnapshot<Map<String, dynamic>> doc) {
+    final data = doc.data();
+    return UserProfileModel(
+      uuid: data?['uuid'] ?? '',
+      email: data?['email'] ?? '',
+      name: data?['name'],
+      phoneNumber: data?['phoneNumber'],
+      nationality: data?['nationality'],
+      gender: data?['gender'],
+      religiousOrientation: data?['religiousOrientation'],
+      sexualPreference: data?['sexualPreference'],
+      disabilities: data?['disabilities'] != null ? List<String>.from(data!['disabilities']) : null,
+      isOnboarded: data?['isOnboarded'] ?? false,
     );
   }
 }

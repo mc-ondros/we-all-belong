@@ -6,6 +6,8 @@ import 'core/firebase/firebase_options.dart';
 import 'package:we_all_belong/login.dart';
 import 'package:geolocator/geolocator.dart';
 
+import 'core/user_controller/user_controller.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -24,11 +26,14 @@ Future<void> main() async {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
-  ]).then((value) => runApp(const MyApp()));
+  ]).then((value) => runApp(MyApp()));
 }
 
+// ignore: must_be_immutable
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  UserController userController = Get.put(UserController());
+
+  MyApp({super.key});
 
   // This widget is the root of your application.
   @override

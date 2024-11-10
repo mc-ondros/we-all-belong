@@ -9,11 +9,15 @@ import 'package:we_all_belong/core/models/venue_model.dart';
 import 'package:we_all_belong/features/preview_venue/api/preview_venue_api.dart';
 import 'package:we_all_belong/features/preview_venue/controller/preview_venue_controller.dart';
 import '../../components/specs/colors.dart';
+import '../../core/user_controller/user_controller.dart';
 
+// ignore: must_be_immutable
 class PreviewVenue extends StatefulWidget {
   final String? name;
   final String? id;
   final bool? open_now;
+  UserController userController = Get.find();
+  // ignore: prefer_typing_uninitialized_variables
   var reviews;
   final TextEditingController reviewTextEditingController = TextEditingController();
   PreviewVenue({required this.name, required this.id, required this.open_now, super.key});
@@ -206,7 +210,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
               onPressed: () async {
                 await PreviewVenueApi().uploadReview(
                   ReviewModel(
-                    uuid: 'uuid', //TODO: implement ID
+                    uuid: widget.userController.userModel.value.uuid ?? '', //TODO: implement ID
                     text: widget.reviewTextEditingController.text,
                     accessibility: previewVenueController.accesibilityRating.value,
                     friendliness: previewVenueController.lgbtRating.value,

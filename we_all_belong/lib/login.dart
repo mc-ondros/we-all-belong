@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'core/user_controller/user_controller.dart';
 import 'features/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'register.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -19,6 +20,7 @@ class LoginApp extends StatelessWidget {
 
 // Controller for Login Page with Firebase Integration
 class LoginController extends GetxController {
+  UserController userController = Get.find();
   // Text editing controllers
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
@@ -107,9 +109,8 @@ class LoginController extends GetxController {
       }
 
       // Check if user has completed KYC
-      DocumentSnapshot userDoc =
+      DocumentSnapshot<Map<String, dynamic>> userDoc =
           await FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).get();
-
       if (!userDoc.exists || !(userDoc.data() as Map<String, dynamic>)['isOnboarded']) {
         Get.offAll(() => KYCScreen());
         return;
@@ -258,29 +259,6 @@ class LoginPage extends StatelessWidget {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: controller.handleLogin,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue[600],
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    child: Text(
-                      'Sign in',
-                      style: GoogleFonts.poppins(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  height: 50,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Get.to(BottomNavigationBarCustom());
-                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue[600],
                       shape: RoundedRectangleBorder(

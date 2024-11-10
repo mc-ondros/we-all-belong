@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:we_all_belong/core/models/venue_model.dart';
+//import 'package:we_all_belong/core/styles/generic_colors.dart';
+import '../../components/specs/colors.dart';
+
 
 class RoundedRectangleWithShadow extends StatelessWidget {
   final Color color;
@@ -34,11 +37,11 @@ class RoundedRectangleWithShadow extends StatelessWidget {
         width: width,
         height: height,
         decoration: BoxDecoration(
-          color: color,
+          color: GenericColors.background,
           borderRadius: BorderRadius.circular(borderRadius),
           border: Border.all(
-            color: borderColor, // Add border color here
-            width: 2, // Optional border width
+            color: GenericColors.highlightBlue,
+            width: 2,
           ),
         ),
         child: ListTile(
@@ -48,11 +51,15 @@ class RoundedRectangleWithShadow extends StatelessWidget {
             height: 50,
             fit: BoxFit.cover,
           ),
-          title: Text(venue.name ?? ''),
-          subtitle: Text(venue.vicinity ?? ''),
-          onTap: () {
-            onTap!();
-          },
+          title: Text(
+            venue.name ?? '',
+            style: TextStyle(color: GenericColors.primaryAccent),
+          ),
+          subtitle: Text(
+            venue.vicinity ?? '',
+            style: TextStyle(color: GenericColors.secondaryAccent),
+          ),
+          onTap: onTap,
         ),
       ),
     );

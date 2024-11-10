@@ -111,9 +111,10 @@ class _PreviewVenueState extends State<PreviewVenue> {
             Text(
               'Info about this place:',
               style: GoogleFonts.candal(
-                textStyle: const TextStyle(
+                textStyle: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
+                  color: GenericColors.primaryAccent,
                 ),
               ),
               textAlign: TextAlign.center,
@@ -121,9 +122,10 @@ class _PreviewVenueState extends State<PreviewVenue> {
             Text(
               'Open now: ${widget.open_now}',
               style: GoogleFonts.candal(
-                textStyle: const TextStyle(
+                textStyle: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
+                  color: GenericColors.secondaryAccent,
                 ),
               ),
               textAlign: TextAlign.center,

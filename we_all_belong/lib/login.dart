@@ -7,6 +7,7 @@ import 'register.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'features/kyc/screens/kyc_screen.dart';
 import 'core/services/auth_service.dart';
+import 'components/specs/colors.dart';
 
 // Main App Widget
 class LoginApp extends StatelessWidget {
@@ -165,7 +166,7 @@ class LoginPage extends StatelessWidget {
     final LoginController controller = Get.put(LoginController());
 
     return Scaffold(
-      backgroundColor: Colors.brown[50],
+      backgroundColor: GenericColors.background,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -184,7 +185,7 @@ class LoginPage extends StatelessWidget {
                       style: GoogleFonts.abrilFatface(
                         fontSize: 48,
                         fontWeight: FontWeight.w400,
-                        color: Colors.deepPurpleAccent[700],
+                        color: GenericColors.primaryAccent,
                         letterSpacing: -1,
                         height: 1.2,
                       ),
@@ -194,7 +195,7 @@ class LoginPage extends StatelessWidget {
                       style: GoogleFonts.poppins(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
-                        color: Colors.amberAccent[400],
+                        color: GenericColors.secondaryAccent,
                         letterSpacing: -2,
                         height: 1.1,
                       ),

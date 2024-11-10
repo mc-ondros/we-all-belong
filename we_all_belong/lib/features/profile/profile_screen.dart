@@ -8,13 +8,13 @@ class BackgroundPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final bgPaint = Paint()
-      ..color = const Color(0xFFF7F3E8)
+      ..color = GenericColors.background
       ..style = PaintingStyle.fill;
 
     canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), bgPaint);
 
     final circlePaint = Paint()
-      ..color = GenericColors.shadyGreen
+      ..color = GenericColors.primaryAccent
       ..style = PaintingStyle.fill;
 
     final circleRadius = size.width / 1.7;

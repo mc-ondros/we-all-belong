@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:we_all_belong/features/profile/controller/profile_controller.dart';
 import 'package:we_all_belong/features/profile/widgets/logout_button.dart';
+import 'package:we_all_belong/features/profile/widgets/animated_profile_image.dart';
 import '../../../components/specs/colors.dart';
 
 
@@ -14,21 +15,18 @@ class EditProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: GenericColors.background,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: GenericColors.secondaryAccent),
+          icon: Icon(Icons.arrow_back, 
+            color: Theme.of(context).colorScheme.secondary),
           onPressed: () => Get.back(),
         ),
         title: Text(
           'Edit Profile',
-          style: GoogleFonts.poppins(
-            color: GenericColors.primaryAccent,
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
+          style: Theme.of(context).textTheme.displayMedium,
         ),
       ),
       body: SingleChildScrollView(
@@ -37,130 +35,101 @@ class EditProfileScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Profile Picture Section
-              Stack(
-                alignment: Alignment.bottomRight,
-                children: [
-                  Container(
-                    width: 120,
-                    height: 120,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: GenericColors.background,
-                      border: Border.all(
-                        color: GenericColors.highlightBlue,
-                        width: 3,
-                      ),
-                    ),
-                    child: Obx(() => controller.profileImage.value != null
-                        ? ClipOval(
-                            child: Image.file(
-                              controller.profileImage.value!,
-                              fit: BoxFit.cover,
-                            ),
-                          )
-                        : const Icon(
-                            Icons.person,
-                            size: 60,
-                            color: Colors.grey,
-                          )),
-                  ),
-                  GestureDetector(
-                    onTap: controller.pickImage,
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.blue[600],
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Icon(
-                        Icons.camera_alt,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-                    ),
-                  ),
-                ],
+              AnimatedProfileImage(
+                imageUrl: controller.profileImageUrl.value,
+                imageFile: controller.profileImage.value,
+                onTap: controller.pickImage,
+                isLoading: controller.isLoading.value,
               ),
               const SizedBox(height: 32),
-
-              // Form Fields
-              _buildTextField(
-                label: 'Name',
-                controller: controller.nameController,
-                icon: Icons.person_outline,
+              AnimatedSwitcher(
+                duration: const Duration(milliseconds: 300),
+                child: _buildForm(context),
               ),
-              const SizedBox(height: 16),
-              
-              _buildTextField(
-                label: 'Bio',
-                controller: controller.bioController,
-                icon: Icons.description_outlined,
-                maxLines: 3,
-              ),
-              const SizedBox(height: 16),
-
-              _buildTextField(
-                label: 'Gender',
-                controller: controller.genderController,
-                icon: Icons.people_outline,
-              ),
-              const SizedBox(height: 16),
-
-              Row(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: _buildTextField(
-                      label: 'Nationality',
-                      controller: controller.nationalityController,
-                      icon: Icons.public,
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: _buildTextField(
-                      label: 'Age',
-                      controller: controller.ageController,
-                      icon: Icons.cake_outlined,
-                      keyboardType: TextInputType.number,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 32),
-
-              // Save Button
-              SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: controller.saveProfile,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue[600],
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  child: Text(
-                    'Save Changes',
-                    style: GoogleFonts.poppins(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
-              
-              const SizedBox(height: 16), // Add spacing between buttons
-              
-              // Logout Button
-              const LogoutButton(),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildForm(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        _buildTextField(
+          label: 'Name',
+          controller: controller.nameController,
+          icon: Icons.person_outline,
+        ),
+        const SizedBox(height: 16),
+        
+        _buildTextField(
+          label: 'Bio',
+          controller: controller.bioController,
+          icon: Icons.description_outlined,
+          maxLines: 3,
+        ),
+        const SizedBox(height: 16),
+
+        _buildTextField(
+          label: 'Gender',
+          controller: controller.genderController,
+          icon: Icons.people_outline,
+        ),
+        const SizedBox(height: 16),
+
+        Row(
+          children: [
+            Expanded(
+              flex: 2,
+              child: _buildTextField(
+                label: 'Nationality',
+                controller: controller.nationalityController,
+                icon: Icons.public,
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: _buildTextField(
+                label: 'Age',
+                controller: controller.ageController,
+                icon: Icons.cake_outlined,
+                keyboardType: TextInputType.number,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 32),
+
+        // Save Button
+        SizedBox(
+          width: double.infinity,
+          height: 50,
+          child: ElevatedButton(
+            onPressed: controller.saveProfile,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.blue[600],
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+            child: Text(
+              'Save Changes',
+              style: GoogleFonts.poppins(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ),
+        
+        const SizedBox(height: 16), // Add spacing between buttons
+        
+        // Logout Button
+        const LogoutButton(),
+      ],
     );
   }
 

@@ -8,6 +8,7 @@ import 'package:geolocator/geolocator.dart';
 import 'core/services/auth_service.dart';
 import 'components/specs/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'core/services/profile_image_service.dart';
 
 import 'core/user_controller/user_controller.dart';
 
@@ -21,6 +22,9 @@ Future<void> main() async {
 
   // Initialize AuthService
   Get.put(AuthService());
+
+  // Initialize ProfileImageService
+  Get.put(ProfileImageService());
 
   await Geolocator.requestPermission();
   await Geolocator.isLocationServiceEnabled();
@@ -50,21 +54,63 @@ class MyApp extends StatelessWidget {
           secondary: GenericColors.secondaryAccent,
           background: GenericColors.background,
           surface: GenericColors.background,
+          error: Colors.red[700]!,
         ),
         textTheme: TextTheme(
-          headlineLarge: GoogleFonts.poppins(
+          displayLarge: GoogleFonts.poppins(
             color: GenericColors.primaryAccent,
+            fontSize: 32,
             fontWeight: FontWeight.bold,
+          ),
+          displayMedium: GoogleFonts.poppins(
+            color: GenericColors.primaryAccent,
+            fontSize: 24,
+            fontWeight: FontWeight.w600,
           ),
           bodyLarge: GoogleFonts.poppins(
             color: GenericColors.secondaryAccent,
+            fontSize: 16,
           ),
           bodyMedium: GoogleFonts.poppins(
             color: GenericColors.supportGrey,
+            fontSize: 14,
           ),
         ),
-        iconTheme: IconThemeData(
-          color: GenericColors.secondaryAccent,
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: Colors.grey[100],
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide.none,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: GenericColors.highlightBlue, width: 1),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: GenericColors.primaryAccent, width: 2),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: Colors.red[700]!, width: 1),
+          ),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: GenericColors.primaryAccent,
+            foregroundColor: Colors.white,
+            elevation: 2,
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            textStyle: GoogleFonts.poppins(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
         useMaterial3: true,
       ),

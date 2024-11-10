@@ -73,7 +73,6 @@ class VenueModel {
       name: json['name'] as String,
       vicinity: json['vicinity'] as String,
       icon: json['icon'] as String,
-      place_id: json['place_id'] as String,
       open_now: json['open_now'] as bool,
     );
   }

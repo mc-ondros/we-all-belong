@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:we_all_belong/components/homepage/rounded_rectangle_with_shadow.dart';
+import '../../components/specs/colors.dart';
 import '../preview_venue/preview_venue.dart';
 import '../../components/specs/font_sizes.dart';
 import 'controller/best_rated_controlller.dart';
@@ -19,14 +20,14 @@ class BestRatedScreen extends StatelessWidget {
       builder: (_) => Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: const Color(0xFFF5F5DC),
+          backgroundColor: GenericColors.background,
           title: Visibility(
             visible: bestRatedController.venues.isNotEmpty,
             child: Text(
               'Best rated:',
               style: GoogleFonts.candal(
                 textStyle: const TextStyle(
-                  color: Colors.black,
+                  color: Colors.white,
                   fontSize: FontSizes.f_18,
                 ),
               ),
@@ -34,7 +35,7 @@ class BestRatedScreen extends StatelessWidget {
           ),
         ),
         body: Scaffold(
-          backgroundColor: const Color(0xFFF5F5DC),
+          backgroundColor: GenericColors.background,
           body: Obx(() => Visibility(
                 replacement: const Center(
                   child: LoadingIndicator(

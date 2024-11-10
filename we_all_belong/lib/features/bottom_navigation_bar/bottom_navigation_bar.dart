@@ -1,3 +1,4 @@
+import 'package:we_all_belong/components/specs/colors.dart';
 import 'package:we_all_belong/core/core_shared.dart';
 import 'package:we_all_belong/features/best_rated/best_rated.dart';
 import 'package:we_all_belong/features/bottom_navigation_bar/bottom_navigation_controller.dart';
@@ -27,7 +28,7 @@ class _BottomNavigationBarCustomState extends State<BottomNavigationBarCustom> {
       () => Scaffold(
         body: screens[bottomNavigationController.selectedIndex.value],
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: const Color(0xFFf8e4c4),
+          backgroundColor: GenericColors.background,
           currentIndex: bottomNavigationController.selectedIndex.value,
           onTap: (value) {
             bottomNavigationController.selectedIndex.value = value; // Navigate to the selected screen

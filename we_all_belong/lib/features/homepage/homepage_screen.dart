@@ -10,6 +10,9 @@ import '../../core/core_shared.dart';
 import '../../core/google_maps_api/controller/location_controller.dart';
 import '../preview_venue/preview_venue.dart';
 
+import '../../components/specs/colors.dart';
+
+
 class HomePage extends StatelessWidget {
   // Initialize the VenueController
   final HomePageController homepageController = Get.put(HomePageController());
@@ -25,7 +28,7 @@ class HomePage extends StatelessWidget {
       builder: (_) => Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: false,
-            backgroundColor: const Color(0xFFF5F5DC),
+            backgroundColor: GenericColors.background,
             title: Visibility(
               visible: homepageController.venues.isNotEmpty,
               child: Row(
@@ -35,9 +38,9 @@ class HomePage extends StatelessWidget {
                     width: 145,
                     height: 70,
                     child: DropdownButtonCustom(
-                      borderColor: const Color(0xFFF5F5DC),
+                      borderColor: GenericColors.highlightBlue,
                       defaultValue: myDropdownController.selectedValue.value,
-                      dropdownColor: Colors.transparent,
+                      dropdownColor: GenericColors.background,
                       currentData: const [
                         'bar',
                         'restaurant',
@@ -61,8 +64,8 @@ class HomePage extends StatelessWidget {
                   Text(
                     'nearby:',
                     style: GoogleFonts.candal(
-                      textStyle: const TextStyle(
-                        color: Colors.black,
+                      textStyle: TextStyle(
+                        color: GenericColors.secondaryAccent,
                         fontSize: FontSizes.f_18,
                       ),
                     ),
@@ -71,7 +74,7 @@ class HomePage extends StatelessWidget {
               ),
             )),
         body: Scaffold(
-          backgroundColor: const Color(0xFFF5F5DC),
+          backgroundColor: GenericColors.background,
           body: Obx(() => Visibility(
                 replacement: const LoadingIndicator(
                   indicatorType: Indicator.ballPulse,
@@ -82,8 +85,8 @@ class HomePage extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final venue = homepageController.venues[index];
                     return RoundedRectangleWithShadow(
-                        color: const Color(0xFFF5F5DC),
-                        borderColor: const Color(0xFF004225),
+                        color: GenericColors.background,
+                        borderColor: GenericColors.highlightBlue,
                         width: 792,
                         height: 100,
                         venue: venue,

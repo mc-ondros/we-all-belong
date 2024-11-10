@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'core/user_controller/user_controller.dart';
 import 'features/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'register.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'features/kyc/screens/kyc_screen.dart';
+import 'core/services/auth_service.dart';
+import 'components/specs/colors.dart';
 
 // Main App Widget
 class LoginApp extends StatelessWidget {
@@ -20,7 +21,6 @@ class LoginApp extends StatelessWidget {
 
 // Controller for Login Page with Firebase Integration
 class LoginController extends GetxController {
-  UserController userController = Get.find();
   // Text editing controllers
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
@@ -108,16 +108,26 @@ class LoginController extends GetxController {
         return;
       }
 
+      // Save credentials if login successful
+      final authService = Get.find<AuthService>();
+      await authService.saveCredentials(
+        emailController.text.trim(),
+        passwordController.text,
+      );
+
       // Check if user has completed KYC
-      DocumentSnapshot<Map<String, dynamic>> userDoc =
-          await FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).get();
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userCredential.user!.uid)
+          .get();
+
       if (!userDoc.exists || !(userDoc.data() as Map<String, dynamic>)['isOnboarded']) {
         Get.offAll(() => KYCScreen());
         return;
       }
 
       // If user is verified and has completed KYC, proceed to homepage
-      Get.offAll(() => BottomNavigationBarCustom());
+      Get.offAll(() => const BottomNavigationBarCustom());
     } on FirebaseAuthException catch (e) {
       Get.back(); // Dismiss loading indicator
       String errorMessage = '';
@@ -156,7 +166,7 @@ class LoginPage extends StatelessWidget {
     final LoginController controller = Get.put(LoginController());
 
     return Scaffold(
-      backgroundColor: Colors.brown[50],
+      backgroundColor: GenericColors.background,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -175,7 +185,7 @@ class LoginPage extends StatelessWidget {
                       style: GoogleFonts.abrilFatface(
                         fontSize: 48,
                         fontWeight: FontWeight.w400,
-                        color: Colors.deepPurpleAccent[700],
+                        color: GenericColors.primaryAccent,
                         letterSpacing: -1,
                         height: 1.2,
                       ),
@@ -185,7 +195,7 @@ class LoginPage extends StatelessWidget {
                       style: GoogleFonts.poppins(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
-                        color: Colors.amberAccent[400],
+                        color: GenericColors.secondaryAccent,
                         letterSpacing: -2,
                         height: 1.1,
                       ),
@@ -259,6 +269,29 @@ class LoginPage extends StatelessWidget {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: controller.handleLogin,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue[600],
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: Text(
+                      'Sign in',
+                      style: GoogleFonts.poppins(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Get.to(BottomNavigationBarCustom());
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue[600],
                       shape: RoundedRectangleBorder(

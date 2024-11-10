@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:we_all_belong/features/profile/controller/profile_controller.dart';
+import 'package:we_all_belong/features/profile/widgets/logout_button.dart';
+import '../../../components/specs/colors.dart';
+
 
 class EditProfileScreen extends StatelessWidget {
   final ProfileController controller = Get.put(ProfileController());
@@ -11,18 +14,18 @@ class EditProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: GenericColors.background,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: GenericColors.secondaryAccent),
           onPressed: () => Get.back(),
         ),
         title: Text(
           'Edit Profile',
           style: GoogleFonts.poppins(
-            color: Colors.black,
+            color: GenericColors.primaryAccent,
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
@@ -43,9 +46,9 @@ class EditProfileScreen extends StatelessWidget {
                     height: 120,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Colors.grey[200],
+                      color: GenericColors.background,
                       border: Border.all(
-                        color: Colors.blue[600]!,
+                        color: GenericColors.highlightBlue,
                         width: 3,
                       ),
                     ),
@@ -149,6 +152,11 @@ class EditProfileScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              
+              const SizedBox(height: 16), // Add spacing between buttons
+              
+              // Logout Button
+              const LogoutButton(),
             ],
           ),
         ),

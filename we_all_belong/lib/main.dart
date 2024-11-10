@@ -5,6 +5,9 @@ import 'core/core_shared.dart';
 import 'core/firebase/firebase_options.dart';
 import 'package:we_all_belong/login.dart';
 import 'package:geolocator/geolocator.dart';
+import 'core/services/auth_service.dart';
+import 'components/specs/colors.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'core/user_controller/user_controller.dart';
 
@@ -16,8 +19,8 @@ Future<void> main() async {
   );
   await FirebaseAppCheck.instance.activate();
 
-  ///Initialise cache storage
-  // await GetStorage.init('SettingsBox');
+  // Initialize AuthService
+  Get.put(AuthService());
 
   await Geolocator.requestPermission();
   await Geolocator.isLocationServiceEnabled();
@@ -41,7 +44,28 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'We All Belong',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        scaffoldBackgroundColor: GenericColors.background,
+        colorScheme: ColorScheme.dark(
+          primary: GenericColors.primaryAccent,
+          secondary: GenericColors.secondaryAccent,
+          background: GenericColors.background,
+          surface: GenericColors.background,
+        ),
+        textTheme: TextTheme(
+          headlineLarge: GoogleFonts.poppins(
+            color: GenericColors.primaryAccent,
+            fontWeight: FontWeight.bold,
+          ),
+          bodyLarge: GoogleFonts.poppins(
+            color: GenericColors.secondaryAccent,
+          ),
+          bodyMedium: GoogleFonts.poppins(
+            color: GenericColors.supportGrey,
+          ),
+        ),
+        iconTheme: IconThemeData(
+          color: GenericColors.secondaryAccent,
+        ),
         useMaterial3: true,
       ),
       home: const LoginApp(),

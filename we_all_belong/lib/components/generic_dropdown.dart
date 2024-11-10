@@ -59,7 +59,10 @@ class DropdownButtonCustom<DropDownType> extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(RadiusSpec.r_12)),
               color: fillColor,
-              border: Border.all(width: 3 * screenWidthMultiplier, color: dropdownColor ?? GenericColors.shadyGreen),
+              border: Border.all(
+                width: 3 * screenWidthMultiplier,
+                color: GenericColors.highlightBlue,
+              ),
             ),
             child: DropdownButton<DropDownType>(
               iconSize: 0.0,
@@ -71,21 +74,21 @@ class DropdownButtonCustom<DropDownType> extends StatelessWidget {
                   hintValue ?? 'choose...',
                   style: textStyle ??
                       TextStyle(
-                        color: GenericColors.black,
+                        color: GenericColors.secondaryAccent,
                         fontSize: FontSizes.f_18 * screenWidthMultiplier,
                         fontWeight: FontWeight.w300,
                       ),
                 ),
               ),
               value: defaultValue,
-              dropdownColor: borderColor,
+              dropdownColor: GenericColors.background,
               borderRadius: BorderRadius.circular(RadiusSpec.r_12),
-              icon: const Center(child: Icon(Icons.arrow_drop_down, color: GenericColors.white)),
+              icon: Icon(Icons.arrow_drop_down, color: GenericColors.primaryAccent),
               elevation: 0,
               style: GoogleFonts.candal(
                 textStyle: textStyle ??
                     TextStyle(
-                      color: GenericColors.black,
+                      color: GenericColors.secondaryAccent,
                       fontSize: FontSizes.f_18 * screenWidthMultiplier,
                       fontWeight: FontWeight.w300,
                     ),

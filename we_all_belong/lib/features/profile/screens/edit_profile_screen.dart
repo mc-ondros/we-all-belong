@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:we_all_belong/features/profile/controller/profile_controller.dart';
+import 'package:we_all_belong/features/profile/widgets/logout_button.dart';
 
 class EditProfileScreen extends StatelessWidget {
   final ProfileController controller = Get.put(ProfileController());
@@ -149,6 +150,11 @@ class EditProfileScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              
+              const SizedBox(height: 16), // Add spacing between buttons
+              
+              // Logout Button
+              const LogoutButton(),
             ],
           ),
         ),

@@ -6,6 +6,7 @@ import 'features/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'register.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'features/kyc/screens/kyc_screen.dart';
+import 'core/services/auth_service.dart';
 
 // Main App Widget
 class LoginApp extends StatelessWidget {
@@ -106,9 +107,18 @@ class LoginController extends GetxController {
         return;
       }
 
+      // Save credentials if login successful
+      final authService = Get.find<AuthService>();
+      await authService.saveCredentials(
+        emailController.text.trim(),
+        passwordController.text,
+      );
+
       // Check if user has completed KYC
-      DocumentSnapshot userDoc =
-          await FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).get();
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userCredential.user!.uid)
+          .get();
 
       if (!userDoc.exists || !(userDoc.data() as Map<String, dynamic>)['isOnboarded']) {
         Get.offAll(() => KYCScreen());
@@ -116,7 +126,7 @@ class LoginController extends GetxController {
       }
 
       // If user is verified and has completed KYC, proceed to homepage
-      Get.offAll(() => BottomNavigationBarCustom());
+      Get.offAll(() => const BottomNavigationBarCustom());
     } on FirebaseAuthException catch (e) {
       Get.back(); // Dismiss loading indicator
       String errorMessage = '';

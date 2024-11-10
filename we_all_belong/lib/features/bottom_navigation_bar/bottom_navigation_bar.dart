@@ -3,7 +3,6 @@ import 'package:we_all_belong/features/bottom_navigation_bar/bottom_navigation_c
 import 'package:we_all_belong/features/profile/screens/edit_profile_screen.dart';
 
 import '../homepage/homepage_screen.dart';
-import '../profile/profile_screen.dart';
 
 class BottomNavigationBarCustom extends StatefulWidget {
   const BottomNavigationBarCustom({super.key});

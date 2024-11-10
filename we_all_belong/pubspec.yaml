@@ -112,6 +112,11 @@ dependencies:
   package_info_plus: ^8.0.2
   geolocator: ^12.0.0
 
+  #secure storage
+  flutter_secure_storage: ^9.0.0
+
+  shared_preferences: ^2.2.2
+
 dependency_overrides:
   webview_flutter_android: 3.16.1
 

@@ -264,7 +264,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Accessibility:"),
+                      const Text("Accessibility:"),
                       RatingBarIndicator(
                         rating: review.accessibility,
                         itemBuilder: (context, _) => const Icon(
@@ -275,7 +275,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
                         itemSize: 24.0,
                         direction: Axis.horizontal,
                       ),
-                      Text("Friendliness: "),
+                      const Text("Friendliness: "),
                       RatingBarIndicator(
                         rating: review.friendliness,
                         itemBuilder: (context, _) => const Icon(

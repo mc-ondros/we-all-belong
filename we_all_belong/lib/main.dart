@@ -5,6 +5,7 @@ import 'core/core_shared.dart';
 import 'core/firebase/firebase_options.dart';
 import 'package:we_all_belong/login.dart';
 import 'package:geolocator/geolocator.dart';
+import 'core/services/auth_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,8 +15,8 @@ Future<void> main() async {
   );
   await FirebaseAppCheck.instance.activate();
 
-  ///Initialise cache storage
-  // await GetStorage.init('SettingsBox');
+  // Initialize AuthService
+  Get.put(AuthService());
 
   await Geolocator.requestPermission();
   await Geolocator.isLocationServiceEnabled();

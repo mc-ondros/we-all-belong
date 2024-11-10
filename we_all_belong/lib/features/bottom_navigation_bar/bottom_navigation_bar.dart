@@ -1,4 +1,5 @@
 import 'package:we_all_belong/core/core_shared.dart';
+import 'package:we_all_belong/features/best_rated/best_rated.dart';
 import 'package:we_all_belong/features/bottom_navigation_bar/bottom_navigation_controller.dart';
 import 'package:we_all_belong/features/profile/screens/edit_profile_screen.dart';
 
@@ -13,7 +14,7 @@ class BottomNavigationBarCustom extends StatefulWidget {
 
 class _BottomNavigationBarCustomState extends State<BottomNavigationBarCustom> {
   final List<Widget> screens = [
-    const Placeholder(),
+    BestRatedScreen(),
     HomePage(),
     EditProfileScreen(), // Replace with your actual screen// Replace with your actual screen
   ];

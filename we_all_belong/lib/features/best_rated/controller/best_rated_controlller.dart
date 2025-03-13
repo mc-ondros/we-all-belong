@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:we_all_belong/core/google_maps_api/google_maps_api.dart';
 
@@ -19,6 +20,7 @@ class BestRatedController extends GetxController {
   Future<void> fetchAllVenues() async {
     try {
       List<VenueModel> fetchedVenues = await GoogleMapsApi().fetchPlacesFromCollection();
+      debugPrint('Fetched ${fetchedVenues.toString()}');
       venues.value = fetchedVenues; // Update observable list
     } catch (e) {
       print("Failed to fetch venues: $e");

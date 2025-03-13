@@ -95,19 +95,19 @@ class GoogleMapsApi {
         String placeId = doc.id;
         var response = await http.get(
             Uri.parse('https://places.googleapis.com/v1/places/$placeId?key=${apiKeyController.apiKey.value}'),
-            headers: {'X-Goog-FieldMask': 'displayName,formattedAddress,iconUrl,currentOpeningHours.openNow'});
+            headers: {'X-Goog-FieldMask': 'displayName,formattedAddress,iconMaskBaseUri,currentOpeningHours.openNow'});
 
         if (response.statusCode == 200) {
           var data = json.decode(response.body);
           placeDetailsList.add(VenueModel(
             name: data['displayName']['text'] ?? 'Unknown',
             vicinity: data['formattedAddress'] ?? 'Unknown',
-            icon: data['iconUrl'] ?? '',
+            icon: data['iconMaskBaseUri'] ?? '',
             place_id: placeId,
             open_now: data.containsKey('currentOpeningHours') && data['currentOpeningHours']['openNow'] == true,
           ));
         } else {
-          print("Failed to fetch place details for $placeId");
+          print("Failed to fetch place details for $placeId ${response.body}");
         }
       }
 

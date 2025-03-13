@@ -168,10 +168,10 @@
 @import smart_auth;
 #endif
 
-#if __has_include(<sqflite/SqflitePlugin.h>)
-#import <sqflite/SqflitePlugin.h>
+#if __has_include(<sqflite_darwin/SqflitePlugin.h>)
+#import <sqflite_darwin/SqflitePlugin.h>
 #else
-@import sqflite;
+@import sqflite_darwin;
 #endif
 
 #if __has_include(<stripe_ios/StripeIosPlugin.h>)
@@ -186,8 +186,8 @@
 @import url_launcher_ios;
 #endif
 
-#if __has_include(<webview_flutter_wkwebview/FLTWebViewFlutterPlugin.h>)
-#import <webview_flutter_wkwebview/FLTWebViewFlutterPlugin.h>
+#if __has_include(<webview_flutter_wkwebview/WebViewFlutterPlugin.h>)
+#import <webview_flutter_wkwebview/WebViewFlutterPlugin.h>
 #else
 @import webview_flutter_wkwebview;
 #endif
@@ -225,7 +225,7 @@
   [SqflitePlugin registerWithRegistrar:[registry registrarForPlugin:@"SqflitePlugin"]];
   [StripeIosPlugin registerWithRegistrar:[registry registrarForPlugin:@"StripeIosPlugin"]];
   [URLLauncherPlugin registerWithRegistrar:[registry registrarForPlugin:@"URLLauncherPlugin"]];
-  [FLTWebViewFlutterPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTWebViewFlutterPlugin"]];
+  [WebViewFlutterPlugin registerWithRegistrar:[registry registrarForPlugin:@"WebViewFlutterPlugin"]];
 }
 
 @end

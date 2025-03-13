@@ -283,6 +283,8 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                 ),
+                const SizedBox(height: 16),
+
                 SizedBox(
                   width: double.infinity,
                   height: 50,
@@ -291,13 +293,13 @@ class LoginPage extends StatelessWidget {
                       Get.to(const BottomNavigationBarCustom());
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue[600],
+                      backgroundColor: Colors.black,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
                     child: Text(
-                      'Sign in',
+                      'Enter as guest',
                       style: GoogleFonts.poppins(
                         color: Colors.white,
                         fontSize: 16,

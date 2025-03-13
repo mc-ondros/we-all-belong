@@ -15,11 +15,11 @@ class EditProfileScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, 
-            color: Theme.of(context).colorScheme.secondary),
+          icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.secondary),
           onPressed: () => Get.back(),
         ),
         title: Text(
@@ -61,7 +61,7 @@ class EditProfileScreen extends StatelessWidget {
           icon: Icons.person_outline,
         ),
         const SizedBox(height: 16),
-        
+
         _buildTextField(
           label: 'Bio',
           controller: controller.bioController,
@@ -122,9 +122,9 @@ class EditProfileScreen extends StatelessWidget {
             ),
           ),
         ),
-        
+
         const SizedBox(height: 16), // Add spacing between buttons
-        
+
         // Logout Button
         const LogoutButton(),
       ],

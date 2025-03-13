@@ -32,7 +32,7 @@ Future<void> main() async {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
-  ]).then((value) => runApp(MyApp()));
+  ]).then((value) => runApp(GetMaterialApp()));
 }
 
 // ignore: must_be_immutable

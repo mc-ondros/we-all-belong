@@ -1,24 +1,18 @@
 import 'package:we_all_belong/core/core_shared.dart';
 import 'package:we_all_belong/core/models/user_profile_model.dart';
-import 'package:we_all_belong/features/homepage/homepage_screen.dart';
+import 'package:we_all_belong/features/bottom_navigation_bar/bottom_navigation_bar.dart';
 
 class KYCController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  
+
   var nationality = ''.obs;
   var gender = ''.obs;
   var religiousOrientation = ''.obs;
   var sexualPreference = ''.obs;
   var disabilities = <String>[].obs;
-  
-  final availableDisabilities = [
-    'Physical',
-    'Sensorial',
-    'Intellectual',
-    'Learning',
-    'Emotional'
-  ];
+
+  final availableDisabilities = ['Physical', 'Sensorial', 'Intellectual', 'Learning', 'Emotional'];
 
   Future<void> submitKYCData() async {
     try {
@@ -42,13 +36,10 @@ class KYCController extends GetxController {
         isOnboarded: true,
       );
 
-      await _firestore
-          .collection('users')
-          .doc(user.uid)
-          .set(userProfile.toJson(), SetOptions(merge: true));
+      await _firestore.collection('users').doc(user.uid).set(userProfile.toJson(), SetOptions(merge: true));
 
       Get.back(); // Dismiss loading
-      Get.offAll(() => HomePage());
+      Get.offAll(() => BottomNavigationBarCustom());
     } catch (e) {
       Get.back(); // Dismiss loading
       Get.snackbar(
@@ -59,4 +50,4 @@ class KYCController extends GetxController {
       );
     }
   }
-} 
+}

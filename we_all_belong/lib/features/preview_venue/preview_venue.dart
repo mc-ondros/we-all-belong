@@ -40,7 +40,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: GenericColors.backgroundCrem,
+      backgroundColor: GenericColors.background,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,

@@ -1,6 +1,7 @@
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
+import 'package:we_all_belong/core/services/api_key_controller.dart';
 import 'core/core_shared.dart';
 import 'core/firebase/firebase_options.dart';
 import 'package:we_all_belong/login.dart';
@@ -32,6 +33,7 @@ Future<void> main() async {
   ]).then((value) => runApp(MyApp()));
   // Initialize AuthService
   Get.put(AuthService());
+  Get.put(ApiKeyController());
 }
 
 // ignore: must_be_immutable

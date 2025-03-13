@@ -2,16 +2,44 @@
 
 import 'package:we_all_belong/core/core_shared.dart';
 import 'package:http/http.dart' as http;
-import 'package:we_all_belong/core/services/api_key_controller.dart';
 import '../models/venue_model.dart';
 
+class ApiKeyController extends GetxController {
+  var apiKey = ''.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    fetchApiKey();
+  }
+
+  Future<void> fetchApiKey() async {
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance.collection('config').doc('api_keys').get();
+      if (snapshot.exists && snapshot.data() != null) {
+        apiKey.value = snapshot.get('google_maps_api');
+      } else {
+        throw Exception("API key not found in Firestore");
+      }
+    } catch (e) {
+      print("Error fetching API key: $e");
+    }
+  }
+}
+
 class GoogleMapsApi {
-  final ApiKeyController apiKeyController = Get.find();
+  final ApiKeyController apiKeyController = Get.put(ApiKeyController());
 
   Future<List<VenueModel>> getNearbyVenues(double latitude, double longitude, int radius, String type) async {
+    String apiKey = apiKeyController.apiKey.value;
+    if (apiKey.isEmpty) {
+      await apiKeyController.fetchApiKey();
+      apiKey = apiKeyController.apiKey.value;
+    }
     debugPrint('Fetching Venues');
+
     final url = Uri.parse(
-      'https://places.googleapis.com/v1/places:searchNearby?key=${apiKeyController.apiKey.value}',
+      'https://places.googleapis.com/v1/places:searchNearby?key=$apiKey',
     );
 
     final body = json.encode({
@@ -38,7 +66,6 @@ class GoogleMapsApi {
     try {
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        printLongString(data.toString());
         final venuesList = data['places'] as List;
         debugPrint('Found ${venuesList.length} venues');
 
@@ -61,9 +88,14 @@ class GoogleMapsApi {
   }
 
   Future<String?> getPlacePhotoUrl(String placeId) async {
+    String apiKey = apiKeyController.apiKey.value;
+    if (apiKey.isEmpty) {
+      await apiKeyController.fetchApiKey();
+      apiKey = apiKeyController.apiKey.value;
+    }
+
     try {
-      final url = Uri.parse(
-          'https://places.googleapis.com/v1/places/$placeId?fields=photos&key=${apiKeyController.apiKey.value}');
+      final url = Uri.parse('https://places.googleapis.com/v1/places/$placeId?fields=photos&key=$apiKey');
       final response = await http.get(url, headers: {'X-Goog-FieldMask': 'photos'});
 
       if (response.statusCode == 200) {
@@ -81,10 +113,17 @@ class GoogleMapsApi {
   }
 
   String _getPhotoUrl(String photoReference) {
-    return 'https://places.googleapis.com/v1/$photoReference/media?maxWidthPx=400&key=${apiKeyController.apiKey.value}';
+    String apiKey = apiKeyController.apiKey.value;
+    return 'https://places.googleapis.com/v1/$photoReference/media?maxWidthPx=400&key=$apiKey';
   }
 
   Future<List<VenueModel>> fetchPlacesFromCollection() async {
+    String apiKey = apiKeyController.apiKey.value;
+    if (apiKey.isEmpty) {
+      await apiKeyController.fetchApiKey();
+      apiKey = apiKeyController.apiKey.value;
+    }
+
     try {
       CollectionReference collectionRef = FirebaseFirestore.instance.collection('venues');
       QuerySnapshot snapshot = await collectionRef.get();
@@ -93,16 +132,15 @@ class GoogleMapsApi {
 
       for (var doc in snapshot.docs) {
         String placeId = doc.id;
-        var response = await http.get(
-            Uri.parse('https://places.googleapis.com/v1/places/$placeId?key=${apiKeyController.apiKey.value}'),
-            headers: {'X-Goog-FieldMask': 'displayName,formattedAddress,iconUrl,currentOpeningHours.openNow'});
+        var response = await http.get(Uri.parse('https://places.googleapis.com/v1/places/$placeId?key=$apiKey'),
+            headers: {'X-Goog-FieldMask': 'displayName,formattedAddress,iconMaskBaseUri,currentOpeningHours.openNow'});
 
         if (response.statusCode == 200) {
           var data = json.decode(response.body);
           placeDetailsList.add(VenueModel(
             name: data['displayName']['text'] ?? 'Unknown',
             vicinity: data['formattedAddress'] ?? 'Unknown',
-            icon: data['iconUrl'] ?? '',
+            icon: data['iconMaskBaseUri'] ?? '',
             place_id: placeId,
             open_now: data.containsKey('currentOpeningHours') && data['currentOpeningHours']['openNow'] == true,
           ));
@@ -115,10 +153,5 @@ class GoogleMapsApi {
     } catch (e) {
       throw Exception("Failed to fetch places: $e");
     }
-  }
-
-  void printLongString(String text) {
-    final RegExp pattern = RegExp('.{1,800}'); // 800 is the size of each chunk
-    pattern.allMatches(text).forEach((RegExpMatch match) => debugPrint(match.group(0)));
   }
 }

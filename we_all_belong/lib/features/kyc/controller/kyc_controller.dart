@@ -39,7 +39,7 @@ class KYCController extends GetxController {
       await _firestore.collection('users').doc(user.uid).set(userProfile.toJson(), SetOptions(merge: true));
 
       Get.back(); // Dismiss loading
-      Get.offAll(() => BottomNavigationBarCustom());
+      Get.offAll(() => const BottomNavigationBarCustom());
     } catch (e) {
       Get.back(); // Dismiss loading
       Get.snackbar(

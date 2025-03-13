@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'dart:io';
@@ -10,12 +12,12 @@ class AnimatedProfileImage extends StatelessWidget {
   final bool isLoading;
 
   const AnimatedProfileImage({
-    Key? key,
+    super.key,
     this.imageUrl,
     this.imageFile,
     required this.onTap,
     this.isLoading = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class AnimatedProfileImage extends StatelessWidget {
         height: 120,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: Get.theme.colorScheme.background,
+          color: Get.theme.colorScheme.surface,
           border: Border.all(
             color: Get.theme.colorScheme.primary,
             width: 3,
@@ -94,4 +96,4 @@ class AnimatedProfileImage extends StatelessWidget {
       ),
     );
   }
-} 
+}

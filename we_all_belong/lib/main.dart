@@ -19,9 +19,6 @@ Future<void> main() async {
   );
   await FirebaseAppCheck.instance.activate();
 
-  // Initialize AuthService
-  Get.put(AuthService());
-
   // Initialize ProfileImageService
   Get.put(ProfileImageService());
 
@@ -32,7 +29,9 @@ Future<void> main() async {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
-  ]).then((value) => runApp(GetMaterialApp()));
+  ]).then((value) => runApp(MyApp()));
+  // Initialize AuthService
+  Get.put(AuthService());
 }
 
 // ignore: must_be_immutable

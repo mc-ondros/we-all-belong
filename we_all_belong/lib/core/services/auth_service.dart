@@ -36,9 +36,7 @@ class AuthService extends GetxController {
         await prefs.clear();
         Get.offAll(() => const LoginApp());
       }
-    } else {
-      Get.offAll(() => const LoginApp());
-    }
+    } else {}
   }
 
   Future<void> saveCredentials(String email, String password) async {

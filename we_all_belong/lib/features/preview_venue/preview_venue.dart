@@ -222,6 +222,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
                   widget.id ?? '',
                 );
                 setState(() {
+                  widget.reviews ??= [];
                   widget.reviews.add(ReviewModel(
                     uuid: 'uuid',
                     text: widget.reviewTextEditingController.text,

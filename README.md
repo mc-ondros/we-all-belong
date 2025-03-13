@@ -29,6 +29,7 @@ Developed for **UniHack 2024**, *We All Belong* focuses on amplifying the voices
 
 ## 👥 Team Members
 
+
 Meet the passionate team behind *We All Belong*:
 
 - **Andrei Pop**

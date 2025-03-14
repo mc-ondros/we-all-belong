@@ -52,7 +52,9 @@ android {
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
     }
-
+    kotlinOptions {
+        jvmTarget = '17'
+    }
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.

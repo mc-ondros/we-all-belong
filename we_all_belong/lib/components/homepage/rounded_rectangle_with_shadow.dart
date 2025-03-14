@@ -55,6 +55,15 @@ class RoundedRectangleWithShadow extends StatelessWidget {
               indicatorType: Indicator.ballBeat,
               colors: [Colors.white],
             ),
+            errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+              return const Center(
+                child: Icon(
+                  Icons.error_outline,
+                  size: 48,
+                  color: Colors.red,
+                ),
+              );
+            },
           ),
           title: Text(
             venue.name ?? '',

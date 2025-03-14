@@ -1,4 +1,3 @@
-import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:we_all_belong/core/services/api_key_controller.dart';
@@ -18,7 +17,6 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await FirebaseAppCheck.instance.activate();
 
   // Initialize ProfileImageService
   Get.put(ProfileImageService());

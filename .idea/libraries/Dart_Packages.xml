@@ -282,27 +282,6 @@
             </list>
           </value>
         </entry>
-        <entry key="firebase_app_check">
-          <value>
-            <list>
-              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_app_check-0.2.2+7/lib" />
-            </list>
-          </value>
-        </entry>
-        <entry key="firebase_app_check_platform_interface">
-          <value>
-            <list>
-              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_app_check_platform_interface-0.1.0+29/lib" />
-            </list>
-          </value>
-        </entry>
-        <entry key="firebase_app_check_web">
-          <value>
-            <list>
-              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_app_check_web-0.1.2+7/lib" />
-            </list>
-          </value>
-        </entry>
         <entry key="firebase_auth">
           <value>
             <list>
@@ -1704,9 +1683,6 @@
       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/file_selector_macos-0.9.4+2/lib" />
       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/file_selector_platform_interface-2.6.2/lib" />
       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/file_selector_windows-0.9.3+4/lib" />
-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_app_check-0.2.2+7/lib" />
-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_app_check_platform_interface-0.1.0+29/lib" />
-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_app_check_web-0.1.2+7/lib" />
       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth-4.20.0/lib" />
       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth_platform_interface-7.3.0/lib" />
       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth_web-5.12.0/lib" />

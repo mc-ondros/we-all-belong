@@ -27,7 +27,7 @@ class PreviewVenueApi {
         return [];
       }
     } catch (e) {
-      throw Exception("Failed to fetch reviews.");
+      throw Exception("Failed to fetch reviews. $e");
     }
   }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:we_all_belong/core/models/venue_model.dart';
 //import 'package:we_all_belong/core/styles/generic_colors.dart';
 import '../../components/specs/colors.dart';
@@ -45,11 +47,14 @@ class RoundedRectangleWithShadow extends StatelessWidget {
           ),
         ),
         child: ListTile(
-          leading: Image.network(
-            venue.icon ?? '',
+          leading: SvgPicture.network(
+            fixVenues(venue.icon ?? ''),
             width: 50,
             height: 50,
-            fit: BoxFit.cover,
+            placeholderBuilder: (BuildContext context) => const LoadingIndicator(
+              indicatorType: Indicator.ballBeat,
+              colors: [Colors.white],
+            ),
           ),
           title: Text(
             venue.name ?? '',
@@ -63,5 +68,28 @@ class RoundedRectangleWithShadow extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+extension RoundedRectangleWithShadowExtension on RoundedRectangleWithShadow {
+  String fixVenues(String originalString) {
+    if (originalString.contains('bar')) {
+      return 'https://www.svgrepo.com/show/444797/drink-cocktail.svg';
+    } else if (originalString.contains('restaurant')) {
+      return 'https://www.svgrepo.com/show/281640/restaurant-fork.svg';
+    } else if (originalString.contains('cafe')) {
+      return 'https://www.svgrepo.com/show/530227/coffee.svg';
+    } else if (originalString.contains('gym')) {
+      return 'https://www.svgrepo.com/show/475554/gym.svg';
+    } else if (originalString.contains('library')) {
+      return 'https://www.svgrepo.com/show/296928/library-book.svg';
+    } else if (originalString.contains('museum')) {
+      return 'https://www.svgrepo.com/show/293848/museum.svg';
+    } else if (originalString.contains('movie_theater')) {
+      return 'https://www.svgrepo.com/show/484557/popcorn.svg';
+    } else if (originalString.contains('night_club')) {
+      return 'https://www.svgrepo.com/show/268413/disco-club.svg';
+    }
+    return '';
   }
 }

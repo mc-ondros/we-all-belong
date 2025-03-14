@@ -48,7 +48,7 @@ class LoginController extends GetxController {
       Get.back(); // Dismiss loading indicator
 
       // Check if email is verified
-      if (userCredential.user != null && !userCredential.user!.emailVerified) {
+      if (userCredential.user != null && !(userCredential.user!.emailVerified)) {
         Get.dialog(
           AlertDialog(
             title: Text(

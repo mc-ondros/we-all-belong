@@ -3,6 +3,7 @@
 class ReviewModel {
   final String uuid;
   final String text;
+  final String photoUrl;
   final double accessibility;
   final double friendliness;
   final bool halal;
@@ -11,6 +12,7 @@ class ReviewModel {
   ReviewModel({
     required this.uuid,
     required this.text,
+    required this.photoUrl,
     required this.accessibility,
     required this.friendliness,
     required this.halal,
@@ -22,6 +24,7 @@ class ReviewModel {
     return ReviewModel(
       uuid: json['uuid'] as String,
       text: json['text'] as String,
+      photoUrl: json['photoUrl'] as String,
       accessibility: (json['accessibility'] as num).toDouble(),
       friendliness: (json['friendliness'] as num).toDouble(),
       halal: json['halal'] as bool,
@@ -34,6 +37,7 @@ class ReviewModel {
     return {
       'uuid': uuid,
       'text': text,
+      'photoUrl': photoUrl,
       'accessibility': accessibility,
       'friendliness': friendliness,
       'halal': halal,

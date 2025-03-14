@@ -80,7 +80,7 @@ class RoundedRectangleWithShadow extends StatelessWidget {
 extension RoundedRectangleWithShadowExtension on RoundedRectangleWithShadow {
   String fixVenues(String originalString) {
     if (originalString.contains('bar')) {
-      return 'https://www.svgrepo.com/show/444797/drink-cocktail.svg';
+      return 'https://www.svgrepo.com/show/513322/martini.svg';
     } else if (originalString.contains('restaurant')) {
       return 'https://www.svgrepo.com/show/281640/restaurant-fork.svg';
     } else if (originalString.contains('cafe')) {

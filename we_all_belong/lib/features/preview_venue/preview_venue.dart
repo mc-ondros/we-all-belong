@@ -286,6 +286,13 @@ class _PreviewVenueState extends State<PreviewVenue> {
             itemBuilder: (context, index) {
               final review = widget.reviews[index];
               return Card(
+                shape: RoundedRectangleBorder(
+                  side: const BorderSide(
+                    color: GenericColors.shadyGreen,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(20),
+                ),
                 margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                 child: ListTile(
                   title: Text(review.text),

@@ -9,7 +9,7 @@ class GenericColors {
   static const Color highlightBlue = Color(0xFF1E90FF);
   static const Color supportGrey = Color(0xFF666666);
   static const Color accentGreen = Color(0xFF32CD32);
-  
+  static const Color NegruWAB = Color(0x1A1A19);
   static const Color backgroundCrem = const Color(0xFFF5F5DC);
   static const Color turquoise = const Color(0xFF33FCFF);
   static const Color white = const Color(0xFFFFFFFF);

@@ -15,7 +15,7 @@
 - **Inclusivity**: Rates how welcoming and accepting the environment is for diverse identities.
 - **Safety**: Reflects the overall sense of security within the space.
 
-Developed for **UniHack 2024**, *We All Belong* focuses on amplifying the voices of those in marginalized communities, empowering users to find spaces where they can feel safe and included.
+Developed for **ITfest 2025**, *We All Belong* focuses on amplifying the voices of those in marginalized communities, empowering users to find spaces where they can feel safe and included.
 
 ## ✨ Features
 

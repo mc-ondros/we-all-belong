@@ -11,30 +11,50 @@ import 'package:we_all_belong/features/preview_venue/controller/preview_venue_co
 import '../../components/specs/colors.dart';
 import '../../core/user_controller/user_controller.dart';
 
-// ignore: must_be_immutable
 class PreviewVenue extends StatefulWidget {
   final String? name;
   final String? id;
   final bool? open_now;
-  UserController userController = Get.find();
-  // ignore: prefer_typing_uninitialized_variables
-  var reviews;
-  final TextEditingController reviewTextEditingController = TextEditingController();
-  PreviewVenue({required this.name, required this.id, required this.open_now, super.key});
+
+  const PreviewVenue({required this.name, required this.id, required this.open_now, super.key});
 
   @override
   State<PreviewVenue> createState() => _PreviewVenueState();
 }
 
-final PreviewVenueController previewVenueController = Get.put(PreviewVenueController());
-
 class _PreviewVenueState extends State<PreviewVenue> {
   late Future<List<ReviewModel>> _reviewsFuture;
+  final ScrollController _scrollController = ScrollController();
+  double _imageOpacity = 1.0; // Initial opacity (fully visible)
+  final UserController userController = Get.find();
+  final PreviewVenueController previewVenueController = Get.put(PreviewVenueController());
+  final TextEditingController reviewTextEditingController = TextEditingController();
+  List<ReviewModel> reviews = [];
 
   @override
   void initState() {
     super.initState();
     _reviewsFuture = PreviewVenueApi().fetchReviews(widget.id ?? '');
+
+    // Listen to scroll changes and adjust opacity
+    _scrollController.addListener(() {
+      double offset = _scrollController.offset;
+      double newOpacity = (200 - offset) / 200;
+      newOpacity = newOpacity.clamp(0.0, 1.0);
+
+      if (newOpacity != _imageOpacity) {
+        setState(() {
+          _imageOpacity = newOpacity;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    reviewTextEditingController.dispose();
+    super.dispose();
   }
 
   @override
@@ -42,14 +62,17 @@ class _PreviewVenueState extends State<PreviewVenue> {
     return Scaffold(
       backgroundColor: GenericColors.background,
       appBar: AppBar(
+
         backgroundColor: Colors.transparent,
+
         elevation: 0,
         title: Text(
           widget.name ?? '',
-          style: GoogleFonts.candal(
+          style: GoogleFonts.outfit(
             fontSize: 20,
+            color: GenericColors.primaryAccent,
             fontWeight: FontWeight.bold,
-            color: GenericColors.black,
+
           ),
         ),
         leading: IconButton(
@@ -59,189 +82,121 @@ class _PreviewVenueState extends State<PreviewVenue> {
           },
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(
-                child: FutureBuilder<String?>(
-                  future: GoogleMapsApi().getPlacePhotoUrl(widget.id ?? ''),
-                  builder: (context, snapshot) {
-                    if (snapshot.data != '' && snapshot.hasData) {
-                      return SizedBox(
-                        width: 300,
-                        height: 300,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Image.network(
-                            snapshot.data ?? '',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      );
-                    } else if (snapshot.data == '') {
-                      return Container(
-                        width: 300,
-                        height: 300,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                            color: Colors.grey[400]!,
-                            width: 1,
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'No Photos',
-                            style: GoogleFonts.candal(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey[600],
+      body: Stack(
+        children: [
+          ListView(
+            controller: _scrollController,
+            padding: const EdgeInsets.symmetric(horizontal: 0),
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(0.0),
+                child: Center(
+                  child: FutureBuilder<String?>(
+                    future: GoogleMapsApi().getPlacePhotoUrl(widget.id ?? ''),
+                    builder: (context, snapshot) {
+                      return AnimatedOpacity(
+                        duration: const Duration(milliseconds: 300),
+                        opacity: _imageOpacity,
+                        child: SizedBox(
+                          width: 500,
+                          height: 500,
+                          child: ClipRRect(
+                            borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(20),
+                                bottomRight: Radius.circular(20)),
+                            child: snapshot.hasData && snapshot.data!.isNotEmpty
+                                ? Image.network(
+                              snapshot.data!,
+                              fit: BoxFit.cover,
+                            )
+                                : Container(
+                              color: Colors.grey[200],
+                              child: Center(
+                                child: Text(
+                                  'No Photos',
+                                  style: GoogleFonts.outfit(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey[600],
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       );
-                    } else {
-                      return const CircularProgressIndicator();
-                    }
-                  },
+                    },
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              'Info about this place:',
-              style: GoogleFonts.candal(
-                textStyle: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: GenericColors.primaryAccent,
-                ),
-              ),
-              textAlign: TextAlign.center,
-            ),
-            Text(
-              'Open now: ${widget.open_now}',
-              style: GoogleFonts.candal(
-                textStyle: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: GenericColors.secondaryAccent,
-                ),
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 20),
-            _buildReviewSection(),
-            const SizedBox(height: 20),
-            Text(
-              "Reviews:",
-              style: GoogleFonts.candal(
-                textStyle: const TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            _buildReviewsList(),
-          ],
-        ),
+              const SizedBox(height: 20),
+              _buildReviewSection(),
+              const SizedBox(height: 20),
+              _buildReviewsList(),
+            ],
+          ),
+        ],
       ),
     );
   }
 
   Widget _buildReviewSection() {
-    return Container(
-      decoration: BoxDecoration(border: Border.all(color: GenericColors.shadyGreen)),
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'How is your experience?',
-              style: GoogleFonts.candal(
-                textStyle: const TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildRatingRow('Accessibility for disabled:', (rating) {
+            previewVenueController.accesibilityRating.value = rating;
+          }),
+          _buildRatingRow('Nush cplm sa mai adaug aici:', (rating) {
+            previewVenueController.accesibilityRating.value = rating;
+          }),
+          const SizedBox(height: 10),
+          _buildRatingRow('LGBTQIA+ friendliness:', (rating) {
+            previewVenueController.lgbtRating.value = rating;
+          }),
+          const SizedBox(height: 10),
+          _buildToggleRow('Halal food available:', previewVenueController.halalToggle),
+          const SizedBox(height: 10),
+          _buildToggleRow('Kosher food available:', previewVenueController.kosherToggle),
+          const SizedBox(height: 20),
+          TextField(
+            controller: reviewTextEditingController,
+            decoration: InputDecoration(
+              hintText: 'Write your opinion...',
+              border: OutlineInputBorder(),
             ),
-            const SizedBox(height: 20),
-            _buildRatingRow('Accessibility for disabled:', (rating) {
-              previewVenueController.accesibilityRating.value = rating;
-            }),
-            const SizedBox(height: 20),
-            _buildRatingRow('LGBTQIA+ friendliness:', (rating) {
-              previewVenueController.lgbtRating.value = rating;
-            }),
-            const SizedBox(height: 20),
-            _buildToggleRow('Halal food available:', previewVenueController.halalToggle),
-            const SizedBox(height: 20),
-            _buildToggleRow('Kosher food available:', previewVenueController.kosherToggle),
-            const SizedBox(height: 20),
-            Text(
-              'Write your review:',
-              style: GoogleFonts.candal(
-                textStyle: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
+          ),
+          const SizedBox(height: 10),
+          ElevatedButton(
+            onPressed: () async {
+              await PreviewVenueApi().uploadReview(
+                ReviewModel(
+                  uuid: userController.userModel.value.uuid ?? '',
+                  text: reviewTextEditingController.text,
+                  accessibility: previewVenueController.accesibilityRating.value,
+                  friendliness: previewVenueController.lgbtRating.value,
+                  halal: previewVenueController.halalToggle.value,
+                  kosher: previewVenueController.kosherToggle.value,
                 ),
-              ),
-            ),
-            TextField(
-              controller: widget.reviewTextEditingController,
-              decoration: InputDecoration(
-                hintText: 'Write your opinion...',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                  borderSide: const BorderSide(color: Colors.grey),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                  borderSide: const BorderSide(color: Colors.blue, width: 2.0),
-                ),
-                contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-              ),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () async {
-                await PreviewVenueApi().uploadReview(
-                  ReviewModel(
-                    uuid: widget.userController.userModel.value.uuid ?? '', //TODO: implement ID
-                    text: widget.reviewTextEditingController.text,
-                    accessibility: previewVenueController.accesibilityRating.value,
-                    friendliness: previewVenueController.lgbtRating.value,
-                    halal: previewVenueController.halalToggle.value,
-                    kosher: previewVenueController.kosherToggle.value,
-                  ),
-                  widget.id ?? '',
-                );
-                setState(() {
-                  widget.reviews ??= [];
-                  widget.reviews.add(ReviewModel(
-                    uuid: 'uuid',
-                    text: widget.reviewTextEditingController.text,
-                    accessibility: previewVenueController.accesibilityRating.value,
-                    friendliness: previewVenueController.lgbtRating.value,
-                    halal: previewVenueController.halalToggle.value,
-                    kosher: previewVenueController.kosherToggle.value,
-                  ));
-                  widget.reviewTextEditingController.clear();
-                  previewVenueController.accesibilityRating.value = 3.0;
-                  previewVenueController.lgbtRating.value = 3.0;
-                  previewVenueController.halalToggle.value = false;
-                  previewVenueController.kosherToggle.value = false;
-                });
-              },
-              child: const Text("Post Review"),
-            ),
-          ],
-        ),
+                widget.id ?? '',
+              );
+              setState(() {
+                reviews.add(ReviewModel(
+                  uuid: 'uuid',
+                  text: reviewTextEditingController.text,
+                  accessibility: previewVenueController.accesibilityRating.value,
+                  friendliness: previewVenueController.lgbtRating.value,
+                  halal: previewVenueController.halalToggle.value,
+                  kosher: previewVenueController.kosherToggle.value,
+                ));
+                reviewTextEditingController.clear();
+              });
+            },
+            child: const Text("Post Review"),
+          ),
+        ],
       ),
     );
   }
@@ -257,47 +212,16 @@ class _PreviewVenueState extends State<PreviewVenue> {
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return const Center(child: Text("No reviews available"));
         } else {
-          widget.reviews = snapshot.data!;
+          reviews = snapshot.data!;
           return ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: widget.reviews.length,
+            itemCount: reviews.length,
             itemBuilder: (context, index) {
-              final review = widget.reviews[index];
-              return Card(
-                margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-                child: ListTile(
-                  title: Text(review.text),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text("Accessibility:"),
-                      RatingBarIndicator(
-                        rating: review.accessibility,
-                        itemBuilder: (context, _) => const Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                        ),
-                        itemCount: 5,
-                        itemSize: 24.0,
-                        direction: Axis.horizontal,
-                      ),
-                      const Text("Friendliness: "),
-                      RatingBarIndicator(
-                        rating: review.friendliness,
-                        itemBuilder: (context, _) => const Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                        ),
-                        itemCount: 5,
-                        itemSize: 24.0,
-                        direction: Axis.horizontal,
-                      ),
-                      Text("Halal: ${review.halal ? "Yes" : "No"}"),
-                      Text("Kosher: ${review.kosher ? "Yes" : "No"}"),
-                    ],
-                  ),
-                ),
+              final review = reviews[index];
+              return ListTile(
+                title: Text(review.text),
+                subtitle: Text("Accessibility: ${review.accessibility}"),
               );
             },
           );
@@ -310,26 +234,11 @@ class _PreviewVenueState extends State<PreviewVenue> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: GoogleFonts.candal(
-            textStyle: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
+        Text(label),
         RatingBar.builder(
           initialRating: 3,
           minRating: 1,
-          direction: Axis.horizontal,
-          allowHalfRating: true,
-          itemCount: 5,
-          itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-          itemBuilder: (context, _) => const Icon(
-            Icons.add_circle,
-            color: Colors.amber,
-          ),
+          itemBuilder: (context, _) => const Icon(Icons.star, color: Colors.amber),
           onRatingUpdate: onRatingUpdate,
         ),
       ],
@@ -337,28 +246,6 @@ class _PreviewVenueState extends State<PreviewVenue> {
   }
 
   Widget _buildToggleRow(String label, RxBool toggle) {
-    return Row(
-      children: [
-        Text(
-          label,
-          style: GoogleFonts.candal(
-            textStyle: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        Obx(
-          () => Switch(
-            value: toggle.value,
-            onChanged: (value) {
-              setState(() {
-                toggle.value = value;
-              });
-            },
-          ),
-        ),
-      ],
-    );
+    return Row(children: [Text(label), Obx(() => Switch(value: toggle.value, onChanged: (value) => toggle.value = value))]);
   }
 }

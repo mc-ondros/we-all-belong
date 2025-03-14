@@ -24,6 +24,7 @@ class PreviewVenueController extends GetxController {
 
     if (pickedFile != null) {
       imageFile = File(pickedFile.path);
+      print('Image selected: ${imageFile!.path}');
     } else {
       print('No image selected.');
     }
@@ -48,9 +49,9 @@ class PreviewVenueController extends GetxController {
       isUploading = false;
 
       print('Download URL: $downloadURL');
-    } catch (e) {
+    } catch (e, s) {
       isUploading = false;
-      print('Error uploading image: $e');
+      print('Error uploading image: $e $s');
     }
   }
 }

@@ -212,8 +212,8 @@ class _PreviewVenueState extends State<PreviewVenue> {
             ListTile(
               leading: const Icon(Icons.photo_library),
               title: const Text('Pick from Gallery'),
-              onTap: () {
-                previewVenueController.pickImage(ImageSource.gallery);
+              onTap: () async {
+                await previewVenueController.pickImage(ImageSource.gallery);
               },
             ),
             const SizedBox(height: 20),
@@ -221,6 +221,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
               onPressed: () async {
                 if (previewVenueController.imageFile != null) {
                   await previewVenueController.uploadImage();
+                  print('downloadURL: ${previewVenueController.downloadURL.value}');
                 } else {
                   previewVenueController.downloadURL.value = '';
                 }
@@ -245,7 +246,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
                     friendliness: previewVenueController.lgbtRating.value,
                     halal: previewVenueController.halalToggle.value,
                     kosher: previewVenueController.kosherToggle.value,
-                    photoUrl: '',
+                    photoUrl: previewVenueController.downloadURL.value,
                   ));
                   widget.reviewTextEditingController.clear();
                   previewVenueController.accesibilityRating.value = 3.0;
@@ -315,7 +316,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
                       ),
                       Text("Halal: ${review.halal ? "Yes" : "No"}"),
                       Text("Kosher: ${review.kosher ? "Yes" : "No"}"),
-                      const Text("User photo:"),
+                      Visibility(visible: review.photoUrl != '', child: const Text("User photo:")),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ClipRRect(
@@ -331,6 +332,11 @@ class _PreviewVenueState extends State<PreviewVenue> {
                                       : null,
                                 ),
                               );
+                            },
+                            errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                              print('$exception, photoURL: ${review.photoUrl} ${review.text}');
+                              print(stackTrace);
+                              return Container();
                             },
                           ),
                         ),

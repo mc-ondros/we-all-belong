@@ -40,6 +40,7 @@ class BestRatedScreen extends StatelessWidget {
                 replacement: const Center(
                   child: LoadingIndicator(
                     indicatorType: Indicator.ballPulse,
+                    colors: [Colors.white],
                   ),
                 ),
                 visible: bestRatedController.venues.isNotEmpty,

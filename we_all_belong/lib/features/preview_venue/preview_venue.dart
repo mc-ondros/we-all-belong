@@ -270,7 +270,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
           print("Error fetching reviews: ${snapshot.error}");
-          return LoadingIndicator(
+          return const LoadingIndicator(
             indicatorType: Indicator.ballBeat,
             colors: [Colors.white],
           );
@@ -315,7 +315,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
                       ),
                       Text("Halal: ${review.halal ? "Yes" : "No"}"),
                       Text("Kosher: ${review.kosher ? "Yes" : "No"}"),
-                      Text("User photo:"),
+                      const Text("User photo:"),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ClipRRect(

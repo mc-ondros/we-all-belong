@@ -56,12 +56,10 @@ class RoundedRectangleWithShadow extends StatelessWidget {
               colors: [Colors.white],
             ),
             errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-              return const Center(
-                child: Icon(
-                  Icons.error_outline,
-                  size: 48,
-                  color: Colors.red,
-                ),
+              return const Icon(
+                Icons.error_outline,
+                size: 48,
+                color: Colors.red,
               );
             },
           ),
@@ -99,6 +97,6 @@ extension RoundedRectangleWithShadowExtension on RoundedRectangleWithShadow {
     } else if (originalString.contains('night_club')) {
       return 'https://www.svgrepo.com/show/268413/disco-club.svg';
     }
-    return '';
+    return 'https://www.svgrepo.com/show/513552/location-pin.svg';
   }
 }

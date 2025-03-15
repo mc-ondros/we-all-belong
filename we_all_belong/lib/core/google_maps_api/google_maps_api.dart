@@ -38,10 +38,7 @@ class GoogleMapsApi {
     try {
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        printLongString(data.toString());
         final venuesList = data['places'] as List;
-        printLongString('venuesList: $venuesList');
-
         return venuesList.map((venue) {
           return VenueModel(
             name: venue['displayName']['text'] ?? 'Unknown',

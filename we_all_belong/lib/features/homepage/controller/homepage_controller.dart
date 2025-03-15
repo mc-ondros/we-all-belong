@@ -1,5 +1,4 @@
 import 'package:flutter_map/flutter_map.dart';
-import 'package:get/get.dart';
 import 'package:we_all_belong/core/google_maps_api/controller/location_controller.dart';
 import 'package:we_all_belong/core/google_maps_api/google_maps_api.dart';
 import 'package:we_all_belong/core/models/venue_model.dart';
@@ -14,6 +13,7 @@ class HomePageController extends GetxController {
   final LocationController locationController = Get.put(LocationController());
   RxList<VenueModel> venues = <VenueModel>[].obs;
   RxInt selectedIndex = 0.obs;
+  RxBool isUpdatingMarkers = false.obs;
   RxList<Marker> markers = <Marker>[].obs;
 
   void onTabTapped(int index) {
@@ -29,15 +29,29 @@ class HomePageController extends GetxController {
     }
   }
 
-  @override
-  void onInit() async {
-    super.onInit();
-    while (locationController.latitude.value == 0.0) {
-      await Future.delayed(const Duration(milliseconds: 500));
-    }
-    venues.value = await GoogleMapsApi()
-        .getNearbyVenues(locationController.latitude.value, locationController.longitude.value, 1500, 'bar');
-    GoogleMapsApi().printLongString(venues[0].toJson().toString());
+  void updateMarkers() {
+    isUpdatingMarkers.value = true;
+    markers.add(
+      Marker(
+        width: 100,
+        height: 100,
+        point: LatLng(locationController.latitude.value ?? 0.0, locationController.longitude.value ?? 0.0),
+        child: Column(
+          children: [
+            const Icon(
+              Icons.location_pin,
+              color: GenericColors.errorRed,
+              size: 80,
+            ),
+            Text(
+              'You',
+              overflow: TextOverflow.ellipsis,
+              style: GoogleFonts.poppins(fontSize: 15, color: Colors.white),
+            ),
+          ],
+        ),
+      ),
+    );
     markers.value = venues.map<Marker>((place) {
       final lat = place.lat;
       final lng = place.long;
@@ -55,7 +69,7 @@ class HomePageController extends GetxController {
           },
           child: Column(
             children: [
-              Icon(
+              const Icon(
                 Icons.location_pin,
                 color: GenericColors.highlightBlue,
                 size: 60,
@@ -70,5 +84,17 @@ class HomePageController extends GetxController {
         ),
       );
     }).toList();
+    isUpdatingMarkers.value = false;
+  }
+
+  @override
+  void onInit() async {
+    super.onInit();
+    while (locationController.latitude.value == 0.0) {
+      await Future.delayed(const Duration(milliseconds: 500));
+    }
+    venues.value = await GoogleMapsApi()
+        .getNearbyVenues(locationController.latitude.value, locationController.longitude.value, 1500, 'bar');
+    updateMarkers();
   }
 }

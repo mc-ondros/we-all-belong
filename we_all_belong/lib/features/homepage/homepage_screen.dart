@@ -52,9 +52,9 @@ class HomePage extends StatelessWidget {
                       children: [
                         Text(
                           'Select Category',
-                          style: GoogleFonts.candal(
+                          style: GoogleFonts.anton(
                             textStyle: const TextStyle(
-                              color: GenericColors.white,
+                              color: GenericColors.moonGrey,
                               fontSize: FontSizes.f_18,
                             ),
                           ),
@@ -78,7 +78,7 @@ class HomePage extends StatelessWidget {
                           ),
                           child: DropdownButtonCustom(
                             defaultValue: myDropdownController.selectedValue.value,
-                            dropdownColor: GenericColors.background,
+                            dropdownColor: GenericColors.moonGrey,
                             currentData: const [
                               'bar',
                               'restaurant',

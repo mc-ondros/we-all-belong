@@ -81,6 +81,12 @@ class EditProfileScreen extends StatelessWidget {
           icon: Icons.people_outline,
         ),
         const SizedBox(height: 16),
+        
+        _buildTextField(
+          label: 'Pronouns',
+          controller: controller.pronounsController,
+          icon: Icons.wifi_protected_setup,
+        ),
 
         Row(
           children: [

@@ -25,10 +25,10 @@ class BestRatedScreen extends StatelessWidget {
             visible: bestRatedController.venues.isNotEmpty,
             child: Text(
               'Best rated:',
-              style: GoogleFonts.candal(
+              style: GoogleFonts.anton(
                 textStyle: const TextStyle(
                   color: Colors.white,
-                  fontSize: FontSizes.f_18,
+                  fontSize: FontSizes.f_22,
                 ),
               ),
             ),

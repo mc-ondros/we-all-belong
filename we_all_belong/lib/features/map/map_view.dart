@@ -33,7 +33,7 @@ class MapPage extends StatelessWidget {
                 visible: homePageController.venues.isNotEmpty,
                 child: Container(
                   alignment: Alignment.center,
-                  margin: const EdgeInsets.all(30.0),
+                  margin: const EdgeInsets.all(15.0),
                   padding: const EdgeInsets.all(10.0),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30.0),
@@ -49,33 +49,33 @@ class MapPage extends StatelessWidget {
                     children: [
                       Text(
                         'Select Category',
-                        style: GoogleFonts.candal(
+                        style: GoogleFonts.anton(
                           textStyle: const TextStyle(
-                            color: GenericColors.white,
-                            fontSize: FontSizes.f_18,
+                            color: GenericColors.moonGrey,
+                            fontSize: FontSizes.f_15,
                           ),
                         ),
                       ),
                       const SizedBox(
-                        height: 5.0,
+                        height: 3.0,
                       ),
                       Container(
                         alignment: Alignment.bottomCenter,
-                        width: 145,
-                        height: 70,
+                        width: 80,
+                        height: 60,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30.0),
+                          borderRadius: BorderRadius.circular(1.0),
                           border: Border.all(
                             color: GenericColors.grey,
                           ),
                           gradient: const RadialGradient(
-                              colors: [GenericColors.highlightBlue, GenericColors.white],
+                              colors: [GenericColors.grey, GenericColors.moonGrey],
                               center: Alignment.bottomCenter,
                               radius: 5.0),
                         ),
                         child: DropdownButtonCustom(
                           defaultValue: myDropdownController.selectedValue.value,
-                          dropdownColor: GenericColors.background,
+                          dropdownColor: GenericColors.moonGrey,
                           currentData: const [
                             'bar',
                             'restaurant',

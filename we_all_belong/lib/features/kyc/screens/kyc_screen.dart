@@ -11,7 +11,7 @@ class KYCScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -21,7 +21,7 @@ class KYCScreen extends StatelessWidget {
               children: [
                 Text(
                   'Tell Us More About YOU',
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.anton(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),

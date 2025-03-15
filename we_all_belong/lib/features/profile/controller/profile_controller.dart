@@ -11,19 +11,20 @@ class ProfileController extends GetxController {
   final nameController = TextEditingController();
   final bioController = TextEditingController();
   final genderController = TextEditingController();
+  final pronounsController = TextEditingController();
   final nationalityController = TextEditingController();
   final ageController = TextEditingController();
-  
+
   final Rx<File?> profileImage = Rx<File?>(null);
   final RxString profileImageUrl = RxString('');
   final RxBool isLoading = false.obs;
-  
+
   // Add userProfile to store all user data
   final Rx<UserProfileModel?> userProfile = Rx<UserProfileModel?>(null);
-  
+
   final _picker = ImagePicker();
   final _profileImageService = Get.find<ProfileImageService>();
-  
+
   // Check if controller is initialized
   bool get initialized => Get.isRegistered<ProfileController>();
 
@@ -47,9 +48,10 @@ class ProfileController extends GetxController {
       if (image != null) {
         isLoading.value = true;
         profileImage.value = File(image.path);
-        
+
         // Upload and cache the image
-        final url = await _profileImageService.uploadProfileImage(profileImage.value!);
+        final url =
+            await _profileImageService.uploadProfileImage(profileImage.value!);
         if (url != null) {
           profileImageUrl.value = url;
         }
@@ -71,12 +73,13 @@ class ProfileController extends GetxController {
         if (userData.exists) {
           // Store the complete user profile
           userProfile.value = UserProfileModel.fromFirebase(userData);
-          
+
           // Update the text controllers
           final data = userData.data()!;
           nameController.text = data['name'] ?? '';
           bioController.text = data['bio'] ?? '';
           genderController.text = data['gender'] ?? '';
+          pronounsController.text = data['pronouns'] ?? '';
           nationalityController.text = data['nationality'] ?? '';
           ageController.text = data['age']?.toString() ?? '';
         }
@@ -103,6 +106,7 @@ class ProfileController extends GetxController {
           name: nameController.text,
           bio: bioController.text,
           gender: genderController.text,
+          pronouns: pronounsController.text,
           nationality: nationalityController.text,
           age: int.tryParse(ageController.text),
           // Preserve existing values for other fields
@@ -111,7 +115,7 @@ class ProfileController extends GetxController {
           disabilities: userProfile.value?.disabilities,
           isOnboarded: userProfile.value?.isOnboarded ?? true,
         );
-        
+
         await FirebaseFirestore.instance
             .collection('users')
             .doc(user.uid)
@@ -120,8 +124,9 @@ class ProfileController extends GetxController {
         // Update the stored profile
         userProfile.value = updatedProfile;
 
-        await Future.delayed(const Duration(seconds: 1)); // Simulate network delay
-        
+        await Future.delayed(
+            const Duration(seconds: 1)); // Simulate network delay
+
         Get.snackbar(
           'Success',
           'Profile updated successfully',
@@ -169,6 +174,7 @@ class ProfileController extends GetxController {
     nameController.dispose();
     bioController.dispose();
     genderController.dispose();
+    pronounsController.dispose();
     nationalityController.dispose();
     ageController.dispose();
     super.onClose();

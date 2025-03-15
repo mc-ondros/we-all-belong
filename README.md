@@ -1,8 +1,8 @@
 # We All Belong
 
-![Flutter](https://img.shields.io/badge/Flutter-v3.7.12-blue)
+![Flutter](https://img.shields.io/badge/Flutter-v3.29.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
-![Unihack](https://img.shields.io/badge/Unihack-2024-orange)
+![Unihack](https://img.shields.io/badge/ITFest-2025-orange)
 
 **We All Belong** is a Flutter-based mobile application that enables users to rate and discover places based on **accessibility**, **inclusivity**, and **safety**. Designed  for LGBTQIA+, other underrepresented communities and the general society, *We All Belong* helps people make informed decisions about the spaces they choose to visit.
 
@@ -15,7 +15,7 @@
 - **Inclusivity**: Rates how welcoming and accepting the environment is for diverse identities.
 - **Safety**: Reflects the overall sense of security within the space.
 
-Developed for **UniHack 2024**, *We All Belong* focuses on amplifying the voices of those in marginalized communities, empowering users to find spaces where they can feel safe and included.
+Developed for **IT Fest 2024**, *We All Belong* focuses on amplifying the voices of those in marginalized communities, empowering users to find spaces where they can feel safe and included.
 
 ## ✨ Features
 
@@ -35,5 +35,5 @@ Meet the passionate team behind *We All Belong*:
 - **Andrei Pop**
 - **Bogdan Ruțaș**
 - **Paul Martin**
-- **Petru Crăciunoiu**
+- **Dan Negriu**
 # wab

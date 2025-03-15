@@ -27,15 +27,16 @@ class MapPage extends StatelessWidget {
       body: Obx(
         () => FlutterMap(
           options: MapOptions(
+            backgroundColor: Colors.black,
             initialCenter: LatLng(locationController.latitude.value, locationController.longitude.value),
           ),
           children: [
             TileLayer(
-              urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+              urlTemplate: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
               subdomains: ['a', 'b', 'c'],
             ),
             MarkerLayer(
-              markers: homePageController.markers,
+              markers: homePageController.markers.value,
             ),
           ],
         ),

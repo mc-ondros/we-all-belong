@@ -32,7 +32,6 @@ class RoundedRectangleWithShadow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('venue icon: ${venue.icon}');
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -64,6 +63,13 @@ class RoundedRectangleWithShadow extends StatelessWidget {
               indicatorType: Indicator.ballBeat,
               colors: [Colors.white],
             ),
+            errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+              return const Icon(
+                Icons.error_outline,
+                size: 48,
+                color: Colors.red,
+              );
+            },
           ),
           title: Text(
             venue.name ?? '',
@@ -83,7 +89,7 @@ class RoundedRectangleWithShadow extends StatelessWidget {
 extension RoundedRectangleWithShadowExtension on RoundedRectangleWithShadow {
   String fixVenues(String originalString) {
     if (originalString.contains('bar')) {
-      return 'https://www.svgrepo.com/show/444797/drink-cocktail.svg';
+      return 'https://www.svgrepo.com/show/513322/martini.svg';
     } else if (originalString.contains('restaurant')) {
       return 'https://www.svgrepo.com/show/281640/restaurant-fork.svg';
     } else if (originalString.contains('cafe')) {
@@ -99,6 +105,6 @@ extension RoundedRectangleWithShadowExtension on RoundedRectangleWithShadow {
     } else if (originalString.contains('night_club')) {
       return 'https://www.svgrepo.com/show/268413/disco-club.svg';
     }
-    return '';
+    return 'https://www.svgrepo.com/show/513552/location-pin.svg';
   }
 }

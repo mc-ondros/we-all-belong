@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:we_all_belong/core/google_maps_api/google_maps_api.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:we_all_belong/core/models/venue_model.dart';
@@ -10,6 +11,7 @@ import 'package:we_all_belong/features/preview_venue/api/preview_venue_api.dart'
 import 'package:we_all_belong/features/preview_venue/controller/preview_venue_controller.dart';
 import '../../components/specs/colors.dart';
 import '../../core/user_controller/user_controller.dart';
+import 'package:image_picker/image_picker.dart';
 
 // ignore: must_be_immutable
 class PreviewVenue extends StatefulWidget {
@@ -207,9 +209,22 @@ class _PreviewVenueState extends State<PreviewVenue> {
                 contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
               ),
             ),
+            ListTile(
+              leading: const Icon(Icons.photo_library),
+              title: const Text('Pick from Gallery'),
+              onTap: () async {
+                await previewVenueController.pickImage(ImageSource.gallery);
+              },
+            ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
+                if (previewVenueController.imageFile != null) {
+                  await previewVenueController.uploadImage();
+                  print('downloadURL: ${previewVenueController.downloadURL.value}');
+                } else {
+                  previewVenueController.downloadURL.value = '';
+                }
                 await PreviewVenueApi().uploadReview(
                   ReviewModel(
                     uuid: widget.userController.userModel.value.uuid ?? '', //TODO: implement ID
@@ -218,6 +233,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
                     friendliness: previewVenueController.lgbtRating.value,
                     halal: previewVenueController.halalToggle.value,
                     kosher: previewVenueController.kosherToggle.value,
+                    photoUrl: previewVenueController.downloadURL.value,
                   ),
                   widget.id ?? '',
                 );
@@ -230,6 +246,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
                     friendliness: previewVenueController.lgbtRating.value,
                     halal: previewVenueController.halalToggle.value,
                     kosher: previewVenueController.kosherToggle.value,
+                    photoUrl: previewVenueController.downloadURL.value,
                   ));
                   widget.reviewTextEditingController.clear();
                   previewVenueController.accesibilityRating.value = 3.0;
@@ -253,7 +270,11 @@ class _PreviewVenueState extends State<PreviewVenue> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
-          return Center(child: Text("Error fetching reviews: ${snapshot.error}"));
+          print("Error fetching reviews: ${snapshot.error}");
+          return const LoadingIndicator(
+            indicatorType: Indicator.ballBeat,
+            colors: [Colors.white],
+          );
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return const Center(child: Text("No reviews available"));
         } else {
@@ -265,6 +286,13 @@ class _PreviewVenueState extends State<PreviewVenue> {
             itemBuilder: (context, index) {
               final review = widget.reviews[index];
               return Card(
+                shape: RoundedRectangleBorder(
+                  side: const BorderSide(
+                    color: GenericColors.shadyGreen,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(20),
+                ),
                 margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                 child: ListTile(
                   title: Text(review.text),
@@ -295,6 +323,31 @@ class _PreviewVenueState extends State<PreviewVenue> {
                       ),
                       Text("Halal: ${review.halal ? "Yes" : "No"}"),
                       Text("Kosher: ${review.kosher ? "Yes" : "No"}"),
+                      Visibility(visible: review.photoUrl != '', child: const Text("User photo:")),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.network(
+                            review.photoUrl,
+                            loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  value: loadingProgress.expectedTotalBytes != null
+                                      ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                                      : null,
+                                ),
+                              );
+                            },
+                            errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                              print('$exception, photoURL: ${review.photoUrl} ${review.text}');
+                              print(stackTrace);
+                              return Container();
+                            },
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),

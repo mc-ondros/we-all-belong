@@ -39,7 +39,7 @@ dependencies:
   cloud_firestore: ^4.17.5
   firebase_core: ^2.31.1
   firebase_auth: ^4.19.6
-  firebase_storage: ^11.7.6
+  firebase_storage: ^11.7.7
   firebase_messaging: ^14.9.3
   firebase_auth_platform_interface: ^7.2.7
 
@@ -108,7 +108,6 @@ dependencies:
   fl_chart: ^0.68.0
   crypto: ^3.0.3
   flutter_stripe: ^11.0.0
-  firebase_app_check: ^0.2.2+7
   package_info_plus: ^8.0.2
   geolocator: ^12.0.0
 

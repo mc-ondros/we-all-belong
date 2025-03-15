@@ -11,6 +11,8 @@ class UserProfileModel {
   final String? sexualPreference;
   final List<String>? disabilities;
   final bool isOnboarded;
+  final String? bio;
+  final int? age;
 
   UserProfileModel({
     required this.uuid,
@@ -23,6 +25,8 @@ class UserProfileModel {
     this.sexualPreference,
     this.disabilities,
     this.isOnboarded = false,
+    this.bio,
+    this.age,
   });
 
   Map<String, dynamic> toJson() {
@@ -37,6 +41,8 @@ class UserProfileModel {
       'sexualPreference': sexualPreference,
       'disabilities': disabilities,
       'isOnboarded': isOnboarded,
+      'bio': bio,
+      'age': age,
     };
   }
 
@@ -52,6 +58,8 @@ class UserProfileModel {
       sexualPreference: json['sexualPreference'],
       disabilities: json['disabilities'] != null ? List<String>.from(json['disabilities']) : null,
       isOnboarded: json['isOnboarded'] ?? false,
+      bio: json['bio'],
+      age: json['age'],
     );
   }
   factory UserProfileModel.fromFirebase(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -67,6 +75,8 @@ class UserProfileModel {
       sexualPreference: data?['sexualPreference'],
       disabilities: data?['disabilities'] != null ? List<String>.from(data!['disabilities']) : null,
       isOnboarded: data?['isOnboarded'] ?? false,
+      bio: data?['bio'],
+      age: data?['age'],
     );
   }
 }

@@ -8,7 +8,7 @@ class RoundedRectangleWithShadow extends StatelessWidget {
   final Color color;
   final Color borderColor;
   final double width;
-  final double height;
+  final double? height;
   final double borderRadius;
   final double shadowOffset;
   final Color shadowColor;
@@ -38,9 +38,17 @@ class RoundedRectangleWithShadow extends StatelessWidget {
         height: height,
         decoration: BoxDecoration(
           color: GenericColors.background,
+          gradient: const RadialGradient(
+              colors: [
+                GenericColors.darkGrey,
+                GenericColors.supportGrey
+              ],
+              center: Alignment.center,
+              radius: 3
+          ),
           borderRadius: BorderRadius.circular(borderRadius),
           border: Border.all(
-            color: GenericColors.highlightBlue,
+            color: GenericColors.grey,
             width: 2,
           ),
         ),
@@ -67,7 +75,7 @@ class RoundedRectangleWithShadow extends StatelessWidget {
           ),
           subtitle: Text(
             venue.vicinity ?? '',
-            style: const TextStyle(color: GenericColors.secondaryAccent),
+            style: const TextStyle(color: GenericColors.white),
           ),
           onTap: onTap,
         ),

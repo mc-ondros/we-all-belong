@@ -26,51 +26,94 @@ class HomePage extends StatelessWidget {
       init: homepageController,
       builder: (_) => Scaffold(
         appBar: AppBar(
+          toolbarHeight: 135,
             automaticallyImplyLeading: false,
             backgroundColor: GenericColors.background,
-            title: Visibility(
-              visible: homepageController.venues.isNotEmpty,
-              child: Row(
-                children: [
-                  Container(
-                    alignment: Alignment.bottomCenter,
-                    width: 145,
-                    height: 70,
-                    child: DropdownButtonCustom(
-                      borderColor: GenericColors.highlightBlue,
-                      defaultValue: myDropdownController.selectedValue.value,
-                      dropdownColor: GenericColors.background,
-                      currentData: const [
-                        'bar',
-                        'restaurant',
-                        'cafe',
-                        'gym',
-                        'library',
-                        'movie_theater',
-                        'night_club',
-                        'museum',
-                      ],
-                      valueBuilder: (newValue) async {
-                        myDropdownController.selectedValue.value = newValue;
-                        homepageController.venues.value = await GoogleMapsApi().getNearbyVenues(
-                            locationController.latitude.value,
-                            locationController.longitude.value,
-                            1500,
-                            myDropdownController.selectedValue.value);
-                      },
-                    ),
-                  ),
-                  Text(
-                    'nearby:',
-                    style: GoogleFonts.candal(
-                      textStyle: const TextStyle(
-                        color: GenericColors.secondaryAccent,
-                        fontSize: FontSizes.f_18,
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Visibility(
+                  visible: homepageController.venues.isNotEmpty,
+                  child: Container(
+                    alignment: Alignment.center,
+                    margin: const EdgeInsets.all(30.0),
+                    padding: const EdgeInsets.all(10.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30.0),
+                      border: Border.all(
+                        color: GenericColors.grey,
                       ),
+                      gradient: const RadialGradient(
+                        colors: [
+                          GenericColors.darkGrey,
+                          GenericColors.supportGrey
+                        ],
+                        center: Alignment.center,
+                        radius: 5.0
+                      )
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Select Category',
+                          style: GoogleFonts.candal(
+                            textStyle: const TextStyle(
+                              color: GenericColors.white,
+                              fontSize: FontSizes.f_18,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5.0,
+                        ),
+                        Container(
+                          alignment: Alignment.bottomCenter,
+                          width: 145,
+                          height: 70,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30.0),
+                            border: Border.all(
+                              color: GenericColors.grey,
+                            ),
+                            gradient: const RadialGradient(
+                              colors: [
+                                GenericColors.highlightBlue,
+                                GenericColors.white
+                              ],
+                                center: Alignment.bottomCenter,
+                                radius: 5.0
+                            ),
+                          ),
+                          child: DropdownButtonCustom(
+                            defaultValue: myDropdownController.selectedValue.value,
+                            dropdownColor: GenericColors.background,
+                            currentData: const [
+                              'bar',
+                              'restaurant',
+                              'cafe',
+                              'gym',
+                              'library',
+                              'movie_theater',
+                              'night_club',
+                              'museum',
+                            ],
+                            valueBuilder: (newValue) async {
+                              myDropdownController.selectedValue.value = newValue;
+                              homepageController.venues.value = await GoogleMapsApi().getNearbyVenues(
+                                  locationController.latitude.value,
+                                  locationController.longitude.value,
+                                  1500,
+                                  myDropdownController.selectedValue.value);
+                            },
+                          ),
+                        ),
+
+                      ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             )),
         body: Scaffold(
           backgroundColor: GenericColors.background,
@@ -87,7 +130,7 @@ class HomePage extends StatelessWidget {
                         color: GenericColors.background,
                         borderColor: GenericColors.highlightBlue,
                         width: 792,
-                        height: 100,
+                        height: null,
                         venue: venue,
                         onTap: () {
                           Get.to(PreviewVenue(

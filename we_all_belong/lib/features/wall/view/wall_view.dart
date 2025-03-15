@@ -138,8 +138,7 @@ class WallPage extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 20.0, bottom: 10, left: 30, right: 30),
+          Container(
             child: ElevatedButton(
               onPressed: () async {
                 Get.to(ChatroomList());

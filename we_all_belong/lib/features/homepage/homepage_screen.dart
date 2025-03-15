@@ -30,50 +30,53 @@ class HomePage extends StatelessWidget {
             backgroundColor: GenericColors.background,
             title: Visibility(
               visible: homepageController.venues.isNotEmpty,
-              child: Row(
-                children: [
-                  Container(
-                    alignment: Alignment.bottomCenter,
-                    width: 145,
-                    height: 70,
-                    child: DropdownButtonCustom(
-                      borderColor: GenericColors.highlightBlue,
-                      defaultValue: myDropdownController.selectedValue.value,
-                      dropdownColor: GenericColors.background,
-                      currentData: const [
-                        'bar',
-                        'restaurant',
-                        'cafe',
-                        'gym',
-                        'library',
-                        'movie_theater',
-                        'night_club',
-                        'museum',
-                      ],
-                      valueBuilder: (newValue) async {
-                        myDropdownController.selectedValue.value = newValue;
-                        homepageController.venues.value = await GoogleMapsApi().getNearbyVenues(
-                            locationController.latitude.value,
-                            locationController.longitude.value,
-                            1500,
-                            myDropdownController.selectedValue.value);
-                      },
-                    ),
-                  ),
-                  Text(
-                    'nearby:',
-                    style: GoogleFonts.candal(
-                      textStyle: const TextStyle(
-                        color: GenericColors.secondaryAccent,
-                        fontSize: FontSizes.f_18,
+              child: Container(
+                alignment: Alignment.center,
+                child: Row(
+                  children: [
+                    Text(
+                      'Select Category',
+                      style: GoogleFonts.candal(
+                        textStyle: const TextStyle(
+                          color: GenericColors.secondaryAccent,
+                          fontSize: FontSizes.f_18,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                    Container(
+                      alignment: Alignment.bottomCenter,
+                      width: 145,
+                      height: 70,
+                      child: DropdownButtonCustom(
+                        defaultValue: myDropdownController.selectedValue.value,
+                        dropdownColor: GenericColors.background,
+                        currentData: const [
+                          'bar',
+                          'restaurant',
+                          'cafe',
+                          'gym',
+                          'library',
+                          'movie_theater',
+                          'night_club',
+                          'museum',
+                        ],
+                        valueBuilder: (newValue) async {
+                          myDropdownController.selectedValue.value = newValue;
+                          homepageController.venues.value = await GoogleMapsApi().getNearbyVenues(
+                              locationController.latitude.value,
+                              locationController.longitude.value,
+                              1500,
+                              myDropdownController.selectedValue.value);
+                        },
+                      ),
+                    ),
+
+                  ],
+                ),
               ),
             )),
         body: Scaffold(
-          backgroundColor: GenericColors.background,
+          backgroundColor: GenericColors.settingsGrey,
           body: Obx(() => Visibility(
                 replacement: const LoadingIndicator(
                   indicatorType: Indicator.ballPulse,
@@ -87,7 +90,7 @@ class HomePage extends StatelessWidget {
                         color: GenericColors.background,
                         borderColor: GenericColors.highlightBlue,
                         width: 792,
-                        height: 100,
+                        height: null,
                         venue: venue,
                         onTap: () {
                           Get.to(PreviewVenue(

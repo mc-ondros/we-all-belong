@@ -61,7 +61,7 @@ class DropdownButtonCustom<DropDownType> extends StatelessWidget {
               color: fillColor,
               border: Border.all(
                 width: 3 * screenWidthMultiplier,
-                color: GenericColors.highlightBlue,
+                color: Colors.transparent,
               ),
             ),
             child: DropdownButton<DropDownType>(

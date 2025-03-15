@@ -9,7 +9,7 @@ class RoundedRectangleWithShadow extends StatelessWidget {
   final Color color;
   final Color borderColor;
   final double width;
-  final double height;
+  final double? height;
   final double borderRadius;
   final double shadowOffset;
   final Color shadowColor;
@@ -40,9 +40,18 @@ class RoundedRectangleWithShadow extends StatelessWidget {
         height: height,
         decoration: BoxDecoration(
           color: GenericColors.background,
+          gradient: RadialGradient(
+              colors: [
+                GenericColors.midnightGreen,
+                GenericColors.shadyGreen,
+
+              ],
+              center: Alignment.center,
+              radius: 3
+          ),
           borderRadius: BorderRadius.circular(borderRadius),
           border: Border.all(
-            color: GenericColors.highlightBlue,
+            color: GenericColors.grey,
             width: 2,
           ),
         ),

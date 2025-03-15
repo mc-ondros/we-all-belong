@@ -3,6 +3,7 @@ import 'package:we_all_belong/core/core_shared.dart';
 import 'package:we_all_belong/features/best_rated/best_rated.dart';
 import 'package:we_all_belong/features/bottom_navigation_bar/bottom_navigation_controller.dart';
 import 'package:we_all_belong/features/profile/screens/edit_profile_screen.dart';
+import 'package:we_all_belong/features/wall/view/wall_view.dart';
 
 import '../homepage/homepage_screen.dart';
 
@@ -17,7 +18,8 @@ class _BottomNavigationBarCustomState extends State<BottomNavigationBarCustom> {
   final List<Widget> screens = [
     BestRatedScreen(),
     HomePage(),
-    EditProfileScreen(), // Replace with your actual screen// Replace with your actual screen
+    EditProfileScreen(),
+    WallPage(), // Replace with your actual screen// Replace with your actual screen
   ];
 
   final BottomNavigationController bottomNavigationController = Get.put(BottomNavigationController());
@@ -34,9 +36,30 @@ class _BottomNavigationBarCustomState extends State<BottomNavigationBarCustom> {
             bottomNavigationController.selectedIndex.value = value; // Navigate to the selected screen
           },
           items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Best Rated'),
-            BottomNavigationBarItem(icon: Icon(Icons.map), label: 'Nearby'),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.home,
+                  color: Colors.white,
+                ),
+                label: 'Best Rated'),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.map,
+                  color: Colors.white,
+                ),
+                label: 'Nearby'),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.person,
+                  color: Colors.white,
+                ),
+                label: 'Profile'),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.post_add,
+                  color: Colors.white,
+                ),
+                label: 'Wall'),
           ],
         ),
       ),

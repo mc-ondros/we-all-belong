@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:safe_text/safe_text.dart';
+import 'package:we_all_belong/features/profile/controller/profile_controller.dart';
 
 import '../../../core/user_controller/user_controller.dart';
 
 class WallController extends GetxController {
+  ProfileController profileController = ProfileController().initialized
+      ? Get.find()
+      : Get.put(ProfileController());
+
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   UserController userController = Get.find();
   var posts = <Map<String, dynamic>>[].obs;
@@ -17,12 +22,18 @@ class WallController extends GetxController {
   }
 
   void fetchPosts() {
-    _firestore.collection('posts').orderBy('timestamp', descending: true).snapshots().listen((snapshot) {
+    _firestore
+        .collection('posts')
+        .orderBy('timestamp', descending: true)
+        .snapshots()
+        .listen((snapshot) {
+      print(snapshot.docs[0].data().toString());
       posts.value = snapshot.docs.map((doc) => doc.data()).toList();
     });
   }
 
   void addPost(String content) {
+    profileController.loadUserData();
     if (content.isNotEmpty) {
       String filteredText = SafeText.filterText(
         text: content,
@@ -89,7 +100,8 @@ class WallController extends GetxController {
       _firestore.collection('posts').add({
         'content': filteredText,
         'timestamp': FieldValue.serverTimestamp(),
-        'name': userController.userModel.value.name,
+        'name': profileController.userProfile.value?.name ?? '',
+        ''
       });
       postController.clear();
     }

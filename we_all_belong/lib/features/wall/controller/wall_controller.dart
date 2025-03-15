@@ -69,7 +69,7 @@ class WallController extends GetxController {
           final userId = post['userId'] as String;
 
           // Check if we already have this user's profile in cache
-          if (!_userProfileCache.containsKey(userId) && userId != null) {
+          if (!_userProfileCache.containsKey(userId)) {
             try {
               final userDoc = await _firestore.collection('users').doc(userId).get();
               if (userDoc.exists) {

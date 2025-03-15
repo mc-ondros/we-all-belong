@@ -61,7 +61,7 @@ class DropdownButtonCustom<DropDownType> extends StatelessWidget {
               color: fillColor,
               border: Border.all(
                 width: 3 * screenWidthMultiplier,
-                color: GenericColors.highlightBlue,
+                color: Colors.transparent,
               ),
             ),
             child: DropdownButton<DropDownType>(
@@ -88,7 +88,7 @@ class DropdownButtonCustom<DropDownType> extends StatelessWidget {
               style: GoogleFonts.candal(
                 textStyle: textStyle ??
                     TextStyle(
-                      color: GenericColors.secondaryAccent,
+                      color: GenericColors.white,
                       fontSize: FontSizes.f_18 * screenWidthMultiplier,
                       fontWeight: FontWeight.w300,
                     ),

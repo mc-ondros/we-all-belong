@@ -52,7 +52,7 @@ class BestRatedScreen extends StatelessWidget {
                       color: const Color(0xFFF5F5DC),
                       borderColor: const Color(0xFF004225),
                       width: 792,
-                      height: 100,
+                      height: null,
                       venue: venue,
                       onTap: () {
                         Get.to(() => PreviewVenue(

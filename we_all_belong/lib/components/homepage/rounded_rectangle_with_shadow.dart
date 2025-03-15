@@ -77,7 +77,7 @@ class RoundedRectangleWithShadow extends StatelessWidget {
           ),
           subtitle: Text(
             venue.vicinity ?? '',
-            style: const TextStyle(color: GenericColors.secondaryAccent),
+            style: const TextStyle(color: GenericColors.white),
           ),
           onTap: onTap,
         ),

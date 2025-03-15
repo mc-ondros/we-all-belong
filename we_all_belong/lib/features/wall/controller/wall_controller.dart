@@ -35,7 +35,8 @@ class WallController extends GetxController {
           'coaie',
           'fututi',
           'pizda',
-          'fututi',
+          'futu-ti',
+          'futu-ti',
           'mortii',
           'matii',
           'futu-ti',
@@ -80,7 +81,7 @@ class WallController extends GetxController {
           'bulangiu',
           'homalau',
           'futincurist',
-          'olog'
+          'olog',
         ],
         fullMode: true,
         obscureSymbol: "*",

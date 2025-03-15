@@ -41,9 +41,11 @@ class HomePageController extends GetxController {
         child: GestureDetector(
           onTap: () {
             Get.to(PreviewVenue(
-                name: venues.firstWhere((element) => element.lat == lat && element.long == lng).name,
-                id: venues.firstWhere((element) => element.lat == lat && element.long == lng).place_id,
-                open_now: venues.firstWhere((element) => element.lat == lat && element.long == lng).open_now));
+              name: venues.firstWhere((element) => element.lat == lat && element.long == lng).name,
+              id: venues.firstWhere((element) => element.lat == lat && element.long == lng).place_id,
+              open_now: venues.firstWhere((element) => element.lat == lat && element.long == lng).open_now,
+              venueModel: venues.firstWhere((element) => element.lat == lat && element.long == lng),
+            ));
             // Handle marker tap
           },
           child: Column(

@@ -39,7 +39,18 @@ class HomePage extends StatelessWidget {
                     margin: const EdgeInsets.all(30.0),
                     padding: const EdgeInsets.all(10.0),
                     decoration: BoxDecoration(
-                      border: Border.all()
+                      borderRadius: BorderRadius.circular(30.0),
+                      border: Border.all(
+                        color: GenericColors.grey,
+                      ),
+                      gradient: const RadialGradient(
+                        colors: [
+                          GenericColors.darkGrey,
+                          GenericColors.supportGrey
+                        ],
+                        center: Alignment.center,
+                        radius: 5.0
+                      )
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -53,10 +64,27 @@ class HomePage extends StatelessWidget {
                             ),
                           ),
                         ),
+                        const SizedBox(
+                          height: 5.0,
+                        ),
                         Container(
                           alignment: Alignment.bottomCenter,
                           width: 145,
                           height: 70,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30.0),
+                            border: Border.all(
+                              color: GenericColors.grey,
+                            ),
+                            gradient: const RadialGradient(
+                              colors: [
+                                GenericColors.highlightBlue,
+                                GenericColors.white
+                              ],
+                                center: Alignment.bottomCenter,
+                                radius: 5.0
+                            ),
+                          ),
                           child: DropdownButtonCustom(
                             defaultValue: myDropdownController.selectedValue.value,
                             dropdownColor: GenericColors.background,
@@ -88,7 +116,7 @@ class HomePage extends StatelessWidget {
               ],
             )),
         body: Scaffold(
-          backgroundColor: GenericColors.settingsGrey,
+          backgroundColor: GenericColors.background,
           body: Obx(() => Visibility(
                 replacement: const LoadingIndicator(
                   indicatorType: Indicator.ballPulse,

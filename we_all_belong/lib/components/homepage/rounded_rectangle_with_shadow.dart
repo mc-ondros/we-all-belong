@@ -38,11 +38,10 @@ class RoundedRectangleWithShadow extends StatelessWidget {
         height: height,
         decoration: BoxDecoration(
           color: GenericColors.background,
-          gradient: RadialGradient(
+          gradient: const RadialGradient(
               colors: [
-                GenericColors.midnightGreen,
-                GenericColors.shadyGreen,
-
+                GenericColors.darkGrey,
+                GenericColors.supportGrey
               ],
               center: Alignment.center,
               radius: 3

@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:we_all_belong/features/homepage/controller/homepage_controller.dart';
@@ -108,7 +106,7 @@ class MapPage extends StatelessWidget {
       body: Obx(
         () => Visibility(
           visible: !homePageController.isUpdatingMarkers.value,
-          replacement: LoadingIndicator(
+          replacement: const LoadingIndicator(
             indicatorType: Indicator.ballBeat,
             colors: [Colors.white],
           ),

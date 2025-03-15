@@ -31,27 +31,6 @@ class HomePageController extends GetxController {
 
   void updateMarkers() {
     isUpdatingMarkers.value = true;
-    markers.add(
-      Marker(
-        width: 100,
-        height: 100,
-        point: LatLng(locationController.latitude.value ?? 0.0, locationController.longitude.value ?? 0.0),
-        child: Column(
-          children: [
-            const Icon(
-              Icons.location_pin,
-              color: GenericColors.errorRed,
-              size: 80,
-            ),
-            Text(
-              'You',
-              overflow: TextOverflow.ellipsis,
-              style: GoogleFonts.poppins(fontSize: 15, color: Colors.white),
-            ),
-          ],
-        ),
-      ),
-    );
     markers.value = venues.map<Marker>((place) {
       final lat = place.lat;
       final lng = place.long;
@@ -84,6 +63,27 @@ class HomePageController extends GetxController {
         ),
       );
     }).toList();
+    markers.add(
+      Marker(
+        width: 100,
+        height: 100,
+        point: LatLng(locationController.latitude.value, locationController.longitude.value),
+        child: Column(
+          children: [
+            const Icon(
+              Icons.location_pin,
+              color: GenericColors.errorRed,
+              size: 70,
+            ),
+            Text(
+              'You',
+              overflow: TextOverflow.ellipsis,
+              style: GoogleFonts.poppins(fontSize: 14, color: Colors.white),
+            ),
+          ],
+        ),
+      ),
+    );
     isUpdatingMarkers.value = false;
   }
 

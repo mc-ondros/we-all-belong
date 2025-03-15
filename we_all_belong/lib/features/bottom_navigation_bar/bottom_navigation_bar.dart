@@ -32,6 +32,9 @@ class _BottomNavigationBarCustomState extends State<BottomNavigationBarCustom> {
       () => Scaffold(
         body: screens[bottomNavigationController.selectedIndex.value],
         bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: GenericColors.white,
+          unselectedItemColor: GenericColors.lighterGrey,
           backgroundColor: GenericColors.background,
           currentIndex: bottomNavigationController.selectedIndex.value,
           onTap: (value) {
@@ -45,17 +48,18 @@ class _BottomNavigationBarCustomState extends State<BottomNavigationBarCustom> {
                 ),
                 label: 'Best Rated'),
             BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.map,
-                  color: Colors.white,
-                ),
-                label: 'Nearby'),
+              icon: Icon(
+                Icons.list,
+                color: Colors.white,
+              ),
+              label: 'Nearby',
+            ),
             BottomNavigationBarItem(
                 icon: Icon(
                   Icons.map,
                   color: Colors.white,
                 ),
-                label: 'Nearby'),
+                label: 'Map'),
             BottomNavigationBarItem(
                 icon: Icon(
                   Icons.person,

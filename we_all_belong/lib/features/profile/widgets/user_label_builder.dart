@@ -52,7 +52,7 @@ class UserLabelBuilder {
       for (final disability in profile.disabilities!) {
         labels.add(UserLabel(
           label: disability,
-          icon: Icons.accessibility_new_outlined,
+          icon: Icons.dangerous_outlined,
           category: LabelCategory.disability,
         ));
       }

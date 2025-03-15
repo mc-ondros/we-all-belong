@@ -23,6 +23,9 @@ class ProfileController extends GetxController {
   
   final _picker = ImagePicker();
   final _profileImageService = Get.find<ProfileImageService>();
+  
+  // Check if controller is initialized
+  bool get initialized => Get.isRegistered<ProfileController>();
 
   @override
   void onInit() {

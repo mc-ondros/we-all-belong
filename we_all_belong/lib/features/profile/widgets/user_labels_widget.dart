@@ -51,7 +51,7 @@ class UserLabelsWidget extends StatelessWidget {
     
     return Chip(
       avatar: Icon(
-        label.icon,
+        label.icon, 
         color: Colors.white,
         size: 16,
       ),
@@ -59,7 +59,7 @@ class UserLabelsWidget extends StatelessWidget {
         label.label,
         style: GoogleFonts.poppins(
           color: Colors.white,
-          fontSize: 12,
+          fontSize: 8,
           fontWeight: FontWeight.w500,
         ),
       ),

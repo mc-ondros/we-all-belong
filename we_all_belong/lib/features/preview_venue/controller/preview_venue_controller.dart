@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/material.dart';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
@@ -24,15 +25,15 @@ class PreviewVenueController extends GetxController {
 
     if (pickedFile != null) {
       imageFile = File(pickedFile.path);
-      print('Image selected: ${imageFile!.path}');
+      debugPrint('Image selected: ${imageFile!.path}');
     } else {
-      print('No image selected.');
+      debugPrint('No image selected.');
     }
   }
 
   Future<void> uploadImage() async {
     if (imageFile == null) {
-      print('No image selected.');
+      debugPrint('No image selected.');
       return;
     }
 
@@ -48,10 +49,10 @@ class PreviewVenueController extends GetxController {
 
       isUploading = false;
 
-      print('Download URL: $downloadURL');
+      debugPrint('Download URL: $downloadURL');
     } catch (e, s) {
       isUploading = false;
-      print('Error uploading image: $e $s');
+      debugPrint('Error uploading image: $e $s');
     }
   }
 }

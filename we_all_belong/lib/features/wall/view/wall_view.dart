@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:we_all_belong/features/wall/chatrooms/chatroom_list.dart';
 import 'package:we_all_belong/features/wall/controller/wall_controller.dart';
 import 'package:we_all_belong/components/specs/colors.dart';
 import 'package:we_all_belong/components/specs/font_sizes.dart';
@@ -83,7 +84,7 @@ class WallPage extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final post = wallController.posts[index];
                     final UserProfileModel? userProfile = post['userProfile'];
-                    
+
                     return Card(
                       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       color: GenericColors.background,
@@ -104,7 +105,7 @@ class WallPage extends StatelessWidget {
                                     Text(
                                       '${post['name'] ?? 'guest'} says:',
                                       style: const TextStyle(
-                                        fontSize: 16, 
+                                        fontSize: 16,
                                         color: GenericColors.secondaryAccent,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -135,6 +136,15 @@ class WallPage extends StatelessWidget {
                   },
                 ),
               ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20.0, bottom: 10, left: 30, right: 30),
+            child: ElevatedButton(
+              onPressed: () async {
+                Get.to(ChatroomList());
+              },
+              child: const Text("Chatrooms"),
             ),
           ),
         ],

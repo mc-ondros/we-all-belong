@@ -74,8 +74,6 @@ class UserLabelBuilder {
         return Colors.pink;
       case LabelCategory.disability:
         return Colors.teal;
-      default:
-        return Colors.grey;
     }
   }
 }
@@ -100,4 +98,4 @@ enum LabelCategory {
   religiousOrientation,
   sexualPreference,
   disability,
-} 
+}

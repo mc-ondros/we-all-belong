@@ -115,6 +115,7 @@ dependencies:
   flutter_secure_storage: ^9.0.0
 
   shared_preferences: ^2.2.2
+  flutter_map: ^8.1.1
 
 dependency_overrides:
 

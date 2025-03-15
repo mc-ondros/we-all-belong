@@ -103,7 +103,7 @@ class DropdownButtonCustom<DropDownType> extends StatelessWidget {
                   child: Container(
                     margin: const EdgeInsets.only(left: Paddings.p_10),
                     color: Colors.transparent,
-                    child: Text(value.toString()),
+                    child: Center(child: Text(value.toString())),
                   ),
                 );
               }).toList(),

@@ -62,6 +62,8 @@ class VenueModel {
   final String? icon;
   final String? place_id;
   final bool? open_now;
+  final double? lat;
+  final double? long;
 
   VenueModel({
     this.name,
@@ -69,6 +71,8 @@ class VenueModel {
     this.icon,
     this.place_id,
     this.open_now,
+    this.lat,
+    this.long,
   });
 
   // Factory method to create a Venue object from JSON
@@ -78,6 +82,9 @@ class VenueModel {
       vicinity: json['vicinity'] as String,
       icon: json['icon'] as String,
       open_now: json['open_now'] as bool,
+      place_id: json['place_id'] as String,
+      lat: json['lat'] as double,
+      long: json['long'] as double,
     );
   }
 
@@ -89,6 +96,8 @@ class VenueModel {
       'icon': icon,
       'place_id': place_id,
       'open_now': open_now,
+      'lat': lat,
+      'long': long,
     };
   }
 }

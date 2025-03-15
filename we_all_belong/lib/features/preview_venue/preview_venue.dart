@@ -34,11 +34,16 @@ final PreviewVenueController previewVenueController = Get.put(PreviewVenueContro
 
 class _PreviewVenueState extends State<PreviewVenue> {
   late Future<List<ReviewModel>> _reviewsFuture;
-
+  double _imageOpacity = 1.0;
   @override
   void initState() {
     super.initState();
     _reviewsFuture = PreviewVenueApi().fetchReviews(widget.id ?? '');
+  }
+  void _onScroll(double offset){
+    setState(() {
+      _imageOpacity = (1 - (offset - 200)).clamp(0.0, 1.0);
+    });
   }
 
   @override
@@ -50,7 +55,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
         elevation: 0,
         title: Text(
           widget.name ?? '',
-          style: GoogleFonts.candal(
+          style: GoogleFonts.jost(
             fontSize: 20,
             fontWeight: FontWeight.bold,
             color: GenericColors.black,
@@ -63,7 +68,15 @@ class _PreviewVenueState extends State<PreviewVenue> {
           },
         ),
       ),
-      body: Padding(
+      body:NotificationListener<ScrollNotification>(
+        onNotification:(scrollNotification){
+          if (scrollNotification is ScrollUpdateNotification){
+            _onScroll(scrollNotification.metrics.pixels);
+      }
+          return false;
+      },
+
+      child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: ListView(
           children: [
@@ -74,30 +87,34 @@ class _PreviewVenueState extends State<PreviewVenue> {
                   future: GoogleMapsApi().getPlacePhotoUrl(widget.id ?? ''),
                   builder: (context, snapshot) {
                     if (snapshot.data != '' && snapshot.hasData) {
-                      return SizedBox(
-                        width: 300,
-                        height: 300,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Image.network(
-                            snapshot.data ?? '',
-                            loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                              if (loadingProgress == null) {
-                                return child; // Image is fully loaded
-                              }
-                              return Center(
-                                child: CircularProgressIndicator(
-                                  value: loadingProgress.expectedTotalBytes != null
-                                      ? loadingProgress.cumulativeBytesLoaded /
-                                          (loadingProgress.expectedTotalBytes ?? 1)
-                                      : null,
-                                ),
-                              );
-                            },
-                            fit: BoxFit.cover,
-                          ),
+                    return AnimatedOpacity(
+                     duration: const Duration(milliseconds: 200),
+                       opacity: _imageOpacity,
+                      child: SizedBox(
+                      width: 300,
+                      height: 300,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.network(
+                          snapshot.data ?? '',
+                          loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                            if (loadingProgress == null) {
+                              return child; // Image is fully loaded
+                            }
+                            return Center(
+                              child: CircularProgressIndicator(
+                                value: loadingProgress.expectedTotalBytes != null
+                                    ? loadingProgress.cumulativeBytesLoaded /
+                                        (loadingProgress.expectedTotalBytes ?? 1)
+                                    : null,
+                              ),
+                            );
+                          },
+                          fit: BoxFit.cover,
                         ),
-                      );
+                      ),
+                                            ),
+                     );
                     } else if (snapshot.data == '') {
                       return Container(
                         width: 300,
@@ -113,7 +130,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
                         child: Center(
                           child: Text(
                             'No Photos',
-                            style: GoogleFonts.candal(
+                            style: GoogleFonts.jost(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                               color: Colors.grey[600],
@@ -131,7 +148,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
             const SizedBox(height: 20),
             Text(
               'Info about this place:',
-              style: GoogleFonts.candal(
+              style: GoogleFonts.jost(
                 textStyle: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -142,7 +159,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
             ),
             Text(
               'Open now: ${widget.open_now}',
-              style: GoogleFonts.candal(
+              style: GoogleFonts.jost(
                 textStyle: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -165,7 +182,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
             const SizedBox(height: 20),
             Text(
               "Reviews:",
-              style: GoogleFonts.candal(
+              style: GoogleFonts.jost(
                 textStyle: const TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
@@ -175,6 +192,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
             _buildReviewsList(),
           ],
         ),
+      ),
       ),
     );
   }
@@ -189,29 +207,35 @@ class _PreviewVenueState extends State<PreviewVenue> {
           children: [
             Text(
               'How is your experience?',
-              style: GoogleFonts.candal(
+              style: GoogleFonts.jost(
                 textStyle: const TextStyle(
                   fontSize: 22,
-                  fontWeight: FontWeight.bold,
+                  color: GenericColors.shadyGreen,
+
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ),
             const SizedBox(height: 20),
             _buildRatingRow('Accessibility for disabled:', (rating) {
+
               previewVenueController.accesibilityRating.value = rating;
             }),
             const SizedBox(height: 20),
+
             _buildRatingRow('LGBTQIA+ friendliness:', (rating) {
+
               previewVenueController.lgbtRating.value = rating;
             }),
             const SizedBox(height: 20),
             _buildToggleRow('Halal food available:', previewVenueController.halalToggle),
+
             const SizedBox(height: 20),
             _buildToggleRow('Kosher food available:', previewVenueController.kosherToggle),
             const SizedBox(height: 20),
             Text(
               'Write your review:',
-              style: GoogleFonts.candal(
+              style: GoogleFonts.jost(
                 textStyle: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -390,8 +414,9 @@ class _PreviewVenueState extends State<PreviewVenue> {
       children: [
         Text(
           label,
-          style: GoogleFonts.candal(
+          style: GoogleFonts.jost(
             textStyle: const TextStyle(
+              color: GenericColors.almostWhite,
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
@@ -419,7 +444,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
       children: [
         Text(
           label,
-          style: GoogleFonts.candal(
+          style: GoogleFonts.jost(
             textStyle: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,

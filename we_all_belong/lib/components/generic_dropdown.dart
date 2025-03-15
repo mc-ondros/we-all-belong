@@ -49,7 +49,7 @@ class DropdownButtonCustom<DropDownType> extends StatelessWidget {
           if (labelText != null)
             Text(
               labelText!,
-              style: GoogleFonts.candal(
+              style: GoogleFonts.jost(
                 textStyle: TextStyle(color: Colors.white, fontSize: FontSizes.f_18 * screenWidthMultiplier),
               ),
             ),
@@ -85,7 +85,7 @@ class DropdownButtonCustom<DropDownType> extends StatelessWidget {
               borderRadius: BorderRadius.circular(RadiusSpec.r_12),
               icon: const Icon(Icons.arrow_drop_down, color: GenericColors.primaryAccent),
               elevation: 0,
-              style: GoogleFonts.candal(
+              style: GoogleFonts.jost(
                 textStyle: textStyle ??
                     TextStyle(
                       color: GenericColors.white,

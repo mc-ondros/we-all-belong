@@ -221,7 +221,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
               onPressed: () async {
                 if (previewVenueController.imageFile != null) {
                   await previewVenueController.uploadImage();
-                  print('downloadURL: ${previewVenueController.downloadURL.value}');
+                  debugPrint('downloadURL: ${previewVenueController.downloadURL.value}');
                 } else {
                   previewVenueController.downloadURL.value = '';
                 }
@@ -270,7 +270,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
-          print("Error fetching reviews: ${snapshot.error}");
+          debugPrint("Error fetching reviews: ${snapshot.error}");
           return const LoadingIndicator(
             indicatorType: Indicator.ballBeat,
             colors: [Colors.white],
@@ -341,8 +341,8 @@ class _PreviewVenueState extends State<PreviewVenue> {
                               );
                             },
                             errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                              print('$exception, photoURL: ${review.photoUrl} ${review.text}');
-                              print(stackTrace);
+                              debugPrint('$exception, photoURL: ${review.photoUrl} ${review.text}');
+                              debugPrint(stackTrace.toString());
                               return Container();
                             },
                           ),

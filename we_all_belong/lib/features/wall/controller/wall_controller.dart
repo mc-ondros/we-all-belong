@@ -28,6 +28,9 @@ class WallController extends GetxController {
         text: content,
         useDefaultWords: true,
         extraWords: [
+          'plm',
+          'fut',
+          'cur',
           'pula',
           'coaie',
           'fututi',

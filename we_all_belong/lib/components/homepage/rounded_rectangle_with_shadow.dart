@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:we_all_belong/core/models/venue_model.dart';
-//import 'package:we_all_belong/core/styles/generic_colors.dart';
 import '../../components/specs/colors.dart';
 
 class RoundedRectangleWithShadow extends StatelessWidget {

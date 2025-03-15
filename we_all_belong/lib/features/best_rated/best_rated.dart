@@ -25,10 +25,14 @@ class BestRatedScreen extends StatelessWidget {
             visible: bestRatedController.venues.isNotEmpty,
             child: Text(
               'Best rated:',
+<<<<<<< HEAD
               style: GoogleFonts.jost(
+=======
+              style: GoogleFonts.anton(
+>>>>>>> 466c37f (Added pronouns to KYC and profile page.)
                 textStyle: const TextStyle(
                   color: Colors.white,
-                  fontSize: FontSizes.f_18,
+                  fontSize: FontSizes.f_22,
                 ),
               ),
             ),

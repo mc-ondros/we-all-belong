@@ -33,7 +33,7 @@ class MapPage extends StatelessWidget {
                 visible: homePageController.venues.isNotEmpty,
                 child: Container(
                   alignment: Alignment.center,
-                  margin: const EdgeInsets.all(30.0),
+                  margin: const EdgeInsets.all(15.0),
                   padding: const EdgeInsets.all(10.0),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30.0),
@@ -49,33 +49,47 @@ class MapPage extends StatelessWidget {
                     children: [
                       Text(
                         'Select Category',
+<<<<<<< HEAD
                         style: GoogleFonts.jost(
+=======
+                        style: GoogleFonts.anton(
+>>>>>>> 466c37f (Added pronouns to KYC and profile page.)
                           textStyle: const TextStyle(
-                            color: GenericColors.white,
-                            fontSize: FontSizes.f_18,
+                            color: GenericColors.moonGrey,
+                            fontSize: FontSizes.f_15,
                           ),
                         ),
                       ),
                       const SizedBox(
-                        height: 5.0,
+                        height: 3.0,
                       ),
                       Container(
                         alignment: Alignment.bottomCenter,
+<<<<<<< HEAD
                         width: 225,
                         height: 70,
+=======
+                        width: 80,
+                        height: 60,
+>>>>>>> 466c37f (Added pronouns to KYC and profile page.)
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30.0),
+                          borderRadius: BorderRadius.circular(1.0),
                           border: Border.all(
                             color: GenericColors.grey,
                           ),
                           gradient: const RadialGradient(
+<<<<<<< HEAD
                               colors: [GenericColors.primaryAccent, GenericColors.black],
                               center: Alignment.topCenter,
+=======
+                              colors: [GenericColors.grey, GenericColors.moonGrey],
+                              center: Alignment.bottomCenter,
+>>>>>>> 466c37f (Added pronouns to KYC and profile page.)
                               radius: 5.0),
                         ),
                         child: DropdownButtonCustom(
                           defaultValue: myDropdownController.selectedValue.value,
-                          dropdownColor: GenericColors.background,
+                          dropdownColor: GenericColors.moonGrey,
                           currentData: const [
                             'Bar',
                             'Restaurant',

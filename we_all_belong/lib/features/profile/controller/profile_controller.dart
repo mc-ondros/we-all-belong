@@ -11,6 +11,7 @@ class ProfileController extends GetxController {
   final nameController = TextEditingController();
   final bioController = TextEditingController();
   final genderController = TextEditingController();
+  final pronounsController = TextEditingController();
   final nationalityController = TextEditingController();
   final ageController = TextEditingController();
 
@@ -50,7 +51,8 @@ class ProfileController extends GetxController {
         profileImage.value = File(image.path);
 
         // Upload and cache the image
-        final url = await _profileImageService.uploadProfileImage(profileImage.value!);
+        final url =
+            await _profileImageService.uploadProfileImage(profileImage.value!);
         if (url != null) {
           profileImageUrl.value = url;
         }
@@ -75,6 +77,7 @@ class ProfileController extends GetxController {
           nameController.text = data['name'] ?? '';
           bioController.text = data['bio'] ?? '';
           genderController.text = data['gender'] ?? '';
+          pronounsController.text = data['pronouns'] ?? '';
           nationalityController.text = data['nationality'] ?? '';
           ageController.text = data['age']?.toString() ?? '';
         }
@@ -101,6 +104,7 @@ class ProfileController extends GetxController {
           name: nameController.text,
           bio: bioController.text,
           gender: genderController.text,
+          pronouns: pronounsController.text,
           nationality: nationalityController.text,
           age: int.tryParse(ageController.text),
           // Preserve existing values for other fields
@@ -110,12 +114,24 @@ class ProfileController extends GetxController {
           isOnboarded: userProfile.value?.isOnboarded ?? true,
         );
 
+<<<<<<< HEAD
         await FirebaseFirestore.instance.collection('users').doc(user.uid).update(updatedProfile.toJson());
+=======
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .update(updatedProfile.toJson());
+>>>>>>> 466c37f (Added pronouns to KYC and profile page.)
 
         // Update the stored profile
         userProfile.value = updatedProfile;
 
+<<<<<<< HEAD
         await Future.delayed(const Duration(seconds: 1)); // Simulate network delay
+=======
+        await Future.delayed(
+            const Duration(seconds: 1)); // Simulate network delay
+>>>>>>> 466c37f (Added pronouns to KYC and profile page.)
 
         Get.snackbar(
           'Success',
@@ -164,6 +180,7 @@ class ProfileController extends GetxController {
     nameController.dispose();
     bioController.dispose();
     genderController.dispose();
+    pronounsController.dispose();
     nationalityController.dispose();
     ageController.dispose();
     super.onClose();

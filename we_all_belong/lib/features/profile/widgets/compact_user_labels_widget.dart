@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:we_all_belong/core/models/user_profile_model.dart';
 import 'package:we_all_belong/features/profile/widgets/user_label_builder.dart';
-import 'package:we_all_belong/components/specs/colors.dart';
 
 /// A compact widget that displays user labels in a horizontal row
 /// Designed for use in smaller spaces like wall posts
@@ -29,9 +28,7 @@ class CompactUserLabelsWidget extends StatelessWidget {
     }
 
     // Limit the number of labels to display
-    final displayedLabels = labels.length > maxLabels 
-        ? labels.sublist(0, maxLabels) 
-        : labels;
+    final displayedLabels = labels.length > maxLabels ? labels.sublist(0, maxLabels) : labels;
 
     return Wrap(
       spacing: spacing,
@@ -63,7 +60,7 @@ class CompactUserLabelsWidget extends StatelessWidget {
 
   Widget _buildCompactLabel(BuildContext context, UserLabel label) {
     final color = UserLabelBuilder.getCategoryColor(label.category);
-    
+
     return Container(
       height: labelHeight,
       padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -99,4 +96,4 @@ class CompactUserLabelsWidget extends StatelessWidget {
       ),
     );
   }
-} 
+}

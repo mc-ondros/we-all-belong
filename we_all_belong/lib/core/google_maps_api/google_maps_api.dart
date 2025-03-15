@@ -30,7 +30,7 @@ class GoogleMapsApi {
       headers: {
         'Content-Type': 'application/json',
         'X-Goog-FieldMask':
-            'places.displayName,places.id,places.formattedAddress,places.iconMaskBaseUri,places.currentOpeningHours.openNow'
+            'places.displayName,places.id,places.formattedAddress,places.iconMaskBaseUri,places.location,places.currentOpeningHours.openNow'
       },
       body: body,
     );
@@ -40,7 +40,7 @@ class GoogleMapsApi {
         final data = json.decode(response.body);
         printLongString(data.toString());
         final venuesList = data['places'] as List;
-        debugPrint('Found ${venuesList.length} venues');
+        printLongString('venuesList: $venuesList');
 
         return venuesList.map((venue) {
           return VenueModel(
@@ -49,6 +49,8 @@ class GoogleMapsApi {
             icon: venue['iconMaskBaseUri'] ?? '',
             place_id: venue['id'] ?? '',
             open_now: venue.containsKey('currentOpeningHours') && venue['currentOpeningHours']['openNow'] == true,
+            lat: venue['location']['latitude'] as double,
+            long: venue['location']['longitude'] as double,
           );
         }).toList();
       } else {

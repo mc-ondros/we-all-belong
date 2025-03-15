@@ -12,17 +12,19 @@ import 'package:we_all_belong/features/preview_venue/controller/preview_venue_co
 import '../../components/specs/colors.dart';
 import '../../core/user_controller/user_controller.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 
 // ignore: must_be_immutable
 class PreviewVenue extends StatefulWidget {
   final String? name;
   final String? id;
+  final VenueModel venueModel;
   final bool? open_now;
   UserController userController = Get.find();
   // ignore: prefer_typing_uninitialized_variables
   var reviews;
   final TextEditingController reviewTextEditingController = TextEditingController();
-  PreviewVenue({required this.name, required this.id, required this.open_now, super.key});
+  PreviewVenue({required this.venueModel, this.name, required this.id, required this.open_now, super.key});
 
   @override
   State<PreviewVenue> createState() => _PreviewVenueState();
@@ -149,6 +151,15 @@ class _PreviewVenueState extends State<PreviewVenue> {
               ),
               textAlign: TextAlign.center,
             ),
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0, bottom: 10, left: 30, right: 30),
+              child: ElevatedButton(
+                onPressed: () async {
+                  MapsLauncher.launchCoordinates(widget.venueModel.lat ?? 0.0, widget.venueModel.long ?? 0.0);
+                },
+                child: const Text("Get directions"),
+              ),
+            ),
             const SizedBox(height: 20),
             _buildReviewSection(),
             const SizedBox(height: 20),
@@ -215,6 +226,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(color: Colors.grey),
                 ),
+                fillColor: Colors.black,
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(color: Colors.blue, width: 2.0),

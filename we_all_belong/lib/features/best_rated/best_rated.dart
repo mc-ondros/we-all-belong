@@ -59,6 +59,7 @@ class BestRatedScreen extends StatelessWidget {
                               name: venue.name,
                               id: venue.place_id,
                               open_now: venue.open_now ?? false,
+                              venueModel: venue,
                             ));
                       },
                     );

@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
       init: homepageController,
       builder: (_) => Scaffold(
         appBar: AppBar(
-          toolbarHeight: 135,
+            toolbarHeight: 135,
             automaticallyImplyLeading: false,
             backgroundColor: GenericColors.background,
             title: Column(
@@ -39,19 +39,14 @@ class HomePage extends StatelessWidget {
                     margin: const EdgeInsets.all(30.0),
                     padding: const EdgeInsets.all(10.0),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30.0),
-                      border: Border.all(
-                        color: GenericColors.grey,
-                      ),
-                      gradient: const RadialGradient(
-                        colors: [
-                          GenericColors.darkGrey,
-                          GenericColors.supportGrey
-                        ],
-                        center: Alignment.center,
-                        radius: 5.0
-                      )
-                    ),
+                        borderRadius: BorderRadius.circular(30.0),
+                        border: Border.all(
+                          color: GenericColors.grey,
+                        ),
+                        gradient: const RadialGradient(
+                            colors: [GenericColors.darkGrey, GenericColors.supportGrey],
+                            center: Alignment.center,
+                            radius: 5.0)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -77,13 +72,9 @@ class HomePage extends StatelessWidget {
                               color: GenericColors.grey,
                             ),
                             gradient: const RadialGradient(
-                              colors: [
-                                GenericColors.highlightBlue,
-                                GenericColors.white
-                              ],
+                                colors: [GenericColors.highlightBlue, GenericColors.white],
                                 center: Alignment.bottomCenter,
-                                radius: 5.0
-                            ),
+                                radius: 5.0),
                           ),
                           child: DropdownButtonCustom(
                             defaultValue: myDropdownController.selectedValue.value,
@@ -108,7 +99,6 @@ class HomePage extends StatelessWidget {
                             },
                           ),
                         ),
-
                       ],
                     ),
                   ),
@@ -137,6 +127,7 @@ class HomePage extends StatelessWidget {
                             name: venue.name,
                             id: venue.place_id,
                             open_now: venue.open_now,
+                            venueModel: venue,
                           ));
                         });
                   },

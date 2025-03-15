@@ -2,7 +2,7 @@ import 'package:we_all_belong/components/specs/colors.dart';
 import 'package:we_all_belong/core/core_shared.dart';
 import 'package:we_all_belong/features/best_rated/best_rated.dart';
 import 'package:we_all_belong/features/bottom_navigation_bar/bottom_navigation_controller.dart';
-import 'package:we_all_belong/features/profile/screens/edit_profile_screen.dart';
+import 'package:we_all_belong/features/profile/screens/profile_screen.dart';
 import 'package:we_all_belong/features/wall/view/wall_view.dart';
 import 'package:we_all_belong/features/map/map_view.dart';
 
@@ -20,7 +20,7 @@ class _BottomNavigationBarCustomState extends State<BottomNavigationBarCustom> {
     BestRatedScreen(),
     HomePage(),
     MapPage(),
-    EditProfileScreen(),
+    ProfileScreen(),
     WallPage(), // Replace with your actual screen// Replace with your actual screen
   ];
 

@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:we_all_belong/features/profile/controller/profile_controller.dart';
 import 'package:we_all_belong/features/profile/widgets/logout_button.dart';
 import 'package:we_all_belong/features/profile/widgets/animated_profile_image.dart';
+import 'package:we_all_belong/features/profile/widgets/user_labels_widget.dart';
 
 class EditProfileScreen extends StatelessWidget {
   final ProfileController controller = Get.put(ProfileController());
@@ -39,7 +40,11 @@ class EditProfileScreen extends StatelessWidget {
                 onTap: controller.pickImage,
                 isLoading: controller.isLoading.value,
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 16),
+              Obx(() => UserLabelsWidget(
+                userProfile: controller.userProfile.value,
+              )),
+              const SizedBox(height: 24),
               AnimatedSwitcher(
                 duration: const Duration(milliseconds: 300),
                 child: _buildForm(context),

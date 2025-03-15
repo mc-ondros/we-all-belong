@@ -1,0 +1,2 @@
+/home/bog/we-all-belong/we_all_belong/android/app/.cxx/Debug/4b142f4i/armeabi-v7a/CMakeFiles/edit_cache.dir
+/home/bog/we-all-belong/we_all_belong/android/app/.cxx/Debug/4b142f4i/armeabi-v7a/CMakeFiles/rebuild_cache.dir

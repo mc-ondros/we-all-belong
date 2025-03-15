@@ -6,6 +6,8 @@ import 'package:we_all_belong/components/specs/colors.dart';
 import 'package:we_all_belong/components/specs/font_sizes.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:we_all_belong/features/profile/widgets/compact_user_labels_widget.dart';
+import 'package:we_all_belong/core/models/user_profile_model.dart';
 
 class WallPage extends StatelessWidget {
   final WallController wallController = Get.put(WallController());
@@ -80,6 +82,8 @@ class WallPage extends StatelessWidget {
                   itemCount: wallController.posts.length,
                   itemBuilder: (context, index) {
                     final post = wallController.posts[index];
+                    final UserProfileModel? userProfile = post['userProfile'];
+                    
                     return Card(
                       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       color: GenericColors.background,
@@ -92,9 +96,30 @@ class WallPage extends StatelessWidget {
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(10),
-                            child: Text(
-                              '${post['name'] ?? 'guest'} says:',
-                              style: const TextStyle(fontSize: 16, color: GenericColors.secondaryAccent),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      '${post['name'] ?? 'guest'} says:',
+                                      style: const TextStyle(
+                                        fontSize: 16, 
+                                        color: GenericColors.secondaryAccent,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                if (userProfile != null) ...[
+                                  const SizedBox(height: 4),
+                                  CompactUserLabelsWidget(
+                                    userProfile: userProfile,
+                                    maxLabels: 5,
+                                    labelHeight: 20,
+                                  ),
+                                ],
+                              ],
                             ),
                           ),
                           Padding(

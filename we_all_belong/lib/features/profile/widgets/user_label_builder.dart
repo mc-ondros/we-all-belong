@@ -29,6 +29,14 @@ class UserLabelBuilder {
       ));
     }
 
+    if (profile.pronouns != null && profile.pronouns!.isNotEmpty) {
+      labels.add(UserLabel(
+        label: profile.pronouns!,
+        icon: Icons.person_outline,
+        category: LabelCategory.pronouns,
+      ));
+    }
+
     // Add religious orientation if available
     if (profile.religiousOrientation != null && profile.religiousOrientation!.isNotEmpty) {
       labels.add(UserLabel(
@@ -72,6 +80,8 @@ class UserLabelBuilder {
         return Colors.amber;
       case LabelCategory.sexualPreference:
         return Colors.pink;
+      case LabelCategory.pronouns:
+        return Colors.amber;
       case LabelCategory.disability:
         return Colors.teal;
     }
@@ -98,4 +108,5 @@ enum LabelCategory {
   religiousOrientation,
   sexualPreference,
   disability,
+  pronouns,
 }

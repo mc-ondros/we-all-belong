@@ -121,10 +121,6 @@ class ProfileController extends GetxController {
 
         // Update the stored profile
         userProfile.value = updatedProfile;
-
-
-        await Future.delayed(const Duration(seconds: 1)); // Simulate network delay
-
         Get.snackbar(
           'Success',
           'Profile updated successfully',

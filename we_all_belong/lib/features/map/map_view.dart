@@ -84,6 +84,7 @@ class MapPage extends StatelessWidget {
                               homePageController.updateMarkers();
                             },
                           ),
+
                         ),
                       ),
                     ],

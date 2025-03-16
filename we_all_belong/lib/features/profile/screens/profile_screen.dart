@@ -183,17 +183,7 @@ class ProfileScreen extends StatelessWidget {
               size: 24,
             ),
           ),
-          const SizedBox(width: 16),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: GoogleFonts.poppins(
-                  color: Colors.white,
-                  fontSize: 14,
-                ),
-              ),
+          const SizedBox(width: 16),  
               Text(
                 value,
                 style: GoogleFonts.poppins(
@@ -202,8 +192,6 @@ class ProfileScreen extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-            ],
-          ),
         ],
       ),
     );

@@ -15,7 +15,7 @@ class CompactUserLabelsWidget extends StatelessWidget {
     super.key,
     required this.userProfile,
     this.spacing = 4.0,
-    this.maxLabels = 5,
+    this.maxLabels = 20,
     this.labelHeight = 24.0,
   });
 

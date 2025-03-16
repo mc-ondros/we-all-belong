@@ -118,7 +118,7 @@ class EditProfileScreen extends StatelessWidget {
           width: double.infinity,
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Colors.grey[100],
+            color: Colors.black,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Column(
@@ -133,9 +133,9 @@ class EditProfileScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              Obx(() => Row(
+              Obx(() => Column(
                 children: [
-                  Expanded(
+                  Center(
                     child: CheckboxListTile(
                       title: Text('Vegan'),
                       value: controller.isVegan.value,
@@ -144,7 +144,7 @@ class EditProfileScreen extends StatelessWidget {
                       dense: true,
                     ),
                   ),
-                  Expanded(
+                  Center(
                     child: CheckboxListTile(
                       title: Text('Halal'),
                       value: controller.isHalal.value,
@@ -153,7 +153,7 @@ class EditProfileScreen extends StatelessWidget {
                       dense: true,
                     ),
                   ),
-                  Expanded(
+                  Center(
                     child: CheckboxListTile(
                       title: Text('Kosher'),
                       value: controller.isKosher.value,
@@ -174,7 +174,7 @@ class EditProfileScreen extends StatelessWidget {
           width: double.infinity,
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Colors.grey[100],
+            color: Colors.black,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Column(

@@ -71,7 +71,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                                 const SizedBox(height: 4),
                                 CompactUserLabelsWidget(
                                   userProfile: userProfile,
-                                  maxLabels: 5,
+                                  maxLabels: 20,
                                   labelHeight: 20,
                                 ),
                               ],

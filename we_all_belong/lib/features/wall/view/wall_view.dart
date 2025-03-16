@@ -20,7 +20,7 @@ class WallPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: GenericColors.background,
+        backgroundColor: Colors.black,
         title: const Text(
           'Community Wall',
           style: TextStyle(
@@ -116,7 +116,7 @@ class WallPage extends StatelessWidget {
                                   const SizedBox(height: 4),
                                   CompactUserLabelsWidget(
                                     userProfile: userProfile,
-                                    maxLabels: 5,
+                                    maxLabels: 20,
                                     labelHeight: 20,
                                   ),
                                 ],

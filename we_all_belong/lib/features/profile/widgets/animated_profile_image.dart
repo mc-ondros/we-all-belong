@@ -60,7 +60,7 @@ class AnimatedProfileImage extends StatelessWidget {
                           width: 120,
                           height: 120,
                           placeholder: (context, url) => const CircularProgressIndicator(),
-                          errorWidget: (context, url, error) => const Icon(Icons.error),
+                          errorWidget: (context, url, error) => const Icon(Icons.person),
                         )
                       : Icon(
                           Icons.person,

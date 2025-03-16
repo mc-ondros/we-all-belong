@@ -122,12 +122,17 @@ class _HomePageState extends State<HomePage> {
                         height: null,
                         venue: venue,
                         onTap: () {
-                          Get.to(PreviewVenue(
-                            name: venue.name,
-                            id: venue.place_id,
-                            open_now: venue.open_now,
-                            venueModel: venue,
-                          ));
+                          Get.to(
+                            PreviewVenue(
+                              name: venue.name,
+                              id: venue.place_id,
+                              open_now: venue.open_now,
+                              venueModel: venue,
+                            ),
+                            transition: Transition.downToUp,
+                            duration: const Duration(milliseconds: 400),
+                            curve: Curves.easeInOut,
+                          );
                         });
                   },
                 ),

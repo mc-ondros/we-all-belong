@@ -42,12 +42,17 @@ class HomePageController extends GetxController {
         point: LatLng(lat ?? 0.0, lng ?? 0.0),
         child: GestureDetector(
           onTap: () {
-            Get.to(PreviewVenue(
-              name: venues.firstWhere((element) => element.lat == lat && element.long == lng).name,
-              id: venues.firstWhere((element) => element.lat == lat && element.long == lng).place_id,
-              open_now: venues.firstWhere((element) => element.lat == lat && element.long == lng).open_now,
-              venueModel: venues.firstWhere((element) => element.lat == lat && element.long == lng),
-            ));
+            Get.to(
+              PreviewVenue(
+                name: venues.firstWhere((element) => element.lat == lat && element.long == lng).name,
+                id: venues.firstWhere((element) => element.lat == lat && element.long == lng).place_id,
+                open_now: venues.firstWhere((element) => element.lat == lat && element.long == lng).open_now,
+                venueModel: venues.firstWhere((element) => element.lat == lat && element.long == lng),
+              ),
+              transition: Transition.downToUp,
+              duration: const Duration(milliseconds: 400),
+              curve: Curves.easeInOut,
+            );
             // Handle marker tap
           },
           child: Column(

@@ -23,6 +23,7 @@ class KYCScreen extends StatelessWidget {
                   'Tell Us More About YOU',
                   style: GoogleFonts.jost(
                     fontSize: 24,
+                    color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -32,6 +33,7 @@ class KYCScreen extends StatelessWidget {
                 TextField(
                   onChanged: (value) => controller.nationality.value = value,
                   decoration: InputDecoration(
+                    fillColor: Colors.black,
                     labelText: 'Nationality',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -45,6 +47,7 @@ class KYCScreen extends StatelessWidget {
                 TextField(
                   onChanged: (value) => controller.religiousOrientation.value = value,
                   decoration: InputDecoration(
+                    fillColor: Colors.black,
                     labelText: 'Religious Orientation',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -58,6 +61,7 @@ class KYCScreen extends StatelessWidget {
                 TextField(
                   onChanged: (value) => controller.sexualPreference.value = value,
                   decoration: InputDecoration(
+                    fillColor: Colors.black,
                     labelText: 'Sexual Preferences',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -107,34 +111,28 @@ class KYCScreen extends StatelessWidget {
 
                 const SizedBox(height: 8),
 
-                Obx(() => Row(
+                Obx(() => Column(
                       children: [
-                        Expanded(
-                          child: CheckboxListTile(
-                            title: const Text('Vegan'),
-                            value: controller.isVegan.value,
-                            onChanged: (value) => controller.isVegan.value = value ?? false,
-                            controlAffinity: ListTileControlAffinity.leading,
-                            dense: true,
-                          ),
+                        CheckboxListTile(
+                          title: const Text('Vegan'),
+                          value: controller.isVegan.value,
+                          onChanged: (value) => controller.isVegan.value = value ?? false,
+                          controlAffinity: ListTileControlAffinity.leading,
+                          dense: true,
                         ),
-                        Expanded(
-                          child: CheckboxListTile(
-                            title: const Text('Halal'),
-                            value: controller.isHalal.value,
-                            onChanged: (value) => controller.isHalal.value = value ?? false,
-                            controlAffinity: ListTileControlAffinity.leading,
-                            dense: true,
-                          ),
+                        CheckboxListTile(
+                          title: const Text('Halal'),
+                          value: controller.isHalal.value,
+                          onChanged: (value) => controller.isHalal.value = value ?? false,
+                          controlAffinity: ListTileControlAffinity.leading,
+                          dense: true,
                         ),
-                        Expanded(
-                          child: CheckboxListTile(
-                            title: const Text('Kosher'),
-                            value: controller.isKosher.value,
-                            onChanged: (value) => controller.isKosher.value = value ?? false,
-                            controlAffinity: ListTileControlAffinity.leading,
-                            dense: true,
-                          ),
+                        CheckboxListTile(
+                          title: const Text('Kosher'),
+                          value: controller.isKosher.value,
+                          onChanged: (value) => controller.isKosher.value = value ?? false,
+                          controlAffinity: ListTileControlAffinity.leading,
+                          dense: true,
                         ),
                       ],
                     )),

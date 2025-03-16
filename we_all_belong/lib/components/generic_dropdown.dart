@@ -74,7 +74,7 @@ class DropdownButtonCustom<DropDownType> extends StatelessWidget {
                 child: Text(
                   hintValue ?? 'choose...',
                   style: textStyle ??
-                      TextStyle(
+                      GoogleFonts.jost(
                         color: GenericColors.secondaryAccent,
                         fontSize: FontSizes.f_18 * screenWidthMultiplier,
                         fontWeight: FontWeight.w300,
@@ -103,12 +103,10 @@ class DropdownButtonCustom<DropDownType> extends StatelessWidget {
                   value: value,
                   child: Container(
                     margin: const EdgeInsets.only(left: Paddings.p_10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(RadiusSpec.r_12)
-                    ),
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(RadiusSpec.r_12)),
                     child: Center(
                       child: Text(
-                          value.toString(),
+                        value.toString(),
                       ),
                     ),
                   ),

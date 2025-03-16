@@ -219,7 +219,9 @@ class _PreviewVenueState extends State<PreviewVenue> {
                   onPressed: () async {
                     MapsLauncher.launchCoordinates(widget.venueModel.lat ?? 0.0, widget.venueModel.long ?? 0.0);
                   },
-                  child: const Text("Get directions"),
+                  child: const Text(
+                    "Get directions",
+                  ),
                 ),
               ),
               const SizedBox(height: 20),

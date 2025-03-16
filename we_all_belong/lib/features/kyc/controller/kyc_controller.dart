@@ -11,6 +11,9 @@ class KYCController extends GetxController {
   var religiousOrientation = ''.obs;
   var sexualPreference = ''.obs;
   var disabilities = <String>[].obs;
+  var isVegan = false.obs;
+  var isHalal = false.obs;
+  var isKosher = false.obs;
 
   final availableDisabilities = ['Physical', 'Sensorial', 'Intellectual', 'Learning', 'Emotional'];
 
@@ -34,6 +37,9 @@ class KYCController extends GetxController {
         sexualPreference: sexualPreference.value,
         disabilities: disabilities,
         isOnboarded: true,
+        isVegan: isVegan.value,
+        isHalal: isHalal.value,
+        isKosher: isKosher.value,
       );
 
       await _firestore.collection('users').doc(user.uid).set(userProfile.toJson(), SetOptions(merge: true));

@@ -19,6 +19,11 @@ class ProfileController extends GetxController {
   final RxString profileImageUrl = RxString('');
   final RxBool isLoading = false.obs;
 
+  // Dietary preferences
+  final RxBool isVegan = false.obs;
+  final RxBool isHalal = false.obs;
+  final RxBool isKosher = false.obs;
+
   // Add userProfile to store all user data
   final Rx<UserProfileModel?> userProfile = Rx<UserProfileModel?>(null);
 
@@ -80,6 +85,11 @@ class ProfileController extends GetxController {
           pronounsController.text = data['pronouns'] ?? '';
           nationalityController.text = data['nationality'] ?? '';
           ageController.text = data['age']?.toString() ?? '';
+          
+          // Update dietary preferences
+          isVegan.value = data['isVegan'] ?? false;
+          isHalal.value = data['isHalal'] ?? false;
+          isKosher.value = data['isKosher'] ?? false;
         }
       }
     } catch (e) {
@@ -107,6 +117,10 @@ class ProfileController extends GetxController {
           pronouns: pronounsController.text,
           nationality: nationalityController.text,
           age: int.tryParse(ageController.text),
+          // Dietary preferences
+          isVegan: isVegan.value,
+          isHalal: isHalal.value,
+          isKosher: isKosher.value,
           // Preserve existing values for other fields
           religiousOrientation: userProfile.value?.religiousOrientation,
           sexualPreference: userProfile.value?.sexualPreference,

@@ -99,6 +99,50 @@ class KYCScreen extends StatelessWidget {
                       .toList(),
                 ),
                 
+                const SizedBox(height: 24),
+                
+                Text(
+                  'Dietary Preferences',
+                  style: GoogleFonts.poppins(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                
+                const SizedBox(height: 8),
+                
+                Obx(() => Row(
+                  children: [
+                    Expanded(
+                      child: CheckboxListTile(
+                        title: Text('Vegan'),
+                        value: controller.isVegan.value,
+                        onChanged: (value) => controller.isVegan.value = value ?? false,
+                        controlAffinity: ListTileControlAffinity.leading,
+                        dense: true,
+                      ),
+                    ),
+                    Expanded(
+                      child: CheckboxListTile(
+                        title: Text('Halal'),
+                        value: controller.isHalal.value,
+                        onChanged: (value) => controller.isHalal.value = value ?? false,
+                        controlAffinity: ListTileControlAffinity.leading,
+                        dense: true,
+                      ),
+                    ),
+                    Expanded(
+                      child: CheckboxListTile(
+                        title: Text('Kosher'),
+                        value: controller.isKosher.value,
+                        onChanged: (value) => controller.isKosher.value = value ?? false,
+                        controlAffinity: ListTileControlAffinity.leading,
+                        dense: true,
+                      ),
+                    ),
+                  ],
+                )),
+                
                 const SizedBox(height: 32),
                 
                 SizedBox(

@@ -17,8 +17,8 @@ class BottomNavigationBarCustom extends StatefulWidget {
 
 class _BottomNavigationBarCustomState extends State<BottomNavigationBarCustom> {
   final List<Widget> screens = [
-    BestRatedScreen(),
-    HomePage(),
+    const BestRatedScreen(),
+    const HomePage(),
     MapPage(),
     ProfileScreen(),
     WallPage(), // Replace with your actual screen// Replace with your actual screen

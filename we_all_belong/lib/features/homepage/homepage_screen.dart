@@ -13,8 +13,7 @@ import '../preview_venue/preview_venue.dart';
 import '../../components/specs/colors.dart';
 
 class HomePage extends StatefulWidget {
-
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -30,8 +29,9 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    myDropdownController.selectedValue.value.toLowerCase().replaceAll(' ','_');
+    myDropdownController.selectedValue.value.toLowerCase().replaceAll(' ', '_');
   }
+
   @override
   Widget build(BuildContext context) {
     return GetX<HomePageController>(
@@ -76,18 +76,8 @@ class _HomePageState extends State<HomePage> {
                         ),
                         Container(
                           alignment: Alignment.bottomCenter,
-                          width: 225,
-                          height: 70,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30.0),
-                            border: Border.all(
-                              color: GenericColors.grey,
-                            ),
-                            gradient: const RadialGradient(
-                                colors: [GenericColors.primaryAccent, GenericColors.black],
-                                center: Alignment.topCenter,
-                                radius: 5.0),
-                          ),
+                          width: 150,
+                          height: 60,
                           child: DropdownButtonCustom(
                             defaultValue: myDropdownController.selectedValue.value,
                             dropdownColor: GenericColors.moonGrey,
@@ -107,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                                   locationController.latitude.value,
                                   locationController.longitude.value,
                                   1500,
-                                  myDropdownController.selectedValue.value.toLowerCase().replaceAll(' ','_'));
+                                  myDropdownController.selectedValue.value.toLowerCase().replaceAll(' ', '_'));
                             },
                           ),
                         ),

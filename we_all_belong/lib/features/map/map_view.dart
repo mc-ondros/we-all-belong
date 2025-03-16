@@ -56,45 +56,35 @@ class MapPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 3.0,
-                      ),
                       Container(
                         alignment: Alignment.bottomCenter,
-                        width: 225,
-                        height: 70,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(1.0),
-                          border: Border.all(
-                            color: GenericColors.grey,
+                        width: 150,
+                        height: 60,
+                        child: Obx(
+                          () => DropdownButtonCustom(
+                            defaultValue: myDropdownController.selectedValue.value,
+                            dropdownColor: GenericColors.moonGrey,
+                            currentData: const [
+                              'Bar',
+                              'Restaurant',
+                              'Cafe',
+                              'Gym',
+                              'Library',
+                              'Movie Theater',
+                              'Night Club',
+                              'Museum',
+                            ],
+                            valueBuilder: (newValue) async {
+                              myDropdownController.selectedValue.value = newValue;
+                              homePageController.venues.value = await GoogleMapsApi().getNearbyVenues(
+                                  locationController.latitude.value,
+                                  locationController.longitude.value,
+                                  1500,
+                                  myDropdownController.selectedValue.value.toLowerCase().replaceAll(' ', '_'));
+                              homePageController.updateMarkers();
+                            },
                           ),
-                          gradient: const RadialGradient(
-                              colors: [GenericColors.primaryAccent, GenericColors.black],
-                              center: Alignment.topCenter,
-                              radius: 5.0),
-                        ),
-                        child: DropdownButtonCustom(
-                          defaultValue: myDropdownController.selectedValue.value,
-                          dropdownColor: GenericColors.moonGrey,
-                          currentData: const [
-                            'Bar',
-                            'Restaurant',
-                            'Cafe',
-                            'Gym',
-                            'Library',
-                            'Movie Theater',
-                            'Night Club',
-                            'Museum',
-                          ],
-                          valueBuilder: (newValue) async {
-                            myDropdownController.selectedValue.value = newValue;
-                            homePageController.venues.value = await GoogleMapsApi().getNearbyVenues(
-                                locationController.latitude.value,
-                                locationController.longitude.value,
-                                1500,
-                                myDropdownController.selectedValue.value.toLowerCase().replaceAll(' ','_'));
-                            homePageController.updateMarkers();
-                          },
+
                         ),
                       ),
                     ],

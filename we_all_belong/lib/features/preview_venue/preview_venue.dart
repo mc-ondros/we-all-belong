@@ -35,14 +35,37 @@ final PreviewVenueController previewVenueController = Get.put(PreviewVenueContro
 class _PreviewVenueState extends State<PreviewVenue> {
   late Future<List<ReviewModel>> _reviewsFuture;
   double _imageOpacity = 1.0;
+  double _appBarOpacity = 1.0;
+  ScrollController _scrollController = ScrollController();
+
+
   @override
   void initState() {
     super.initState();
     _reviewsFuture = PreviewVenueApi().fetchReviews(widget.id ?? '');
+    _scrollController.addListener(_scrollListener);
+  }
+  void _scrollListener() {
+    if (_scrollController.offset > 50) {
+      setState(() {
+        _appBarOpacity = 0.0;
+      });
+    } else {
+      setState(() {
+        _appBarOpacity = 1.0;
+      });
+    }
+  }
+  @override
+  void dispose() {
+    _scrollController.removeListener(_scrollListener);
+    _scrollController.dispose();
+    super.dispose();
   }
   void _onScroll(double offset){
     setState(() {
-      _imageOpacity = (1 - (offset - 200)).clamp(0.0, 1.0);
+      _imageOpacity = (1 - (offset - 300)).clamp(0.0, 1.0);
+      _appBarOpacity = (1 - (offset / 100)).clamp(0.0, 1.0);
     });
   }
 
@@ -50,22 +73,29 @@ class _PreviewVenueState extends State<PreviewVenue> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: GenericColors.background,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Text(
-          widget.name ?? '',
-          style: GoogleFonts.jost(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: GenericColors.black,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: AnimatedOpacity(
+          opacity: _appBarOpacity,
+          duration: const Duration(milliseconds: 200),
+          child: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            title: Text(
+              widget.name ?? '',
+              style: GoogleFonts.jost(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: GenericColors.almostWhite,
+              ),
+            ),
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.green),
+              onPressed: () {
+                Get.back();
+              },
+            ),
           ),
-        ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.green),
-          onPressed: () {
-            Get.back();
-          },
         ),
       ),
       body:NotificationListener<ScrollNotification>(
@@ -77,11 +107,12 @@ class _PreviewVenueState extends State<PreviewVenue> {
       },
 
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 0.0),
         child: ListView(
+          controller: ScrollController(),
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Center(
                 child: FutureBuilder<String?>(
                   future: GoogleMapsApi().getPlacePhotoUrl(widget.id ?? ''),
@@ -91,8 +122,8 @@ class _PreviewVenueState extends State<PreviewVenue> {
                      duration: const Duration(milliseconds: 200),
                        opacity: _imageOpacity,
                       child: SizedBox(
-                      width: 300,
-                      height: 300,
+                      width: MediaQuery.of(context).size.width,
+                      height: 400,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: Image.network(
@@ -157,16 +188,30 @@ class _PreviewVenueState extends State<PreviewVenue> {
               ),
               textAlign: TextAlign.center,
             ),
-            Text(
-              'Open now: ${widget.open_now}',
-              style: GoogleFonts.jost(
-                textStyle: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: GenericColors.secondaryAccent,
+            Visibility(
+              visible: widget.open_now??false,
+              replacement: Text(
+                'Closed',
+                style: GoogleFonts.jost(
+                  textStyle: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: GenericColors.secondaryAccent,
+                  ),
                 ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
+              child: Text(
+                'Open now',
+                style: GoogleFonts.jost(
+                  textStyle: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: GenericColors.secondaryAccent,
+                  ),
+                ),
+                textAlign: TextAlign.center,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20.0, bottom: 10, left: 30, right: 30),
@@ -186,6 +231,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
                 textStyle: const TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
+                  color: GenericColors.almostWhite,
                 ),
               ),
             ),
@@ -199,7 +245,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
 
   Widget _buildReviewSection() {
     return Container(
-      decoration: BoxDecoration(border: Border.all(color: GenericColors.shadyGreen)),
+
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -448,6 +494,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
             textStyle: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
+              color: GenericColors.almostWhite,
             ),
           ),
         ),

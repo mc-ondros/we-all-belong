@@ -8,6 +8,7 @@ class ReviewModel {
   final double friendliness;
   final bool halal;
   final bool kosher;
+  final bool vegan;
 
   ReviewModel({
     required this.uuid,
@@ -17,6 +18,7 @@ class ReviewModel {
     required this.friendliness,
     required this.halal,
     required this.kosher,
+    required this.vegan,
   });
 
   // Factory method to create a Review object from JSON
@@ -29,6 +31,7 @@ class ReviewModel {
       friendliness: (json['friendliness'] as num).toDouble(),
       halal: json['halal'] as bool,
       kosher: json['kosher'] as bool,
+      vegan: json['vegan'] as bool? ?? false, // Default to false for backward compatibility
     );
   }
 
@@ -42,6 +45,7 @@ class ReviewModel {
       'friendliness': friendliness,
       'halal': halal,
       'kosher': kosher,
+      'vegan': vegan,
     };
   }
 

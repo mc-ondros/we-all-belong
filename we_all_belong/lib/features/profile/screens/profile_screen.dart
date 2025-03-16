@@ -83,6 +83,14 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget _buildProfileDetails(BuildContext context) {
+    // Debug print to check values
+    debugPrint('Name: ${controller.nameController.text}');
+    debugPrint('Age: ${controller.ageController.text}');
+    debugPrint('Nationality: ${controller.nationalityController.text}');
+    debugPrint('Gender: ${controller.genderController.text}');
+    debugPrint('Pronouns: ${controller.pronounsController.text}');
+    debugPrint('Disabilities: ${controller.disabilities}');
+    
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
       child: Column(
@@ -92,35 +100,62 @@ class ProfileScreen extends StatelessWidget {
             'Profile Details',
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
           ),
           const SizedBox(height: 16),
           _buildDetailItem(
             context,
             icon: Icons.person_outline,
-            title: 'Name',
-            value: controller.nameController.text,
+            value: controller.nameController.text.isEmpty ? 'Add your name' : controller.nameController.text,
           ),
           if (controller.ageController.text.isNotEmpty)
             _buildDetailItem(
               context,
               icon: Icons.cake_outlined,
-              title: 'Age',
               value: '${controller.ageController.text} years',
             ),
           if (controller.nationalityController.text.isNotEmpty)
             _buildDetailItem(
               context,
               icon: Icons.public,
-              title: 'Nationality',
               value: controller.nationalityController.text,
             ),
           if (controller.genderController.text.isNotEmpty)
             _buildDetailItem(
               context,
               icon: Icons.people_outline,
-              title: 'Gender',
               value: controller.genderController.text,
+            ),
+          if (controller.pronounsController.text.isNotEmpty)
+            _buildDetailItem(
+              context,
+              icon: Icons.person_outline,
+              value: controller.pronounsController.text,
+            ),
+          // Display disabilities if any
+          if (controller.disabilities.isNotEmpty)
+            _buildDetailItem(
+              context,
+              icon: Icons.accessible_outlined,
+              value: controller.disabilities.join(', '),
+            ),
+          // Fallback if no details are available
+          if (controller.nameController.text.isEmpty && 
+              controller.ageController.text.isEmpty &&
+              controller.nationalityController.text.isEmpty &&
+              controller.genderController.text.isEmpty &&
+              controller.pronounsController.text.isEmpty &&
+              controller.disabilities.isEmpty)
+            Text(
+              'No profile details available. Tap the edit button to add your information.',
+              style: GoogleFonts.poppins(
+                color: Theme.of(context).brightness == Brightness.dark 
+                    ? Colors.white70 
+                    : Colors.black54,
+                fontSize: 14,
+                fontStyle: FontStyle.italic,
+              ),
             ),
         ],
       ),
@@ -130,7 +165,6 @@ class ProfileScreen extends StatelessWidget {
   Widget _buildDetailItem(
     BuildContext context, {
     required IconData icon,
-    required String title,
     required String value,
   }) {
     return Padding(

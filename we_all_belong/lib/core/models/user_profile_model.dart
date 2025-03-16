@@ -14,6 +14,9 @@ class UserProfileModel {
   final bool isOnboarded;
   final String? bio;
   final int? age;
+  final bool? isVegan;
+  final bool? isHalal;
+  final bool? isKosher;
 
   UserProfileModel({
     required this.uuid,
@@ -29,6 +32,9 @@ class UserProfileModel {
     this.isOnboarded = false,
     this.bio,
     this.age,
+    this.isVegan = false,
+    this.isHalal = false,
+    this.isKosher = false,
   });
 
   Map<String, dynamic> toJson() {
@@ -46,6 +52,9 @@ class UserProfileModel {
       'isOnboarded': isOnboarded,
       'bio': bio,
       'age': age,
+      'isVegan': isVegan,
+      'isHalal': isHalal,
+      'isKosher': isKosher,
     };
   }
 
@@ -64,6 +73,9 @@ class UserProfileModel {
       isOnboarded: json['isOnboarded'] ?? false,
       bio: json['bio'],
       age: json['age'],
+      isVegan: json['isVegan'] ?? false,
+      isHalal: json['isHalal'] ?? false,
+      isKosher: json['isKosher'] ?? false,
     );
   }
   factory UserProfileModel.fromFirebase(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -82,6 +94,9 @@ class UserProfileModel {
       isOnboarded: data?['isOnboarded'] ?? false,
       bio: data?['bio'],
       age: data?['age'],
+      isVegan: data?['isVegan'] ?? false,
+      isHalal: data?['isHalal'] ?? false,
+      isKosher: data?['isKosher'] ?? false,
     );
   }
 }

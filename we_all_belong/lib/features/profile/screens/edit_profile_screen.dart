@@ -113,6 +113,108 @@ class EditProfileScreen extends StatelessWidget {
         ),
         const SizedBox(height: 32),
 
+        // Dietary Preferences
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.grey[100],
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Dietary Preferences',
+                style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.blue[600],
+                ),
+              ),
+              const SizedBox(height: 8),
+              Obx(() => Row(
+                children: [
+                  Expanded(
+                    child: CheckboxListTile(
+                      title: Text('Vegan'),
+                      value: controller.isVegan.value,
+                      onChanged: (value) => controller.isVegan.value = value ?? false,
+                      controlAffinity: ListTileControlAffinity.leading,
+                      dense: true,
+                    ),
+                  ),
+                  Expanded(
+                    child: CheckboxListTile(
+                      title: Text('Halal'),
+                      value: controller.isHalal.value,
+                      onChanged: (value) => controller.isHalal.value = value ?? false,
+                      controlAffinity: ListTileControlAffinity.leading,
+                      dense: true,
+                    ),
+                  ),
+                  Expanded(
+                    child: CheckboxListTile(
+                      title: Text('Kosher'),
+                      value: controller.isKosher.value,
+                      onChanged: (value) => controller.isKosher.value = value ?? false,
+                      controlAffinity: ListTileControlAffinity.leading,
+                      dense: true,
+                    ),
+                  ),
+                ],
+              )),
+            ],
+          ),
+        ),
+        const SizedBox(height: 32),
+
+        // Disabilities Section
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.grey[100],
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Disabilities',
+                style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.blue[600],
+                ),
+              ),
+              const SizedBox(height: 8),
+              Obx(() => Wrap(
+                spacing: 8,
+                children: controller.availableDisabilities
+                    .map((disability) {
+                      final isSelected = controller.disabilities.contains(disability);
+                      return FilterChip(
+                        label: Text(disability),
+                        selected: isSelected,
+                        onSelected: (selected) {
+                          if (selected) {
+                            controller.disabilities.add(disability);
+                          } else {
+                            controller.disabilities.remove(disability);
+                          }
+                        },
+                        selectedColor: Colors.blue[100],
+                        checkmarkColor: Colors.blue[800],
+                      );
+                    })
+                    .toList(),
+              )),
+            ],
+          ),
+        ),
+        const SizedBox(height: 32),
+
         // Save Button
         SizedBox(
           width: double.infinity,

@@ -11,6 +11,7 @@ class PreviewVenueController extends GetxController {
   RxDouble lgbtRating = 3.0.obs;
   RxBool halalToggle = false.obs;
   RxBool kosherToggle = false.obs;
+  RxBool veganToggle = false.obs;
   final Rx<File?> _imageFile = Rx<File?>(null);
   File? get imageFile => _imageFile.value;
   set imageFile(File? value) => _imageFile.value = value;

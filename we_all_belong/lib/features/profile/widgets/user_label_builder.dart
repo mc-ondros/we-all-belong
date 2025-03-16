@@ -66,6 +66,31 @@ class UserLabelBuilder {
       }
     }
 
+    // Add dietary preferences if enabled
+    if (profile.isVegan == true) {
+      labels.add(UserLabel(
+        label: 'Vegan',
+        icon: Icons.eco_outlined,
+        category: LabelCategory.dietaryPreference,
+      ));
+    }
+
+    if (profile.isHalal == true) {
+      labels.add(UserLabel(
+        label: 'Halal',
+        icon: Icons.restaurant_outlined,
+        category: LabelCategory.dietaryPreference,
+      ));
+    }
+
+    if (profile.isKosher == true) {
+      labels.add(UserLabel(
+        label: 'Kosher',
+        icon: Icons.restaurant_menu_outlined,
+        category: LabelCategory.dietaryPreference,
+      ));
+    }
+
     return labels;
   }
 
@@ -84,6 +109,8 @@ class UserLabelBuilder {
         return Colors.amber;
       case LabelCategory.disability:
         return Colors.teal;
+      case LabelCategory.dietaryPreference:
+        return Colors.green;
     }
   }
 }
@@ -109,4 +136,5 @@ enum LabelCategory {
   sexualPreference,
   disability,
   pronouns,
+  dietaryPreference,
 }

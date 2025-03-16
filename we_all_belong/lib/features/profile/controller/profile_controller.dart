@@ -19,6 +19,15 @@ class ProfileController extends GetxController {
   final RxString profileImageUrl = RxString('');
   final RxBool isLoading = false.obs;
 
+  // Dietary preferences
+  final RxBool isVegan = false.obs;
+  final RxBool isHalal = false.obs;
+  final RxBool isKosher = false.obs;
+
+  // Disabilities
+  final RxList<String> disabilities = <String>[].obs;
+  final List<String> availableDisabilities = ['Physical', 'Sensorial', 'Intellectual', 'Learning', 'Emotional'];
+
   // Add userProfile to store all user data
   final Rx<UserProfileModel?> userProfile = Rx<UserProfileModel?>(null);
 
@@ -66,23 +75,46 @@ class ProfileController extends GetxController {
     try {
       final user = FirebaseAuth.instance.currentUser;
       if (user != null) {
+        debugPrint('Loading user data for: ${user.uid}');
         final userData = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
 
         if (userData.exists) {
+          debugPrint('User data exists in Firestore');
           // Store the complete user profile
           userProfile.value = UserProfileModel.fromFirebase(userData);
 
           // Update the text controllers
           final data = userData.data()!;
+          debugPrint('Raw data from Firestore: $data');
+          
           nameController.text = data['name'] ?? '';
           bioController.text = data['bio'] ?? '';
           genderController.text = data['gender'] ?? '';
           pronounsController.text = data['pronouns'] ?? '';
           nationalityController.text = data['nationality'] ?? '';
           ageController.text = data['age']?.toString() ?? '';
+          
+          // Update dietary preferences
+          isVegan.value = data['isVegan'] ?? false;
+          isHalal.value = data['isHalal'] ?? false;
+          isKosher.value = data['isKosher'] ?? false;
+          
+          // Update disabilities
+          disabilities.clear();
+          if (data['disabilities'] != null) {
+            disabilities.addAll(List<String>.from(data['disabilities']));
+          }
+          
+          debugPrint('Controllers updated: Name=${nameController.text}, Gender=${genderController.text}');
+          debugPrint('Disabilities: $disabilities');
+        } else {
+          debugPrint('No user data found in Firestore');
         }
+      } else {
+        debugPrint('No current user found');
       }
     } catch (e) {
+      debugPrint('Error loading user data: $e');
       Get.snackbar(
         'Error',
         'Failed to load profile data',
@@ -107,10 +139,15 @@ class ProfileController extends GetxController {
           pronouns: pronounsController.text,
           nationality: nationalityController.text,
           age: int.tryParse(ageController.text),
+          // Dietary preferences
+          isVegan: isVegan.value,
+          isHalal: isHalal.value,
+          isKosher: isKosher.value,
+          // Updated disabilities
+          disabilities: disabilities,
           // Preserve existing values for other fields
           religiousOrientation: userProfile.value?.religiousOrientation,
           sexualPreference: userProfile.value?.sexualPreference,
-          disabilities: userProfile.value?.disabilities,
           isOnboarded: userProfile.value?.isOnboarded ?? true,
         );
 

@@ -272,6 +272,10 @@ class _PreviewVenueState extends State<PreviewVenue> {
           _buildToggleRow('Halal food available:', previewVenueController.halalToggle),
           const SizedBox(height: 20),
           _buildToggleRow('Kosher food available:', previewVenueController.kosherToggle),
+          
+          const SizedBox(height: 20),
+          _buildToggleRow('Vegan food available:', previewVenueController.veganToggle),
+          
           const SizedBox(height: 20),
           Text(
             'Write your review:',
@@ -322,6 +326,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
                   friendliness: previewVenueController.lgbtRating.value,
                   halal: previewVenueController.halalToggle.value,
                   kosher: previewVenueController.kosherToggle.value,
+                  vegan: previewVenueController.veganToggle.value,
                   photoUrl: previewVenueController.downloadURL.value,
                 ),
                 widget.id ?? '',
@@ -335,6 +340,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
                   friendliness: previewVenueController.lgbtRating.value,
                   halal: previewVenueController.halalToggle.value,
                   kosher: previewVenueController.kosherToggle.value,
+                  vegan: previewVenueController.veganToggle.value,
                   photoUrl: previewVenueController.downloadURL.value,
                 ));
                 widget.reviewTextEditingController.clear();
@@ -342,6 +348,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
                 previewVenueController.lgbtRating.value = 3.0;
                 previewVenueController.halalToggle.value = false;
                 previewVenueController.kosherToggle.value = false;
+                previewVenueController.veganToggle.value = false;
               });
             },
             child: const Text("Post Review"),
@@ -420,6 +427,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
                       ),
                       Text("Halal: ${review.halal ? "Yes" : "No"}"),
                       Text("Kosher: ${review.kosher ? "Yes" : "No"}"),
+                      Text("Vegan: ${review.vegan ? "Yes" : "No"}"),
                       Visibility(visible: review.photoUrl != '', child: const Text("User photo:")),
                       if (review.photoUrl != '')
                         Padding(

@@ -35,8 +35,8 @@ class MapPage extends StatelessWidget {
                 visible: homePageController.venues.isNotEmpty,
                 child: Container(
                   alignment: Alignment.center,
-                  margin: const EdgeInsets.all(15.0),
-                  padding: const EdgeInsets.all(10.0),
+                  margin: const EdgeInsets.all(65.0),
+                  padding: const EdgeInsets.all(5.0),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30.0),
                       border: Border.all(

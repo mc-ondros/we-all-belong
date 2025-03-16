@@ -53,7 +53,7 @@ class LoginController extends GetxController {
           AlertDialog(
             title: Text(
               'Email Not Verified',
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.jost(
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -63,12 +63,12 @@ class LoginController extends GetxController {
               children: [
                 Text(
                   'Please verify your email before logging in.',
-                  style: GoogleFonts.poppins(),
+                  style: GoogleFonts.jost(),
                 ),
                 const SizedBox(height: 16),
                 Text(
                   'Didn\'t receive the email?',
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.jost(
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -88,14 +88,14 @@ class LoginController extends GetxController {
                 },
                 child: Text(
                   'Resend Email',
-                  style: GoogleFonts.poppins(),
+                  style: GoogleFonts.jost(),
                 ),
               ),
               TextButton(
                 onPressed: () => Get.back(),
                 child: Text(
                   'OK',
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.jost(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -190,7 +190,7 @@ class LoginPage extends StatelessWidget {
                     ),
                     Text(
                       'belong.',
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.jost(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
                         color: GenericColors.secondaryAccent,
@@ -275,7 +275,7 @@ class LoginPage extends StatelessWidget {
                     ),
                     child: Text(
                       'Sign in',
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.jost(
                         color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -300,7 +300,7 @@ class LoginPage extends StatelessWidget {
                     ),
                     child: Text(
                       'Enter as guest',
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.jost(
                         color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -317,13 +317,13 @@ class LoginPage extends StatelessWidget {
                     child: RichText(
                       text: TextSpan(
                         text: 'Don\'t have an account? ',
-                        style: GoogleFonts.poppins(
+                        style: GoogleFonts.jost(
                           color: Colors.grey[400],
                         ),
                         children: [
                           TextSpan(
                             text: 'Register',
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.jost(
                               color: Colors.blue[600],
                               fontWeight: FontWeight.w600,
                             ),

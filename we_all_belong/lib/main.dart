@@ -61,21 +61,21 @@ class MyApp extends StatelessWidget {
           error: Colors.red[700]!,
         ),
         textTheme: TextTheme(
-          displayLarge: GoogleFonts.poppins(
+          displayLarge: GoogleFonts.jost(
             color: GenericColors.primaryAccent,
             fontSize: 32,
             fontWeight: FontWeight.bold,
           ),
-          displayMedium: GoogleFonts.poppins(
+          displayMedium: GoogleFonts.jost(
             color: GenericColors.primaryAccent,
             fontSize: 24,
             fontWeight: FontWeight.w600,
           ),
-          bodyLarge: GoogleFonts.poppins(
+          bodyLarge: GoogleFonts.jost(
             color: GenericColors.secondaryAccent,
             fontSize: 16,
           ),
-          bodyMedium: GoogleFonts.poppins(
+          bodyMedium: GoogleFonts.jost(
             color: GenericColors.supportGrey,
             fontSize: 14,
           ),
@@ -110,7 +110,7 @@ class MyApp extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
-            textStyle: GoogleFonts.poppins(
+            textStyle: GoogleFonts.jost(
               fontSize: 16,
               fontWeight: FontWeight.w600,
             ),

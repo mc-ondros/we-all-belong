@@ -21,8 +21,7 @@ class PreviewVenue extends StatefulWidget {
   final VenueModel venueModel;
   final bool? open_now;
   UserController userController = Get.find();
-  // ignore: prefer_typing_uninitialized_variables
-  var reviews;
+  List<ReviewModel> reviews = [];
   final TextEditingController reviewTextEditingController = TextEditingController();
   PreviewVenue({required this.venueModel, this.name, required this.id, required this.open_now, super.key});
 
@@ -272,10 +271,8 @@ class _PreviewVenueState extends State<PreviewVenue> {
           _buildToggleRow('Halal food available:', previewVenueController.halalToggle),
           const SizedBox(height: 20),
           _buildToggleRow('Kosher food available:', previewVenueController.kosherToggle),
-          
           const SizedBox(height: 20),
           _buildToggleRow('Vegan food available:', previewVenueController.veganToggle),
-          
           const SizedBox(height: 20),
           Text(
             'Write your review:',
@@ -332,7 +329,6 @@ class _PreviewVenueState extends State<PreviewVenue> {
                 widget.id ?? '',
               );
               setState(() {
-                widget.reviews ??= [];
                 widget.reviews.add(ReviewModel(
                   uuid: 'uuid',
                   text: widget.reviewTextEditingController.text,

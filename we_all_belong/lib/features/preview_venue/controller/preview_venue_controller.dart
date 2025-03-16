@@ -21,6 +21,7 @@ class PreviewVenueController extends GetxController {
   bool get isUploading => _isUploading.value;
   set isUploading(bool value) => _isUploading.value = value;
 
+  //Function to pick image from gallery or camera
   Future<void> pickImage(ImageSource source) async {
     final pickedFile = await ImagePicker().pickImage(source: source);
 
@@ -32,6 +33,7 @@ class PreviewVenueController extends GetxController {
     }
   }
 
+  //Function to upload image to firebase storage
   Future<void> uploadImage() async {
     if (imageFile == null) {
       debugPrint('No image selected.');

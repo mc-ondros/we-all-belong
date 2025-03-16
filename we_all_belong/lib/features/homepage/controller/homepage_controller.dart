@@ -60,7 +60,7 @@ class HomePageController extends GetxController {
               Text(
                 venues.firstWhere((element) => element.lat == lat && element.long == lng).name ?? '',
                 overflow: TextOverflow.ellipsis,
-                style: GoogleFonts.poppins(fontSize: 12, color: Colors.white),
+                style: GoogleFonts.jost(fontSize: 12, color: Colors.white),
               ),
             ],
           ),
@@ -82,7 +82,7 @@ class HomePageController extends GetxController {
             Text(
               'You',
               overflow: TextOverflow.ellipsis,
-              style: GoogleFonts.poppins(fontSize: 14, color: Colors.white),
+              style: GoogleFonts.jost(fontSize: 14, color: Colors.white),
             ),
           ],
         ),

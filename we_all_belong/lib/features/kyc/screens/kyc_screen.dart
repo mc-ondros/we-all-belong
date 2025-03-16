@@ -21,13 +21,13 @@ class KYCScreen extends StatelessWidget {
               children: [
                 Text(
                   'Tell Us More About YOU',
-                  style: GoogleFonts.anton(
+                  style: GoogleFonts.jost(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 32),
-                
+
                 // Nationality Field
                 TextField(
                   onChanged: (value) => controller.nationality.value = value,
@@ -38,13 +38,12 @@ class KYCScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                
+
                 const SizedBox(height: 16),
-                
+
                 // Religious Orientation Field
                 TextField(
-                  onChanged: (value) => 
-                      controller.religiousOrientation.value = value,
+                  onChanged: (value) => controller.religiousOrientation.value = value,
                   decoration: InputDecoration(
                     labelText: 'Religious Orientation',
                     border: OutlineInputBorder(
@@ -52,13 +51,12 @@ class KYCScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                
+
                 const SizedBox(height: 16),
-                
+
                 // Sexual Preferences Field
                 TextField(
-                  onChanged: (value) => 
-                      controller.sexualPreference.value = value,
+                  onChanged: (value) => controller.sexualPreference.value = value,
                   decoration: InputDecoration(
                     labelText: 'Sexual Preferences',
                     border: OutlineInputBorder(
@@ -66,23 +64,22 @@ class KYCScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                
+
                 const SizedBox(height: 24),
-                
+
                 Text(
                   'Disabilities',
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.jost(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                
+
                 Wrap(
                   spacing: 8,
                   children: controller.availableDisabilities
                       .map((disability) => Obx(() {
-                            final isSelected = controller.disabilities
-                                .contains(disability);
+                            final isSelected = controller.disabilities.contains(disability);
                             return FilterChip(
                               label: Text(disability),
                               selected: isSelected,
@@ -90,61 +87,60 @@ class KYCScreen extends StatelessWidget {
                                 if (selected) {
                                   controller.disabilities.add(disability);
                                 } else {
-                                  controller.disabilities
-                                      .remove(disability);
+                                  controller.disabilities.remove(disability);
                                 }
                               },
                             );
                           }))
                       .toList(),
                 ),
-                
+
                 const SizedBox(height: 24),
-                
+
                 Text(
                   'Dietary Preferences',
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.jost(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                
+
                 const SizedBox(height: 8),
-                
+
                 Obx(() => Row(
-                  children: [
-                    Expanded(
-                      child: CheckboxListTile(
-                        title: Text('Vegan'),
-                        value: controller.isVegan.value,
-                        onChanged: (value) => controller.isVegan.value = value ?? false,
-                        controlAffinity: ListTileControlAffinity.leading,
-                        dense: true,
-                      ),
-                    ),
-                    Expanded(
-                      child: CheckboxListTile(
-                        title: Text('Halal'),
-                        value: controller.isHalal.value,
-                        onChanged: (value) => controller.isHalal.value = value ?? false,
-                        controlAffinity: ListTileControlAffinity.leading,
-                        dense: true,
-                      ),
-                    ),
-                    Expanded(
-                      child: CheckboxListTile(
-                        title: Text('Kosher'),
-                        value: controller.isKosher.value,
-                        onChanged: (value) => controller.isKosher.value = value ?? false,
-                        controlAffinity: ListTileControlAffinity.leading,
-                        dense: true,
-                      ),
-                    ),
-                  ],
-                )),
-                
+                      children: [
+                        Expanded(
+                          child: CheckboxListTile(
+                            title: const Text('Vegan'),
+                            value: controller.isVegan.value,
+                            onChanged: (value) => controller.isVegan.value = value ?? false,
+                            controlAffinity: ListTileControlAffinity.leading,
+                            dense: true,
+                          ),
+                        ),
+                        Expanded(
+                          child: CheckboxListTile(
+                            title: const Text('Halal'),
+                            value: controller.isHalal.value,
+                            onChanged: (value) => controller.isHalal.value = value ?? false,
+                            controlAffinity: ListTileControlAffinity.leading,
+                            dense: true,
+                          ),
+                        ),
+                        Expanded(
+                          child: CheckboxListTile(
+                            title: const Text('Kosher'),
+                            value: controller.isKosher.value,
+                            onChanged: (value) => controller.isKosher.value = value ?? false,
+                            controlAffinity: ListTileControlAffinity.leading,
+                            dense: true,
+                          ),
+                        ),
+                      ],
+                    )),
+
                 const SizedBox(height: 32),
-                
+
                 SizedBox(
                   width: double.infinity,
                   height: 50,
@@ -158,7 +154,7 @@ class KYCScreen extends StatelessWidget {
                     ),
                     child: Text(
                       'Continue',
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.jost(
                         color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -173,4 +169,4 @@ class KYCScreen extends StatelessWidget {
       ),
     );
   }
-} 
+}

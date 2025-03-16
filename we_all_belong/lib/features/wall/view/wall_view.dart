@@ -71,7 +71,7 @@ class WallPage extends StatelessWidget {
                     ),
                     Text(
                       'No posts yet. Be the first to post!',
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.jost(
                         color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.w600,

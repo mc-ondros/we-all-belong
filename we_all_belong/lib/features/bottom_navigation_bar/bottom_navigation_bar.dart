@@ -23,14 +23,20 @@ class _BottomNavigationBarCustomState extends State<BottomNavigationBarCustom> {
     ProfileScreen(),
     WallPage(), // Replace with your actual screen// Replace with your actual screen
   ];
-
+  final PageController _pageController = PageController();
   final BottomNavigationController bottomNavigationController = Get.put(BottomNavigationController());
 
   @override
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
-        body: screens[bottomNavigationController.selectedIndex.value],
+        body: PageView(
+          controller: _pageController,
+          onPageChanged: (index) {
+            bottomNavigationController.selectedIndex.value = index;
+          },
+          children: screens,
+        ),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           selectedItemColor: GenericColors.white,
@@ -38,7 +44,11 @@ class _BottomNavigationBarCustomState extends State<BottomNavigationBarCustom> {
           backgroundColor: GenericColors.background,
           currentIndex: bottomNavigationController.selectedIndex.value,
           onTap: (value) {
-            bottomNavigationController.selectedIndex.value = value; // Navigate to the selected screen
+            _pageController.animateToPage(
+              value,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+            ); // Navigate to the selected screen
           },
           items: const [
             BottomNavigationBarItem(

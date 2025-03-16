@@ -126,7 +126,7 @@ class EditProfileScreen extends StatelessWidget {
             children: [
               Text(
                 'Dietary Preferences',
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.jost(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                   color: Colors.blue[600],
@@ -134,36 +134,36 @@ class EditProfileScreen extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Obx(() => Column(
-                children: [
-                  Center(
-                    child: CheckboxListTile(
-                      title: Text('Vegan'),
-                      value: controller.isVegan.value,
-                      onChanged: (value) => controller.isVegan.value = value ?? false,
-                      controlAffinity: ListTileControlAffinity.leading,
-                      dense: true,
-                    ),
-                  ),
-                  Center(
-                    child: CheckboxListTile(
-                      title: Text('Halal'),
-                      value: controller.isHalal.value,
-                      onChanged: (value) => controller.isHalal.value = value ?? false,
-                      controlAffinity: ListTileControlAffinity.leading,
-                      dense: true,
-                    ),
-                  ),
-                  Center(
-                    child: CheckboxListTile(
-                      title: Text('Kosher'),
-                      value: controller.isKosher.value,
-                      onChanged: (value) => controller.isKosher.value = value ?? false,
-                      controlAffinity: ListTileControlAffinity.leading,
-                      dense: true,
-                    ),
-                  ),
-                ],
-              )),
+                    children: [
+                      Center(
+                        child: CheckboxListTile(
+                          title: const Text('Vegan'),
+                          value: controller.isVegan.value,
+                          onChanged: (value) => controller.isVegan.value = value ?? false,
+                          controlAffinity: ListTileControlAffinity.leading,
+                          dense: true,
+                        ),
+                      ),
+                      Center(
+                        child: CheckboxListTile(
+                          title: const Text('Halal'),
+                          value: controller.isHalal.value,
+                          onChanged: (value) => controller.isHalal.value = value ?? false,
+                          controlAffinity: ListTileControlAffinity.leading,
+                          dense: true,
+                        ),
+                      ),
+                      Center(
+                        child: CheckboxListTile(
+                          title: const Text('Kosher'),
+                          value: controller.isKosher.value,
+                          onChanged: (value) => controller.isKosher.value = value ?? false,
+                          controlAffinity: ListTileControlAffinity.leading,
+                          dense: true,
+                        ),
+                      ),
+                    ],
+                  )),
             ],
           ),
         ),
@@ -182,7 +182,7 @@ class EditProfileScreen extends StatelessWidget {
             children: [
               Text(
                 'Disabilities',
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.jost(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                   color: Colors.blue[600],
@@ -190,9 +190,8 @@ class EditProfileScreen extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Obx(() => Wrap(
-                spacing: 8,
-                children: controller.availableDisabilities
-                    .map((disability) {
+                    spacing: 8,
+                    children: controller.availableDisabilities.map((disability) {
                       final isSelected = controller.disabilities.contains(disability);
                       return FilterChip(
                         label: Text(disability),
@@ -207,9 +206,8 @@ class EditProfileScreen extends StatelessWidget {
                         selectedColor: Colors.blue[100],
                         checkmarkColor: Colors.blue[800],
                       );
-                    })
-                    .toList(),
-              )),
+                    }).toList(),
+                  )),
             ],
           ),
         ),
@@ -229,7 +227,7 @@ class EditProfileScreen extends StatelessWidget {
             ),
             child: Text(
               'Save Changes',
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.jost(
                 color: Colors.white,
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
@@ -265,7 +263,7 @@ class EditProfileScreen extends StatelessWidget {
         decoration: InputDecoration(
           fillColor: Colors.black,
           labelText: label,
-          labelStyle: GoogleFonts.poppins(
+          labelStyle: GoogleFonts.jost(
             color: Colors.grey[600],
           ),
           prefixIcon: Icon(icon, color: Colors.blue[600]),

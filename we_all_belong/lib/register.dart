@@ -54,28 +54,25 @@ class RegisterController extends GetxController {
       await userCredential.user?.sendEmailVerification();
 
       // Create initial user profile
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(userCredential.user?.uid)
-          .set({
+      await FirebaseFirestore.instance.collection('users').doc(userCredential.user?.uid).set({
         'uid': userCredential.user?.uid,
         'isOnboarded': false,
       });
 
       Get.back(); // Dismiss loading indicator
-      
+
       // Show success dialog
       await Get.dialog(
         AlertDialog(
           title: Text(
             'Registration Successful',
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.jost(
               fontWeight: FontWeight.bold,
             ),
           ),
           content: Text(
             'A verification email has been sent to $email. Please verify your email before logging in.',
-            style: GoogleFonts.poppins(),
+            style: GoogleFonts.jost(),
           ),
           actions: [
             TextButton(
@@ -85,7 +82,7 @@ class RegisterController extends GetxController {
               },
               child: Text(
                 'OK',
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.jost(
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -93,7 +90,6 @@ class RegisterController extends GetxController {
           ],
         ),
       );
-
     } on FirebaseAuthException catch (e) {
       Get.back(); // Dismiss loading indicator
       String errorMessage = '';
@@ -247,7 +243,7 @@ class RegisterPage extends StatelessWidget {
                     ),
                     child: Text(
                       'Create Account',
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.jost(
                         color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -265,13 +261,13 @@ class RegisterPage extends StatelessWidget {
                     child: RichText(
                       text: TextSpan(
                         text: 'Already have an account? ',
-                        style: GoogleFonts.poppins(
+                        style: GoogleFonts.jost(
                           color: Colors.grey[400],
                         ),
                         children: [
                           TextSpan(
                             text: 'Sign In',
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.jost(
                               color: Colors.blue[600],
                               fontWeight: FontWeight.w600,
                             ),

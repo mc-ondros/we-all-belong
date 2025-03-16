@@ -48,8 +48,8 @@ class _HomePageState extends State<HomePage> {
                   visible: homepageController.venues.isNotEmpty,
                   child: Container(
                     alignment: Alignment.center,
-                    margin: const EdgeInsets.all(30.0),
-                    padding: const EdgeInsets.all(10.0),
+                    margin: const EdgeInsets.all(65.0),
+                    padding: const EdgeInsets.all(5.0),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30.0),
                         border: Border.all(
@@ -67,12 +67,9 @@ class _HomePageState extends State<HomePage> {
                           style: GoogleFonts.jost(
                             textStyle: const TextStyle(
                               color: GenericColors.moonGrey,
-                              fontSize: FontSizes.f_18,
+                              fontSize: FontSizes.f_15,
                             ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 5.0,
                         ),
                         Container(
                           alignment: Alignment.bottomCenter,

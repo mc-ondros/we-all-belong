@@ -102,11 +102,11 @@ class UserLabelBuilder {
       case LabelCategory.gender:
         return Colors.purple;
       case LabelCategory.religiousOrientation:
-        return Color(0xFFB50E38);
+        return const Color(0xFFB50E38);
       case LabelCategory.sexualPreference:
         return Colors.pink;
       case LabelCategory.pronouns:
-        return Color(0xFFD4B20B);
+        return const Color(0xFFD4B20B);
       case LabelCategory.disability:
         return Colors.teal;
       case LabelCategory.dietaryPreference:

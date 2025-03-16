@@ -17,18 +17,18 @@ class LogoutButton extends StatelessWidget {
             AlertDialog(
               title: Text(
                 'Logout',
-                style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                style: GoogleFonts.jost(fontWeight: FontWeight.bold),
               ),
               content: Text(
                 'Are you sure you want to logout?',
-                style: GoogleFonts.poppins(),
+                style: GoogleFonts.jost(),
               ),
               actions: [
                 TextButton(
                   onPressed: () => Get.back(),
                   child: Text(
                     'Cancel',
-                    style: GoogleFonts.poppins(),
+                    style: GoogleFonts.jost(),
                   ),
                 ),
                 TextButton(
@@ -39,7 +39,7 @@ class LogoutButton extends StatelessWidget {
                   },
                   child: Text(
                     'Logout',
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.jost(
                       color: Colors.red,
                       fontWeight: FontWeight.bold,
                     ),
@@ -57,7 +57,7 @@ class LogoutButton extends StatelessWidget {
         ),
         child: Text(
           'Logout',
-          style: GoogleFonts.poppins(
+          style: GoogleFonts.jost(
             color: Colors.white,
             fontSize: 16,
             fontWeight: FontWeight.w600,
@@ -66,4 +66,4 @@ class LogoutButton extends StatelessWidget {
       ),
     );
   }
-} 
+}

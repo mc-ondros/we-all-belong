@@ -46,7 +46,7 @@ class CompactUserLabelsWidget extends StatelessWidget {
             child: Center(
               child: Text(
                 '+${labels.length - maxLabels}',
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.jost(
                   color: Colors.white,
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
@@ -86,7 +86,7 @@ class CompactUserLabelsWidget extends StatelessWidget {
           const SizedBox(width: 4),
           Text(
             label.label,
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.jost(
               color: Colors.white,
               fontSize: 10,
               fontWeight: FontWeight.w500,

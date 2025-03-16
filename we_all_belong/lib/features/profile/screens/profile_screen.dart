@@ -90,7 +90,7 @@ class ProfileScreen extends StatelessWidget {
     debugPrint('Gender: ${controller.genderController.text}');
     debugPrint('Pronouns: ${controller.pronounsController.text}');
     debugPrint('Disabilities: ${controller.disabilities}');
-    
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
       child: Column(
@@ -141,7 +141,7 @@ class ProfileScreen extends StatelessWidget {
               value: controller.disabilities.join(', '),
             ),
           // Fallback if no details are available
-          if (controller.nameController.text.isEmpty && 
+          if (controller.nameController.text.isEmpty &&
               controller.ageController.text.isEmpty &&
               controller.nationalityController.text.isEmpty &&
               controller.genderController.text.isEmpty &&
@@ -149,10 +149,8 @@ class ProfileScreen extends StatelessWidget {
               controller.disabilities.isEmpty)
             Text(
               'No profile details available. Tap the edit button to add your information.',
-              style: GoogleFonts.poppins(
-                color: Theme.of(context).brightness == Brightness.dark 
-                    ? Colors.white70 
-                    : Colors.black54,
+              style: GoogleFonts.jost(
+                color: Theme.of(context).brightness == Brightness.dark ? Colors.white70 : Colors.black54,
                 fontSize: 14,
                 fontStyle: FontStyle.italic,
               ),
@@ -183,15 +181,15 @@ class ProfileScreen extends StatelessWidget {
               size: 24,
             ),
           ),
-          const SizedBox(width: 16),  
-              Text(
-                value,
-                style: GoogleFonts.poppins(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+          const SizedBox(width: 16),
+          Text(
+            value,
+            style: GoogleFonts.jost(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
         ],
       ),
     );

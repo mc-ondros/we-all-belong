@@ -57,7 +57,7 @@ class UserLabelsWidget extends StatelessWidget {
       ),
       label: Text(
         label.label,
-        style: GoogleFonts.poppins(
+        style: GoogleFonts.jost(
           color: Colors.white,
           fontSize: 8,
           fontWeight: FontWeight.w500,

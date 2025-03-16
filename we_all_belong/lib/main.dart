@@ -5,11 +5,13 @@ import 'core/core_shared.dart';
 import 'core/firebase/firebase_options.dart';
 import 'package:we_all_belong/login.dart';
 import 'package:geolocator/geolocator.dart';
+import 'core/google_maps_api/controller/location_controller.dart';
 import 'core/services/auth_service.dart';
 import 'components/specs/colors.dart';
 import 'core/services/profile_image_service.dart';
 
 import 'core/user_controller/user_controller.dart';
+import 'features/homepage/controller/homepage_controller.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,6 +39,8 @@ Future<void> main() async {
 // ignore: must_be_immutable
 class MyApp extends StatelessWidget {
   UserController userController = Get.put(UserController());
+  final LocationController locationController = Get.put(LocationController());
+  final HomePageController homepageController = Get.put(HomePageController());
 
   MyApp({super.key});
 

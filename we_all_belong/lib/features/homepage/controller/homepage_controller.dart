@@ -10,7 +10,7 @@ import '../../../components/specs/colors.dart';
 import '../../../core/core_shared.dart';
 
 class HomePageController extends GetxController {
-  final LocationController locationController = Get.put(LocationController());
+  final LocationController locationController = Get.find();
   RxList<VenueModel> venues = <VenueModel>[].obs;
   RxInt selectedIndex = 0.obs;
   RxBool isUpdatingMarkers = false.obs;

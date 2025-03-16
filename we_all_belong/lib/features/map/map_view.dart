@@ -38,7 +38,7 @@ class MapPage extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30.0),
                       border: Border.all(
-                        color: GenericColors.grey,
+                        color: GenericColors.primaryAccent,
                       ),
                       gradient: const RadialGradient(
                           colors: [GenericColors.darkGrey, GenericColors.supportGrey],
@@ -61,7 +61,7 @@ class MapPage extends StatelessWidget {
                       ),
                       Container(
                         alignment: Alignment.bottomCenter,
-                        width: 145,
+                        width: 225,
                         height: 70,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30.0),
@@ -69,22 +69,22 @@ class MapPage extends StatelessWidget {
                             color: GenericColors.grey,
                           ),
                           gradient: const RadialGradient(
-                              colors: [GenericColors.highlightBlue, GenericColors.white],
-                              center: Alignment.bottomCenter,
+                              colors: [GenericColors.primaryAccent, GenericColors.black],
+                              center: Alignment.topCenter,
                               radius: 5.0),
                         ),
                         child: DropdownButtonCustom(
                           defaultValue: myDropdownController.selectedValue.value,
                           dropdownColor: GenericColors.background,
                           currentData: const [
-                            'bar',
-                            'restaurant',
-                            'cafe',
-                            'gym',
-                            'library',
-                            'movie_theater',
-                            'night_club',
-                            'museum',
+                            'Bar',
+                            'Restaurant',
+                            'Cafe',
+                            'Gym',
+                            'Library',
+                            'Movie Theater',
+                            'Night Club',
+                            'Museum',
                           ],
                           valueBuilder: (newValue) async {
                             myDropdownController.selectedValue.value = newValue;
@@ -92,7 +92,7 @@ class MapPage extends StatelessWidget {
                                 locationController.latitude.value,
                                 locationController.longitude.value,
                                 1500,
-                                myDropdownController.selectedValue.value);
+                                myDropdownController.selectedValue.value.toLowerCase().replaceAll(' ','_'));
                             homePageController.updateMarkers();
                           },
                         ),

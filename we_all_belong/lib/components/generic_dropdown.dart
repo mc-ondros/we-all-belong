@@ -34,6 +34,7 @@ class DropdownButtonCustom<DropDownType> extends StatelessWidget {
   final String? labelText;
   final bool isFirst;
   final double bottomPadding;
+
   @override
   Widget build(BuildContext context) {
     double screenHeightMultiplier = MediaQuery.of(context).size.height / 783.83;
@@ -102,8 +103,14 @@ class DropdownButtonCustom<DropDownType> extends StatelessWidget {
                   value: value,
                   child: Container(
                     margin: const EdgeInsets.only(left: Paddings.p_10),
-                    color: Colors.transparent,
-                    child: Center(child: Text(value.toString())),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(RadiusSpec.r_12)
+                    ),
+                    child: Center(
+                      child: Text(
+                          value.toString(),
+                      ),
+                    ),
                   ),
                 );
               }).toList(),

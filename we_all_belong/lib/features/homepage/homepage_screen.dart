@@ -12,14 +12,26 @@ import '../preview_venue/preview_venue.dart';
 
 import '../../components/specs/colors.dart';
 
-class HomePage extends StatelessWidget {
-  // Initialize the VenueController
-  final HomePageController homepageController = Get.put(HomePageController());
-  final MyDropdownController myDropdownController = Get.put(MyDropdownController());
-  final LocationController locationController = Get.find();
+class HomePage extends StatefulWidget {
 
   HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  // Initialize the VenueController
+  final HomePageController homepageController = Get.find();
+
+  final MyDropdownController myDropdownController = Get.put(MyDropdownController());
+
+  final LocationController locationController = Get.find();
+  @override
+  void initState() {
+    super.initState();
+    myDropdownController.selectedValue.value.toLowerCase().replaceAll(' ','_');
+  }
   @override
   Widget build(BuildContext context) {
     return GetX<HomePageController>(
@@ -41,7 +53,7 @@ class HomePage extends StatelessWidget {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30.0),
                         border: Border.all(
-                          color: GenericColors.grey,
+                          color: GenericColors.primaryAccent,
                         ),
                         gradient: const RadialGradient(
                             colors: [GenericColors.darkGrey, GenericColors.supportGrey],
@@ -64,7 +76,7 @@ class HomePage extends StatelessWidget {
                         ),
                         Container(
                           alignment: Alignment.bottomCenter,
-                          width: 145,
+                          width: 225,
                           height: 70,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30.0),
@@ -72,22 +84,22 @@ class HomePage extends StatelessWidget {
                               color: GenericColors.grey,
                             ),
                             gradient: const RadialGradient(
-                                colors: [GenericColors.highlightBlue, GenericColors.white],
-                                center: Alignment.bottomCenter,
+                                colors: [GenericColors.primaryAccent, GenericColors.black],
+                                center: Alignment.topCenter,
                                 radius: 5.0),
                           ),
                           child: DropdownButtonCustom(
                             defaultValue: myDropdownController.selectedValue.value,
                             dropdownColor: GenericColors.background,
                             currentData: const [
-                              'bar',
-                              'restaurant',
-                              'cafe',
-                              'gym',
-                              'library',
-                              'movie_theater',
-                              'night_club',
-                              'museum',
+                              'Bar',
+                              'Restaurant',
+                              'Cafe',
+                              'Gym',
+                              'Library',
+                              'Movie Theater',
+                              'Night Club',
+                              'Museum',
                             ],
                             valueBuilder: (newValue) async {
                               myDropdownController.selectedValue.value = newValue;
@@ -95,7 +107,7 @@ class HomePage extends StatelessWidget {
                                   locationController.latitude.value,
                                   locationController.longitude.value,
                                   1500,
-                                  myDropdownController.selectedValue.value);
+                                  myDropdownController.selectedValue.value.toLowerCase().replaceAll(' ','_'));
                             },
                           ),
                         ),

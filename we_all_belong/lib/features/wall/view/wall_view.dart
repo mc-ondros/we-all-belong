@@ -138,13 +138,11 @@ class WallPage extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            child: ElevatedButton(
-              onPressed: () async {
-                Get.to(ChatroomList());
-              },
-              child: const Text("Chatrooms"),
-            ),
+          ElevatedButton(
+            onPressed: () async {
+              Get.to(ChatroomList());
+            },
+            child: const Text("Chatrooms"),
           ),
         ],
       ),

@@ -9,7 +9,7 @@ class ChatRoomPage extends StatefulWidget {
   final String chatroomId;
   final String chatroomName;
 
-  ChatRoomPage({super.key, required this.chatroomId, required this.chatroomName});
+  const ChatRoomPage({super.key, required this.chatroomId, required this.chatroomName});
 
   @override
   State<ChatRoomPage> createState() => _ChatRoomPageState();

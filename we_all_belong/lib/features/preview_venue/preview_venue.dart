@@ -36,7 +36,7 @@ class _PreviewVenueState extends State<PreviewVenue> {
   late Future<List<ReviewModel>> _reviewsFuture;
   double _imageOpacity = 1.0;
   double _appBarOpacity = 1.0;
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
 
   @override
@@ -244,116 +244,113 @@ class _PreviewVenueState extends State<PreviewVenue> {
   }
 
   Widget _buildReviewSection() {
-    return Container(
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'How is your experience?',
+            style: GoogleFonts.jost(
+              textStyle: const TextStyle(
+                fontSize: 22,
+                color: GenericColors.shadyGreen,
 
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'How is your experience?',
-              style: GoogleFonts.jost(
-                textStyle: const TextStyle(
-                  fontSize: 22,
-                  color: GenericColors.shadyGreen,
-
-                  fontWeight: FontWeight.w700,
-                ),
+                fontWeight: FontWeight.w700,
               ),
             ),
-            const SizedBox(height: 20),
-            _buildRatingRow('Accessibility for disabled:', (rating) {
+          ),
+          const SizedBox(height: 20),
+          _buildRatingRow('Accessibility for disabled:', (rating) {
 
-              previewVenueController.accesibilityRating.value = rating;
-            }),
-            const SizedBox(height: 20),
+            previewVenueController.accesibilityRating.value = rating;
+          }),
+          const SizedBox(height: 20),
 
-            _buildRatingRow('LGBTQIA+ friendliness:', (rating) {
+          _buildRatingRow('LGBTQIA+ friendliness:', (rating) {
 
-              previewVenueController.lgbtRating.value = rating;
-            }),
-            const SizedBox(height: 20),
-            _buildToggleRow('Halal food available:', previewVenueController.halalToggle),
+            previewVenueController.lgbtRating.value = rating;
+          }),
+          const SizedBox(height: 20),
+          _buildToggleRow('Halal food available:', previewVenueController.halalToggle),
 
-            const SizedBox(height: 20),
-            _buildToggleRow('Kosher food available:', previewVenueController.kosherToggle),
-            const SizedBox(height: 20),
-            Text(
-              'Write your review:',
-              style: GoogleFonts.jost(
-                textStyle: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
+          const SizedBox(height: 20),
+          _buildToggleRow('Kosher food available:', previewVenueController.kosherToggle),
+          const SizedBox(height: 20),
+          Text(
+            'Write your review:',
+            style: GoogleFonts.jost(
+              textStyle: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
               ),
             ),
-            TextField(
-              controller: widget.reviewTextEditingController,
-              decoration: InputDecoration(
-                hintText: 'Write your opinion...',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                  borderSide: const BorderSide(color: Colors.grey),
-                ),
-                fillColor: Colors.black,
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                  borderSide: const BorderSide(color: Colors.blue, width: 2.0),
-                ),
-                contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+          ),
+          TextField(
+            controller: widget.reviewTextEditingController,
+            decoration: InputDecoration(
+              hintText: 'Write your opinion...',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                borderSide: const BorderSide(color: Colors.grey),
               ),
+              fillColor: Colors.black,
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                borderSide: const BorderSide(color: Colors.blue, width: 2.0),
+              ),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
             ),
-            ListTile(
-              leading: const Icon(Icons.photo_library),
-              title: const Text('Pick from Gallery'),
-              onTap: () async {
-                await previewVenueController.pickImage(ImageSource.gallery);
-              },
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () async {
-                if (previewVenueController.imageFile != null) {
-                  await previewVenueController.uploadImage();
-                  debugPrint('downloadURL: ${previewVenueController.downloadURL.value}');
-                } else {
-                  previewVenueController.downloadURL.value = '';
-                }
-                await PreviewVenueApi().uploadReview(
-                  ReviewModel(
-                    uuid: widget.userController.userModel.value.uuid ?? '', //TODO: implement ID
-                    text: widget.reviewTextEditingController.text,
-                    accessibility: previewVenueController.accesibilityRating.value,
-                    friendliness: previewVenueController.lgbtRating.value,
-                    halal: previewVenueController.halalToggle.value,
-                    kosher: previewVenueController.kosherToggle.value,
-                    photoUrl: previewVenueController.downloadURL.value,
-                  ),
-                  widget.id ?? '',
-                );
-                setState(() {
-                  widget.reviews ??= [];
-                  widget.reviews.add(ReviewModel(
-                    uuid: 'uuid',
-                    text: widget.reviewTextEditingController.text,
-                    accessibility: previewVenueController.accesibilityRating.value,
-                    friendliness: previewVenueController.lgbtRating.value,
-                    halal: previewVenueController.halalToggle.value,
-                    kosher: previewVenueController.kosherToggle.value,
-                    photoUrl: previewVenueController.downloadURL.value,
-                  ));
-                  widget.reviewTextEditingController.clear();
-                  previewVenueController.accesibilityRating.value = 3.0;
-                  previewVenueController.lgbtRating.value = 3.0;
-                  previewVenueController.halalToggle.value = false;
-                  previewVenueController.kosherToggle.value = false;
-                });
-              },
-              child: const Text("Post Review"),
-            ),
-          ],
-        ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.photo_library),
+            title: const Text('Pick from Gallery'),
+            onTap: () async {
+              await previewVenueController.pickImage(ImageSource.gallery);
+            },
+          ),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () async {
+              if (previewVenueController.imageFile != null) {
+                await previewVenueController.uploadImage();
+                debugPrint('downloadURL: ${previewVenueController.downloadURL.value}');
+              } else {
+                previewVenueController.downloadURL.value = '';
+              }
+              await PreviewVenueApi().uploadReview(
+                ReviewModel(
+                  uuid: widget.userController.userModel.value.uuid ?? '', //TODO: implement ID
+                  text: widget.reviewTextEditingController.text,
+                  accessibility: previewVenueController.accesibilityRating.value,
+                  friendliness: previewVenueController.lgbtRating.value,
+                  halal: previewVenueController.halalToggle.value,
+                  kosher: previewVenueController.kosherToggle.value,
+                  photoUrl: previewVenueController.downloadURL.value,
+                ),
+                widget.id ?? '',
+              );
+              setState(() {
+                widget.reviews ??= [];
+                widget.reviews.add(ReviewModel(
+                  uuid: 'uuid',
+                  text: widget.reviewTextEditingController.text,
+                  accessibility: previewVenueController.accesibilityRating.value,
+                  friendliness: previewVenueController.lgbtRating.value,
+                  halal: previewVenueController.halalToggle.value,
+                  kosher: previewVenueController.kosherToggle.value,
+                  photoUrl: previewVenueController.downloadURL.value,
+                ));
+                widget.reviewTextEditingController.clear();
+                previewVenueController.accesibilityRating.value = 3.0;
+                previewVenueController.lgbtRating.value = 3.0;
+                previewVenueController.halalToggle.value = false;
+                previewVenueController.kosherToggle.value = false;
+              });
+            },
+            child: const Text("Post Review"),
+          ),
+        ],
       ),
     );
   }

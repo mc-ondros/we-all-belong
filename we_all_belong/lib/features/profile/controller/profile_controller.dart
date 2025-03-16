@@ -114,24 +114,16 @@ class ProfileController extends GetxController {
           isOnboarded: userProfile.value?.isOnboarded ?? true,
         );
 
-<<<<<<< HEAD
-        await FirebaseFirestore.instance.collection('users').doc(user.uid).update(updatedProfile.toJson());
-=======
         await FirebaseFirestore.instance
             .collection('users')
             .doc(user.uid)
             .update(updatedProfile.toJson());
->>>>>>> 466c37f (Added pronouns to KYC and profile page.)
 
         // Update the stored profile
         userProfile.value = updatedProfile;
 
-<<<<<<< HEAD
+
         await Future.delayed(const Duration(seconds: 1)); // Simulate network delay
-=======
-        await Future.delayed(
-            const Duration(seconds: 1)); // Simulate network delay
->>>>>>> 466c37f (Added pronouns to KYC and profile page.)
 
         Get.snackbar(
           'Success',

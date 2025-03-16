@@ -60,16 +60,13 @@ class UserProfileModel {
       pronouns: json['pronouns'],
       religiousOrientation: json['religiousOrientation'],
       sexualPreference: json['sexualPreference'],
-      disabilities: json['disabilities'] != null
-          ? List<String>.from(json['disabilities'])
-          : null,
+      disabilities: json['disabilities'] != null ? List<String>.from(json['disabilities']) : null,
       isOnboarded: json['isOnboarded'] ?? false,
       bio: json['bio'],
       age: json['age'],
     );
   }
-  factory UserProfileModel.fromFirebase(
-      DocumentSnapshot<Map<String, dynamic>> doc) {
+  factory UserProfileModel.fromFirebase(DocumentSnapshot<Map<String, dynamic>> doc) {
     final data = doc.data();
     return UserProfileModel(
       uuid: data?['uuid'] ?? '',
@@ -78,12 +75,10 @@ class UserProfileModel {
       phoneNumber: data?['phoneNumber'],
       nationality: data?['nationality'],
       gender: data?['gender'],
-      pronouns: pronouns?['pronouns'],
+      pronouns: data?['pronouns'],
       religiousOrientation: data?['religiousOrientation'],
       sexualPreference: data?['sexualPreference'],
-      disabilities: data?['disabilities'] != null
-          ? List<String>.from(data!['disabilities'])
-          : null,
+      disabilities: data?['disabilities'] != null ? List<String>.from(data!['disabilities']) : null,
       isOnboarded: data?['isOnboarded'] ?? false,
       bio: data?['bio'],
       age: data?['age'],

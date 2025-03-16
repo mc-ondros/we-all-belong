@@ -13,8 +13,7 @@ import '../preview_venue/preview_venue.dart';
 import '../../components/specs/colors.dart';
 
 class HomePage extends StatefulWidget {
-
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -30,8 +29,9 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    myDropdownController.selectedValue.value.toLowerCase().replaceAll(' ','_');
+    myDropdownController.selectedValue.value.toLowerCase().replaceAll(' ', '_');
   }
+
   @override
   Widget build(BuildContext context) {
     return GetX<HomePageController>(
@@ -64,11 +64,7 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Text(
                           'Select Category',
-<<<<<<< HEAD
                           style: GoogleFonts.jost(
-=======
-                          style: GoogleFonts.anton(
->>>>>>> 466c37f (Added pronouns to KYC and profile page.)
                             textStyle: const TextStyle(
                               color: GenericColors.moonGrey,
                               fontSize: FontSizes.f_18,
@@ -111,7 +107,7 @@ class _HomePageState extends State<HomePage> {
                                   locationController.latitude.value,
                                   locationController.longitude.value,
                                   1500,
-                                  myDropdownController.selectedValue.value.toLowerCase().replaceAll(' ','_'));
+                                  myDropdownController.selectedValue.value.toLowerCase().replaceAll(' ', '_'));
                             },
                           ),
                         ),

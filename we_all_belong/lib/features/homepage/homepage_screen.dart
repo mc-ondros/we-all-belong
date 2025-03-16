@@ -64,11 +64,7 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Text(
                           'Select Category',
-<<<<<<< HEAD
                           style: GoogleFonts.jost(
-=======
-                          style: GoogleFonts.anton(
->>>>>>> 466c37f (Added pronouns to KYC and profile page.)
                             textStyle: const TextStyle(
                               color: GenericColors.moonGrey,
                               fontSize: FontSizes.f_18,

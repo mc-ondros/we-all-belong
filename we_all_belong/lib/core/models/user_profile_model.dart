@@ -78,7 +78,7 @@ class UserProfileModel {
       phoneNumber: data?['phoneNumber'],
       nationality: data?['nationality'],
       gender: data?['gender'],
-      pronouns: pronouns?['pronouns'],
+      pronouns: data?['pronouns'],
       religiousOrientation: data?['religiousOrientation'],
       sexualPreference: data?['sexualPreference'],
       disabilities: data?['disabilities'] != null

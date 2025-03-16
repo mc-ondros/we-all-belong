@@ -167,6 +167,52 @@ class EditProfileScreen extends StatelessWidget {
         ),
         const SizedBox(height: 32),
 
+        // Disabilities Section
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.grey[100],
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Disabilities',
+                style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.blue[600],
+                ),
+              ),
+              const SizedBox(height: 8),
+              Obx(() => Wrap(
+                spacing: 8,
+                children: controller.availableDisabilities
+                    .map((disability) {
+                      final isSelected = controller.disabilities.contains(disability);
+                      return FilterChip(
+                        label: Text(disability),
+                        selected: isSelected,
+                        onSelected: (selected) {
+                          if (selected) {
+                            controller.disabilities.add(disability);
+                          } else {
+                            controller.disabilities.remove(disability);
+                          }
+                        },
+                        selectedColor: Colors.blue[100],
+                        checkmarkColor: Colors.blue[800],
+                      );
+                    })
+                    .toList(),
+              )),
+            ],
+          ),
+        ),
+        const SizedBox(height: 32),
+
         // Save Button
         SizedBox(
           width: double.infinity,

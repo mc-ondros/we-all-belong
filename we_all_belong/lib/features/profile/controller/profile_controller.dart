@@ -24,6 +24,10 @@ class ProfileController extends GetxController {
   final RxBool isHalal = false.obs;
   final RxBool isKosher = false.obs;
 
+  // Disabilities
+  final RxList<String> disabilities = <String>[].obs;
+  final List<String> availableDisabilities = ['Physical', 'Sensorial', 'Intellectual', 'Learning', 'Emotional'];
+
   // Add userProfile to store all user data
   final Rx<UserProfileModel?> userProfile = Rx<UserProfileModel?>(null);
 
@@ -90,6 +94,12 @@ class ProfileController extends GetxController {
           isVegan.value = data['isVegan'] ?? false;
           isHalal.value = data['isHalal'] ?? false;
           isKosher.value = data['isKosher'] ?? false;
+          
+          // Update disabilities
+          disabilities.clear();
+          if (data['disabilities'] != null) {
+            disabilities.addAll(List<String>.from(data['disabilities']));
+          }
         }
       }
     } catch (e) {
@@ -121,10 +131,11 @@ class ProfileController extends GetxController {
           isVegan: isVegan.value,
           isHalal: isHalal.value,
           isKosher: isKosher.value,
+          // Updated disabilities
+          disabilities: disabilities,
           // Preserve existing values for other fields
           religiousOrientation: userProfile.value?.religiousOrientation,
           sexualPreference: userProfile.value?.sexualPreference,
-          disabilities: userProfile.value?.disabilities,
           isOnboarded: userProfile.value?.isOnboarded ?? true,
         );
 

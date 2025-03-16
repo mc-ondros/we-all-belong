@@ -24,7 +24,7 @@ class ReviewModel {
     return ReviewModel(
       uuid: json['uuid'] as String,
       text: json['text'] as String,
-      photoUrl: json['photoUrl'] as String,
+      photoUrl: json['photoUrl'] ?? '',
       accessibility: (json['accessibility'] as num).toDouble(),
       friendliness: (json['friendliness'] as num).toDouble(),
       halal: json['halal'] as bool,

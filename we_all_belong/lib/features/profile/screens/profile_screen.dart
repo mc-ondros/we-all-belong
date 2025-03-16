@@ -33,7 +33,7 @@ class ProfileScreen extends StatelessWidget {
         if (controller.isLoading.value) {
           return const Center(child: CircularProgressIndicator());
         }
-        
+
         return SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -51,8 +51,8 @@ class ProfileScreen extends StatelessWidget {
               Text(
                 controller.nameController.text,
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                      fontWeight: FontWeight.bold,
+                    ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 8),
@@ -91,8 +91,8 @@ class ProfileScreen extends StatelessWidget {
           Text(
             'Profile Details',
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
+                  fontWeight: FontWeight.bold,
+                ),
           ),
           const SizedBox(height: 16),
           _buildDetailItem(
@@ -156,14 +156,14 @@ class ProfileScreen extends StatelessWidget {
               Text(
                 title,
                 style: GoogleFonts.poppins(
-                  color: Colors.grey[600],
+                  color: Colors.white,
                   fontSize: 14,
                 ),
               ),
               Text(
                 value,
                 style: GoogleFonts.poppins(
-                  color: Colors.black87,
+                  color: Colors.white,
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
                 ),
@@ -174,4 +174,4 @@ class ProfileScreen extends StatelessWidget {
       ),
     );
   }
-} 
+}

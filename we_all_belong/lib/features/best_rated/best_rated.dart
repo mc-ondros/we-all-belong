@@ -8,11 +8,16 @@ import '../preview_venue/preview_venue.dart';
 import '../../components/specs/font_sizes.dart';
 import 'controller/best_rated_controlller.dart';
 
-class BestRatedScreen extends StatelessWidget {
+class BestRatedScreen extends StatefulWidget {
+  const BestRatedScreen({super.key});
+
+  @override
+  State<BestRatedScreen> createState() => _BestRatedScreenState();
+}
+
+class _BestRatedScreenState extends State<BestRatedScreen> {
   // Initialize the HomePageController
   final BestRatedController bestRatedController = Get.put(BestRatedController());
-  BestRatedScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return GetX<BestRatedController>(
@@ -24,7 +29,7 @@ class BestRatedScreen extends StatelessWidget {
           title: Visibility(
             visible: bestRatedController.venues.isNotEmpty,
             child: Text(
-              'Best rated:',
+              'Best rated',
               style: GoogleFonts.jost(
                 textStyle: const TextStyle(
                   color: Colors.white,

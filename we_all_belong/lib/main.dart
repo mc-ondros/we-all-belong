@@ -48,6 +48,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'We All Belong',
       theme: ThemeData(
         scaffoldBackgroundColor: GenericColors.background,

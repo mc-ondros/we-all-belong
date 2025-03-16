@@ -49,7 +49,7 @@ class MapPage extends StatelessWidget {
                     children: [
                       Text(
                         'Select Category',
-                        style: GoogleFonts.candal(
+                        style: GoogleFonts.jost(
                           textStyle: const TextStyle(
                             color: GenericColors.white,
                             fontSize: FontSizes.f_18,

@@ -48,10 +48,10 @@ class UserLabelsWidget extends StatelessWidget {
 
   Widget _buildLabelChip(BuildContext context, UserLabel label) {
     final color = UserLabelBuilder.getCategoryColor(label.category);
-    
+
     return Chip(
       avatar: Icon(
-        label.icon, 
+        label.icon,
         color: Colors.white,
         size: 16,
       ),
@@ -67,10 +67,10 @@ class UserLabelsWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
       visualDensity: VisualDensity.compact,
       elevation: 2,
-      shadowColor: color.withOpacity(0.3),
+      shadowColor: color.withValues(alpha: 0.3),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
     );
   }
-} 
+}

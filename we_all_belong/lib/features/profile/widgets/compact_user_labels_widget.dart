@@ -40,7 +40,7 @@ class CompactUserLabelsWidget extends StatelessWidget {
             height: labelHeight,
             padding: const EdgeInsets.symmetric(horizontal: 8),
             decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.3),
+              color: Colors.grey.withValues(alpha: 0.3),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Center(
@@ -69,7 +69,7 @@ class CompactUserLabelsWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: color.withOpacity(0.3),
+            color: color.withValues(alpha: 0.3),
             blurRadius: 2,
             offset: const Offset(0, 1),
           ),

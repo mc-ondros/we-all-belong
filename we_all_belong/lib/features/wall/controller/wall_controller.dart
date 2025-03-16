@@ -76,7 +76,7 @@ class WallController extends GetxController {
                 _userProfileCache[userId] = UserProfileModel.fromFirebase(userDoc);
               }
             } catch (e) {
-              print('Error fetching user profile: $e');
+              debugPrint('Error fetching user profile: $e');
             }
           }
 
@@ -108,7 +108,7 @@ class WallController extends GetxController {
                 _userProfileCache[userId] = UserProfileModel.fromFirebase(userDoc);
               }
             } catch (e) {
-              print('Error fetching user profile: $e');
+              debugPrint('Error fetching user profile: $e');
             }
           }
 

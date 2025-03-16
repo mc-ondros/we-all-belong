@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter_map/flutter_map.dart';
 import 'package:we_all_belong/core/google_maps_api/controller/location_controller.dart';
 import 'package:we_all_belong/core/google_maps_api/google_maps_api.dart';

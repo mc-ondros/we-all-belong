@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:loading_indicator/loading_indicator.dart';
@@ -84,7 +86,6 @@ class MapPage extends StatelessWidget {
                               homePageController.updateMarkers();
                             },
                           ),
-
                         ),
                       ),
                     ],

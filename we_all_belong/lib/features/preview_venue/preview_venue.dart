@@ -38,13 +38,13 @@ class _PreviewVenueState extends State<PreviewVenue> {
   double _appBarOpacity = 1.0;
   final ScrollController _scrollController = ScrollController();
 
-
   @override
   void initState() {
     super.initState();
     _reviewsFuture = PreviewVenueApi().fetchReviews(widget.id ?? '');
     _scrollController.addListener(_scrollListener);
   }
+
   void _scrollListener() {
     if (_scrollController.offset > 50) {
       setState(() {
@@ -56,13 +56,15 @@ class _PreviewVenueState extends State<PreviewVenue> {
       });
     }
   }
+
   @override
   void dispose() {
     _scrollController.removeListener(_scrollListener);
     _scrollController.dispose();
     super.dispose();
   }
-  void _onScroll(double offset){
+
+  void _onScroll(double offset) {
     setState(() {
       _imageOpacity = (1 - (offset - 300)).clamp(0.0, 1.0);
       _appBarOpacity = (1 - (offset / 100)).clamp(0.0, 1.0);
@@ -98,147 +100,146 @@ class _PreviewVenueState extends State<PreviewVenue> {
           ),
         ),
       ),
-      body:NotificationListener<ScrollNotification>(
-        onNotification:(scrollNotification){
-          if (scrollNotification is ScrollUpdateNotification){
+      body: NotificationListener<ScrollNotification>(
+        onNotification: (scrollNotification) {
+          if (scrollNotification is ScrollUpdateNotification) {
             _onScroll(scrollNotification.metrics.pixels);
-      }
+          }
           return false;
-      },
-
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 0.0),
-        child: ListView(
-          controller: ScrollController(),
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Center(
-                child: FutureBuilder<String?>(
-                  future: GoogleMapsApi().getPlacePhotoUrl(widget.id ?? ''),
-                  builder: (context, snapshot) {
-                    if (snapshot.data != '' && snapshot.hasData) {
-                    return AnimatedOpacity(
-                     duration: const Duration(milliseconds: 200),
-                       opacity: _imageOpacity,
-                      child: SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: 400,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Image.network(
-                          snapshot.data ?? '',
-                          loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                            if (loadingProgress == null) {
-                              return child; // Image is fully loaded
-                            }
-                            return Center(
-                              child: CircularProgressIndicator(
-                                value: loadingProgress.expectedTotalBytes != null
-                                    ? loadingProgress.cumulativeBytesLoaded /
-                                        (loadingProgress.expectedTotalBytes ?? 1)
-                                    : null,
+        },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 0.0),
+          child: ListView(
+            controller: ScrollController(),
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Center(
+                  child: FutureBuilder<String?>(
+                    future: GoogleMapsApi().getPlacePhotoUrl(widget.id ?? ''),
+                    builder: (context, snapshot) {
+                      if (snapshot.data != '' && snapshot.hasData) {
+                        return AnimatedOpacity(
+                          duration: const Duration(milliseconds: 200),
+                          opacity: _imageOpacity,
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            height: 400,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Image.network(
+                                snapshot.data ?? '',
+                                loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                                  if (loadingProgress == null) {
+                                    return child; // Image is fully loaded
+                                  }
+                                  return Center(
+                                    child: CircularProgressIndicator(
+                                      value: loadingProgress.expectedTotalBytes != null
+                                          ? loadingProgress.cumulativeBytesLoaded /
+                                              (loadingProgress.expectedTotalBytes ?? 1)
+                                          : null,
+                                    ),
+                                  );
+                                },
+                                fit: BoxFit.cover,
                               ),
-                            );
-                          },
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                                            ),
-                     );
-                    } else if (snapshot.data == '') {
-                      return Container(
-                        width: 300,
-                        height: 300,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                            color: Colors.grey[400]!,
-                            width: 1,
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'No Photos',
-                            style: GoogleFonts.jost(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey[600],
                             ),
                           ),
-                        ),
-                      );
-                    } else {
-                      return const CircularProgressIndicator();
-                    }
+                        );
+                      } else if (snapshot.data == '') {
+                        return Container(
+                          width: 300,
+                          height: 300,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                              color: Colors.grey[400]!,
+                              width: 1,
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'No Photos',
+                              style: GoogleFonts.jost(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey[600],
+                              ),
+                            ),
+                          ),
+                        );
+                      } else {
+                        return const CircularProgressIndicator();
+                      }
+                    },
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                'Info about this place:',
+                style: GoogleFonts.jost(
+                  textStyle: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: GenericColors.primaryAccent,
+                  ),
+                ),
+                textAlign: TextAlign.center,
+              ),
+              Visibility(
+                visible: widget.open_now ?? false,
+                replacement: Text(
+                  'Closed',
+                  style: GoogleFonts.jost(
+                    textStyle: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: GenericColors.secondaryAccent,
+                    ),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                child: Text(
+                  'Open now',
+                  style: GoogleFonts.jost(
+                    textStyle: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: GenericColors.secondaryAccent,
+                    ),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0, bottom: 10, left: 30, right: 30),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    MapsLauncher.launchCoordinates(widget.venueModel.lat ?? 0.0, widget.venueModel.long ?? 0.0);
                   },
+                  child: const Text("Get directions"),
                 ),
               ),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              'Info about this place:',
-              style: GoogleFonts.jost(
-                textStyle: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: GenericColors.primaryAccent,
-                ),
-              ),
-              textAlign: TextAlign.center,
-            ),
-            Visibility(
-              visible: widget.open_now??false,
-              replacement: Text(
-                'Closed',
+              const SizedBox(height: 20),
+              _buildReviewSection(),
+              const SizedBox(height: 20),
+              Text(
+                "Reviews:",
                 style: GoogleFonts.jost(
                   textStyle: const TextStyle(
-                    fontSize: 16,
+                    fontSize: 22,
                     fontWeight: FontWeight.bold,
-                    color: GenericColors.secondaryAccent,
+                    color: GenericColors.almostWhite,
                   ),
                 ),
-                textAlign: TextAlign.center,
               ),
-              child: Text(
-                'Open now',
-                style: GoogleFonts.jost(
-                  textStyle: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: GenericColors.secondaryAccent,
-                  ),
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0, bottom: 10, left: 30, right: 30),
-              child: ElevatedButton(
-                onPressed: () async {
-                  MapsLauncher.launchCoordinates(widget.venueModel.lat ?? 0.0, widget.venueModel.long ?? 0.0);
-                },
-                child: const Text("Get directions"),
-              ),
-            ),
-            const SizedBox(height: 20),
-            _buildReviewSection(),
-            const SizedBox(height: 20),
-            Text(
-              "Reviews:",
-              style: GoogleFonts.jost(
-                textStyle: const TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: GenericColors.almostWhite,
-                ),
-              ),
-            ),
-            _buildReviewsList(),
-          ],
+              _buildReviewsList(),
+            ],
+          ),
         ),
-      ),
       ),
     );
   }
@@ -255,25 +256,20 @@ class _PreviewVenueState extends State<PreviewVenue> {
               textStyle: const TextStyle(
                 fontSize: 22,
                 color: GenericColors.shadyGreen,
-
                 fontWeight: FontWeight.w700,
               ),
             ),
           ),
           const SizedBox(height: 20),
           _buildRatingRow('Accessibility for disabled:', (rating) {
-
             previewVenueController.accesibilityRating.value = rating;
           }),
           const SizedBox(height: 20),
-
           _buildRatingRow('LGBTQIA+ friendliness:', (rating) {
-
             previewVenueController.lgbtRating.value = rating;
           }),
           const SizedBox(height: 20),
           _buildToggleRow('Halal food available:', previewVenueController.halalToggle),
-
           const SizedBox(height: 20),
           _buildToggleRow('Kosher food available:', previewVenueController.kosherToggle),
           const SizedBox(height: 20),
@@ -368,7 +364,16 @@ class _PreviewVenueState extends State<PreviewVenue> {
             colors: [Colors.white],
           );
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return const Center(child: Text("No reviews available"));
+          return Center(
+              child: Text(
+            "No reviews available",
+            style: GoogleFonts.jost(
+              textStyle: const TextStyle(
+                color: GenericColors.white,
+                fontSize: 15,
+              ),
+            ),
+          ));
         } else {
           widget.reviews = snapshot.data!;
           return ListView.builder(
@@ -416,30 +421,31 @@ class _PreviewVenueState extends State<PreviewVenue> {
                       Text("Halal: ${review.halal ? "Yes" : "No"}"),
                       Text("Kosher: ${review.kosher ? "Yes" : "No"}"),
                       Visibility(visible: review.photoUrl != '', child: const Text("User photo:")),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Image.network(
-                            review.photoUrl,
-                            loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                              if (loadingProgress == null) return child;
-                              return Center(
-                                child: CircularProgressIndicator(
-                                  value: loadingProgress.expectedTotalBytes != null
-                                      ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
-                                      : null,
-                                ),
-                              );
-                            },
-                            errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                              debugPrint('$exception, photoURL: ${review.photoUrl} ${review.text}');
-                              debugPrint(stackTrace.toString());
-                              return Container();
-                            },
+                      if (review.photoUrl != '')
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Image.network(
+                              review.photoUrl,
+                              loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                                if (loadingProgress == null) return child;
+                                return Center(
+                                  child: CircularProgressIndicator(
+                                    value: loadingProgress.expectedTotalBytes != null
+                                        ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                                        : null,
+                                  ),
+                                );
+                              },
+                              errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                debugPrint('$exception, photoURL: ${review.photoUrl} ${review.text}');
+                                debugPrint(stackTrace.toString());
+                                return Container();
+                              },
+                            ),
                           ),
                         ),
-                      ),
                     ],
                   ),
                 ),

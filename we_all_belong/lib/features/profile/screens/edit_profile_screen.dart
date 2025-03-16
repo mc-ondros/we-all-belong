@@ -42,8 +42,8 @@ class EditProfileScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Obx(() => UserLabelsWidget(
-                userProfile: controller.userProfile.value,
-              )),
+                    userProfile: controller.userProfile.value,
+                  )),
               const SizedBox(height: 24),
               AnimatedSwitcher(
                 duration: const Duration(milliseconds: 300),
@@ -80,12 +80,14 @@ class EditProfileScreen extends StatelessWidget {
           controller: controller.genderController,
           icon: Icons.people_outline,
         ),
-        const SizedBox(height: 16),
-        
-        _buildTextField(
-          label: 'Pronouns',
-          controller: controller.pronounsController,
-          icon: Icons.wifi_protected_setup,
+
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12.0),
+          child: _buildTextField(
+            label: 'Pronouns',
+            controller: controller.pronounsController,
+            icon: Icons.wifi_protected_setup,
+          ),
         ),
 
         Row(
@@ -159,6 +161,7 @@ class EditProfileScreen extends StatelessWidget {
         maxLines: maxLines,
         keyboardType: keyboardType,
         decoration: InputDecoration(
+          fillColor: Colors.black,
           labelText: label,
           labelStyle: GoogleFonts.poppins(
             color: Colors.grey[600],
@@ -169,7 +172,6 @@ class EditProfileScreen extends StatelessWidget {
             borderSide: BorderSide.none,
           ),
           filled: true,
-          fillColor: Colors.grey[100],
         ),
       ),
     );

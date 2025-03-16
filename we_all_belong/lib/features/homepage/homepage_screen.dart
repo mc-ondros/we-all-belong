@@ -76,18 +76,8 @@ class _HomePageState extends State<HomePage> {
                         ),
                         Container(
                           alignment: Alignment.bottomCenter,
-                          width: 225,
-                          height: 70,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30.0),
-                            border: Border.all(
-                              color: GenericColors.grey,
-                            ),
-                            gradient: const RadialGradient(
-                                colors: [GenericColors.primaryAccent, GenericColors.black],
-                                center: Alignment.topCenter,
-                                radius: 5.0),
-                          ),
+                          width: 150,
+                          height: 60,
                           child: DropdownButtonCustom(
                             defaultValue: myDropdownController.selectedValue.value,
                             dropdownColor: GenericColors.moonGrey,
